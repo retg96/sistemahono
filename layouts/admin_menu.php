@@ -241,7 +241,7 @@
             <!-- <li><a href="#"><span class="icon-notifications mr-3"></span>Pagos</a></li> -->
             <!-- <li><a href="#"><span class="icon-location-arrow mr-3"></span>Tablas</a></li> -->
             <!-- <li><a href="#"><span class="icon-pie-chart mr-3"></span>Pagos</a></li> -->
-            <li><a href="inicio_sesion.html"><span class="icon-sign-out mr-3"></span>Cerrar Sesión</a></li>
+            <li><a href="logout.php"><span class="icon-sign-out mr-3"></span>Cerrar Sesión</a></li>
           </ul>
         </div>
       </div>
