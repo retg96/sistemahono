@@ -1,0 +1,158 @@
+body {
+    /* background: #2a3548;
+    font-family: arial; */
+    
+    /* background-image: url('../../libs/images/Contador.png'); */
+    background: linear-gradient(rgba(42,53,72,.5), rgba(42,53,72,1)),
+    url('../../libs/images/Contador.png');
+        /* background-color: #2a3548; */
+    /* box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);*/
+    background-size: cover;
+    /* height: -700px; */
+    /* background-position: center; */
+    background-repeat: no-repeat; 
+    /* position: relative; */
+  }
+  #show_password{
+    bottom: -68px;
+    height: 100%;
+    padding-left: 320px;
+    position: absolute;
+    right: 20px;
+    color: #666;
+  }
+  .login-form h1 {
+    font-size: 36px;
+    text-align: center;
+    color: #2a3548; 
+    margin-bottom: 30px;
+    font-weight: normal;
+  }
+  .login-form .social-icon {
+      width: 100%;
+      font-size: 20px;
+      padding-top: 20px;
+      color: #fff;
+      text-align: center;
+      float: left;
+  }
+  .login-form {
+      /* background: #fff; */
+      /* width: 450px; */
+      width: 450px;
+      /* border-radius: 6px; */
+      margin: 0 auto;
+      margin-top: 150px;
+      display: table;
+      padding: 15px 30px 30px;
+      box-sizing: border-box;
+  }
+  .form-group {
+    float: left;
+    /* text-align: center; */
+    /* width: 100%; */
+    width: 100%;
+    margin: 0 0 15px;
+    position: relative;
+  }
+  .login-form input {
+      /* display: inline-block; */
+      width: 100%;
+      /* width: 100%; */
+      padding: 5px;
+      height: 40px;
+      /* height: 56px; */
+      /* border-radius: 74px; */
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 15px;
+      padding-left: 50px;
+  }
+  .login-form .form-group .input-icon {
+      font-size: 15px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      /* border-radius: 25px; */
+      bottom: 0;
+      height: 100%;
+      padding-left: 20px;
+      color: #666;
+  }
+  .login-form .login-btn {
+    background: #2a3548;
+    padding: 11px 50px;
+    border-color: #2a3548;
+    color: #fff;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 13px;
+    border: 1px solid #2a3548;
+    /* border-radius: 44px; */ 
+    width: 100%;
+    height: 40px;
+    /* width: 100%;
+    height: 56px; */
+    cursor: pointer;
+  }
+  .login-form .reset-psw {
+    float: left;
+    width: 100%;
+    text-decoration: none;
+    color: #2a3548;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 11px;
+  }
+  .login-form .social-icon button {
+      font-size: 20px;
+      color: white;
+      height: 50px;
+      width: 50px;
+      background: #2a3548;
+      border-radius: 60%;
+      margin: 0px 10px;
+      border: none;
+      cursor: pointer;
+  }
+  .login-form button:hover{
+    opacity: 0.9;
+  }
+  .login-form .seperator {
+    float: left;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    margin: 50px 0 0;
+  }
+  .login-form .seperator b {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+    background: #fff;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    /* border-radius: 50%; */
+    position: relative;
+    top: -22px;
+    z-index: 1;
+  }
+  .login-form p {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 0 10px;
+  }
+  @media screen and (max-width:767px) {
+  .login-form {
+      width: 90%;
+      padding: 15px 15px 30px;
+  }
+  }
