@@ -118,7 +118,7 @@ function authenticate($username='', $password='') {
   global $db;
   $username = $db->escape($username);
   $password = $db->escape($password);
-  $sql  = sprintf("SELECT id,clave,password,nivel_usuario FROM usuarios WHERE clave ='%s' LIMIT 1", $username);
+  $sql  = sprintf("SELECT id,clave,password,nivel_usuario FROM users WHERE clave ='%s' LIMIT 1", $username);
   $result = $db->query($sql);
   if($db->num_rows($result)){
     $user = $db->fetch_assoc($result);
@@ -138,7 +138,7 @@ function updateLastLogIn($user_id)
 {
 	global $db;
   $date = make_date();
-  $sql = "UPDATE usuarios SET ultimo_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
+  $sql = "UPDATE users SET ultimo_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
   $result = $db->query($sql);
   return ($result && $db->affected_rows() === 1 ? TRUE : FALSE);
 }
@@ -153,9 +153,78 @@ function current_user(){
   if( !$current_user ) {
     if(isset($_SESSION['user_id'])) {
       $user_id = intval($_SESSION['user_id']);
-      $current_user = find_by_id('usuarios',$user_id);
+      $current_user = find_by_id('users',$user_id);
     }
   }
   return $current_user;
 }
 
+/*--------------------------------------------------------------*/
+/* Find all Group name
+/*--------------------------------------------------------------*/
+function find_by_groupName($val)
+{
+  global $db;
+  $sql = "SELECT nomb_gpo FROM grupos_usuarios WHERE nomb_gpo = '{$db->escape($val)}' LIMIT 1 ";
+  $result = $db->query($sql);
+  return($db->num_rows($result) === 0 ? TRUE : FALSE);
+}
+/*--------------------------------------------------------------*/
+/* Find group level
+/*--------------------------------------------------------------*/
+function find_by_groupLevel($level)
+{
+  global $db;
+  //$sql = "SELECT group_level FROM user_groups WHERE group_level = '{$db->escape($level)}' LIMIT 1 ";
+  $sql = "SELECT * FROM grupos_usuarios WHERE nivel_gpo = '{$db->escape($level)}' LIMIT 1 ";
+  $result = $db->query($sql);
+  //return($db->num_rows($result) === 0 ? TRUE : FALSE);
+  return $result->fetch_assoc();
+}
+
+/*--------------------------------------------------------------*/
+/* Function for checking which user level has access to page
+/*--------------------------------------------------------------*/
+function page_require_level($required_level) {
+  global $session;
+  $current_user = current_user();
+
+  /* caution */
+  /* === === */
+  if ( !$current_user ) {
+    redirect('home.php',FALSE);
+    return FALSE;
+  }
+  $login_group = find_by_groupLevel($current_user['nivel_usuario']);
+
+  // if user is not logged in
+  if (!$session->isUserLoggedIn(TRUE)) {
+    $session->msg('d','Por favor Iniciar sesión...');
+    redirect('index.php', FALSE);
+  }
+  // if group status is inactive
+  elseif($login_group['estatus_gpo'] === '0') {
+    $session->msg('d','Este nivel de usaurio esta inactivo!');
+    redirect('home.php',FALSE);
+  }
+  // checking if (user level) <= (required level)
+  elseif($current_user['nivel_usuario'] <= (int)$required_level) {
+    return TRUE;
+  }
+  else {
+    $session->msg("d", "¡Lo siento! no tienes permiso para ver la página.");
+    redirect('home.php', FALSE);
+  }
+}
+
+function personal(){
+  global $db;
+  $results = array();
+  $sql = "SELECT id,NOMBRE,RAZ_SOC,DIREC,TELF,EMAIL,ID_COMPRA FROM proveedor";
+ // $sql .="g.group_proveedores ";
+//$sql .="FROM proveedores u ";
+  //$sql .="LEFT JOIN proveedores_groups g ";
+  //$sql .="ON g.group_level=u.proveedores_level ORDER BY u.name ASC";
+  $result = find_by_sql($sql);
+  return $result;
+}
