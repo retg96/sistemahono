@@ -220,11 +220,29 @@ function page_require_level($required_level) {
 function personal(){
   global $db;
   $results = array();
-  $sql = "SELECT id,NOMBRE,RAZ_SOC,DIREC,TELF,EMAIL,ID_COMPRA FROM proveedor";
+  $sql = "SELECT id,NoSie,Nombre,ApPat,ApMat,FechaNacimiento,RFC, CURP,NumeroCelular FROM personal";
  // $sql .="g.group_proveedores ";
 //$sql .="FROM proveedores u ";
   //$sql .="LEFT JOIN proveedores_groups g ";
   //$sql .="ON g.group_level=u.proveedores_level ORDER BY u.name ASC";
   $result = find_by_sql($sql);
   return $result;
+}
+
+function find_all_personal(){
+  global $db;
+  $sql =" SELECT e.id,e.NoSie,e.Nombre,e.ApPat,e.ApMat,e.TituloAbreviado,e.Puesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 
+  $sql .=" FROM personal e"; 
+  $sql .=" INNER JOIN tipopersona p ON e.IdTipoPersona = p.id"; 
+  $sql .=" INNER JOIN regimen r ON e.IdRegimen = r.id"; 
+  $sql .=" INNER JOIN departamento d ON e.IdDepartamento = d.id"; 
+  $sql .=" INNER JOIN areaacademica a ON e.IdAreaAcademica=a.id"; 
+  $sql .=" INNER JOIN sni s ON e.IdSNI = s.id"; 
+  $sql .=" INNER JOIN motivoausencia m ON e.IdMotivoAusencia = m.id"; 
+  $sql .=" WHERE e.NoSie NOT LIKE '' "; 
+  $sql .=" ORDER By e.NoSie ASC";
+
+  $result = find_by_sql($sql);
+  return $result;
+  // return $result;
 }

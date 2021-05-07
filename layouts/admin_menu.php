@@ -350,7 +350,7 @@
         </div>
       </div>  
     </main> -->
-    <script src="libs/js/jquery-3.3.1.min.js"></script>
+    <!-- <script src="libs/js/jquery-3.3.1.min.js"></script> -->
     <script src="libs/popper/popper.min.js"></script>
     <script src="libs/js/bootstrap.min.js"></script>
     <script src="libs/js/main.js"></script> 

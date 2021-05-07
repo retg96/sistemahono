@@ -6,7 +6,7 @@
 // Checkin What level user has permission to view this page
  page_require_level(1);
 //pull out all user form database
- $all_proveedores = proveedores();
+ $all_personal = find_all_personal();
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -20,9 +20,9 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>proveedores</span>
+          <span>Personal</span>
        </strong>
-         <a href="add_proveedor.php" class="btn btn-info pull-right">Agregar proveedor</a>
+         <a href="add_proveedor.php" class="btn btn-info pull-right">Agregar Personal</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -30,33 +30,33 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Proveedor</th>
-            <th>Razón social</th>
-            <th>Dirección</th>
-            <th>Telefono</th>
-            <th>E-mail</th>
-            <th>Orden de Compra</th>
+            <th>No. Sie</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Titulo Abreviado</th>
+            <th>Puesto</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
         </thead>
         <tbody class="boddy">
-        <?php foreach($all_proveedores as $a_proveedores): ?>
+        <?php foreach($all_personal as $a_personal): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($a_proveedores['NOMBRE']))?></td>
-           <td><?php echo remove_junk(ucwords($a_proveedores['RAZ_SOC']))?></td>
-           <td><?php echo remove_junk(ucwords($a_proveedores['DIREC']))?></td>
-           <td><?php echo remove_junk(ucwords($a_proveedores['TELF']))?></td>
-           <td><?php echo remove_junk(ucwords($a_proveedores['EMAIL']))?></td>
-          <td><?php echo remove_junk(ucwords($a_proveedores['ID_COMPRA']))?></td>
+           <td><?php echo remove_junk(ucwords($a_personal['NoSie']))?></td>
+           <td><?php echo remove_junk(ucwords($a_personal['Nombre']))?></td>
+           <td><?php echo remove_junk(ucwords($a_personal['ApPat']))?></td>
+           <td><?php echo remove_junk(ucwords($a_personal['ApMat']))?></td>
+           <td><?php echo remove_junk(ucwords($a_personal['TituloAbreviado']))?></td>
+          <td><?php echo remove_junk(ucwords($a_personal['Puesto']))?></td>
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_proveedor.php?id=<?php echo (int)$a_proveedores['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_proveedor.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_proveedor.php?id=<?php echo (int)$a_proveedores['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_proveedor.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -76,7 +76,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Proovedor?',
+                      title: 'Eliminar Personal?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -95,7 +95,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El proovedor se eliminó correctamente'
+                      text: 'El personal se eliminó correctamente'
                   })
               }
 
