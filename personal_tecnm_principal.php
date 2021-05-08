@@ -20,9 +20,9 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>Personal</span>
+          <span>PERSONAL TECNM</span>
        </strong>
-         <a href="add_proveedor.php" class="btn btn-info pull-right">Agregar Personal</a>
+         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">

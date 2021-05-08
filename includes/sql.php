@@ -229,6 +229,38 @@ function personal(){
   return $result;
 }
 
+function nacionalidades(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM nacionalidad";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function estudios(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM nivelestudio";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function puestos(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM puesto";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function regimenes(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM regimen";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
 function find_all_personal(){
   global $db;
   $sql =" SELECT e.id,e.NoSie,e.Nombre,e.ApPat,e.ApMat,e.TituloAbreviado,e.Puesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 
