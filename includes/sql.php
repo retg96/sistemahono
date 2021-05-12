@@ -261,6 +261,46 @@ function regimenes(){
   return $result;
 }
 
+function tip_persona(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM tipopersona";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function areas_aca(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM areaacademica";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function departamentos(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM departamento";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function sni(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM sni";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function ausencia(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM motivoausencia";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
 function find_all_personal(){
   global $db;
   $sql =" SELECT e.id,e.NoSie,e.Nombre,e.ApPat,e.ApMat,e.TituloAbreviado,e.Puesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 

@@ -6,7 +6,7 @@ $(document).ready(function(){
       next_form = $(this).parent().next();
       next_form.show();
       previous_form.hide();
-      setProgressBarValue(++form_count);
+      // setProgressBarValue(++form_count);
     });  
     $(".previous-form").click(function(){
       previous_form = $(this).parent();
@@ -15,14 +15,6 @@ $(document).ready(function(){
       previous_form.hide();
       setProgressBarValue(--form_count);
     });
-    setProgressBarValue(form_count);  
-    function setProgressBarValue(value){
-      var percent = parseFloat(100 / total_forms) * value;
-      percent = percent.toFixed();
-      $(".progress-bar")
-        .css("width",percent+"%")
-        .html(percent+"%");   
-    } 
     // Handle form submit and validation
     $( "#register_form" ).submit(function(event) {    
       var error_message = '';
@@ -44,10 +36,11 @@ $(document).ready(function(){
       if(!$("#fecNac").val()) {
         error_message+="<br>Please Fill Fecha Nacimiento";
       }
-      if(!$("#Nac").val()) {
+      if(!$("#nacionalidad").find(":selected").text()) {
         error_message+="<br>Please Fill Nacionalidad";
       }
-      if(!$("#Sex").val()) {
+
+      if(!$("#sexo").val()) {
         error_message+="<br>Please Fill Sexo";
       }
       if(!$("#rfc").val()) {
@@ -59,9 +52,82 @@ $(document).ready(function(){
       if(!$("#mobile").val()) {
         error_message+="<br>Please Fill Mobile";
       }
+      if(!$("#address").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
       if(!$("#numExt").val()) {
         error_message+="<br>Please Fill Numero Exterior";
       }
+      if(!$("#numInt").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#fracc").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#cp").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#ciudad").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#estado").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#email").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#nivelEstudio").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#profe").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#funcion").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#regimen").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#interno").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#claveP").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#tipopersona").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#areaacademica").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#departamento").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#evaluacionDepartamento").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#evaluacionAlumno").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#gobiernoF").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#sep").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#rama").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#sni").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#fecIng").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+      if(!$("#estatus").val()) {
+        error_message+="<br>Please Fill Numero Exterior";
+      }
+
 
       // Display error if any else submit form
       if(error_message) {
