@@ -29,6 +29,8 @@
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
 
+    <script type="text/javascript" src="libs/js/sweetalert2.all.min.js"></script>
+
     <!-- main -->
     <!-- <link rel="stylesheet" href="libs/css/main.css" /> -->
 
