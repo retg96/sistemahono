@@ -1,12 +1,13 @@
 <?php
-  $page_title = 'Lista del Personal';
+  $page_title = 'NIVEL DE ESTUDIOS';
   require_once('includes/load.php');
 ?>
 <?php
 // Checkin What level user has permission to view this page
  page_require_level(1);
 //pull out all user form database
- $all_personal = find_all_personal();
+ $all_estudios = estudios();
+
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -20,9 +21,9 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>PERSONAL TECNM</span>
+          <span>NIVEL DE ESTUDIOS</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a>
+         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR NIVEL DE ESTUDIO</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -30,33 +31,25 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>No. Sie</th>
-            <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Titulo Abreviado</th>
-            <th>Puesto</th>
+            <th>Id</th>
+            <th>Nivel de Estudios</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
         </thead>
         <tbody class="boddy">
-        <?php foreach($all_personal as $a_personal): ?>
+        <?php foreach($all_estudios as $estudio): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($a_personal['NoSie']))?></td>
-           <td><?php echo remove_junk(ucwords($a_personal['Nombre']))?></td>
-           <td><?php echo remove_junk(ucwords($a_personal['ApPat']))?></td>
-           <td><?php echo remove_junk(ucwords($a_personal['ApMat']))?></td>
-           <td><?php echo remove_junk(ucwords($a_personal['TituloAbreviado']))?></td>
-          <td><?php echo remove_junk(ucwords($a_personal['Puesto']))?></td>
+           <td><?php echo remove_junk(ucwords($estudio['id']))?></td>
+           <td><?php echo remove_junk(ucwords($estudio['NivelEstudio']))?></td>
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_personal.php?id=<?php echo (int)$estudio['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_personal.php?id=<?php echo (int)$estudio['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -130,10 +123,6 @@
                       lengthMenu: [[5, 10, -1], [5, 10, "All"]],
                       "aoColumns": [
                           { "sWidth": "1%" }, // 2nd column width 
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 

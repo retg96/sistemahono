@@ -116,117 +116,117 @@
       setProgressBarValue(--form_count);
     });
     // Handle form submit and validation
-    $( "#register_form" ).submit(function(event) {    
-      var error_message = '';
-      if(!$("#sie").val()) {
-        error_message+="Please Fill SIE Input";
-    }
-      if(!$("#nombre").val()) {
-          error_message+="Please Fill Name Input";
-      }
-      if(!$("#apPat").val()) {
-          error_message+="<br>Please Fill Apellido Paterno";
-      }
-      if(!$("#apMat").val()) {
-          error_message+="<br>Please Fill Apellido Paterno";
-      }
-      if(!$("#titAbre").val()) {
-        error_message+="<br>Please Fill Titulo Abreviado";
-      }
-      if(!$("#fecNac").val()) {
-        error_message+="<br>Please Fill Fecha Nacimiento";
-      }
-      if(!$("#nacionalidad").find(":selected").text()) {
-        error_message+="<br>Please Fill Nacionalidad";
-      }
+    $( "#register_form" ).add_personal(function(event) {    
+      // var error_message = '';
+    //   if(!$("#sie").val()) {
+    //     error_message+="Please Fill SIE Input";
+    // }
+    //   if(!$("#nombre").val()) {
+    //       error_message+="Please Fill Name Input";
+    //   }
+    //   if(!$("#apPat").val()) {
+    //       error_message+="<br>Please Fill Apellido Paterno";
+    //   }
+    //   if(!$("#apMat").val()) {
+    //       error_message+="<br>Please Fill Apellido Paterno";
+    //   }
+    //   if(!$("#titAbre").val()) {
+    //     error_message+="<br>Please Fill Titulo Abreviado";
+    //   }
+    //   if(!$("#fecNac").val()) {
+    //     error_message+="<br>Please Fill Fecha Nacimiento";
+    //   }
+    //   if(!$("#nacionalidad").find(":selected").text()) {
+    //     error_message+="<br>Please Fill Nacionalidad";
+    //   }
 
-      if(!$("#sexo").val()) {
-        error_message+="<br>Please Fill Sexo";
-      }
-      if(!$("#rfc").val()) {
-        error_message+="<br>Please Fill RFC";
-      }
-      if(!$("#curp").val()) {
-        error_message+="<br>Please Fill CURP";
-      }
-      if(!$("#mobile").val()) {
-        error_message+="<br>Please Fill Mobile";
-      }
-      if(!$("#address").val()) {
-        error_message+="<br>Please Fill Calle";
-      }
-      if(!$("#numExt").val()) {
-        error_message+="<br>Please Fill Numero Exterior";
-      }
-      if(!$("#numInt").val()) {
-        error_message+="<br>Please Fill Numero Interior";
-      }
-      if(!$("#fracc").val()) {
-        error_message+="<br>Please Fill Fraccionamiento";
-      }
-      if(!$("#cp").val()) {
-        error_message+="<br>Please Fill Codigo Postal";
-      }
-      if(!$("#ciudad").val()) {
-        error_message+="<br>Please Fill Ciudad";
-      }
-      if(!$("#estado").val()) {
-        error_message+="<br>Please Fill Estado";
-      }
-      if(!$("#email").val()) {
-        error_message+="<br>Please Fill Correo";
-      }
-      if(!$("#nivelEstudio").val()) {
-        error_message+="<br>Please Fill Nivel Estudio";
-      }
-      if(!$("#profe").val()) {
-        error_message+="<br>Please Fill Numero Profesion";
-      }
-      if(!$("#funcion").val()) {
-        error_message+="<br>Please Fill Numero Puesto";
-      }
-      if(!$("#regimen").val()) {
-        error_message+="<br>Please Fill Numero Regimen";
-      }
-      if(!$("#interno").val()) {
-        error_message+="<br>Please Fill Numero Interno";
-      }
-      if(!$("#claveP").val()) {
-        error_message+="<br>Please Fill Clave Personal";
-      }
-      if(!$("#tipopersona").val()) {
-        error_message+="<br>Please Fill Tipo de Persona";
-      }
-      if(!$("#areaacademica").val()) {
-        error_message+="<br>Please Fill AREA ACADEMICA";
-      }
-      if(!$("#departamento").val()) {
-        error_message+="<br>Please Fill DPTO";
-      }
-      if(!$("#evaluacionDepartamento").val()) {
-        error_message+="<br>Please Fill EVALUACION DPTO";
-      }
-      if(!$("#evaluacionAlumno").val()) {
-        error_message+="<br>Please Fill EVALUACION ALUMNO";
-      }
-      if(!$("#gobiernoF").val()) {
-        error_message+="<br>Please Fill GOBIERNO FEDERAL";
-      }
-      if(!$("#sep").val()) {
-        error_message+="<br>Please Fill SEP";
-      }
-      if(!$("#rama").val()) {
-        error_message+="<br>Please Fill Rama";
-      }
-      if(!$("#sni").val()) {
-        error_message+="<br>Please Fill SNI";
-      }
-      if(!$("#fecIng").val()) {
-        error_message+="<br>Please Fill Fecha Ingreso";
-      }
-      if(!$("#estatus").val()) {
-        error_message+="<br>Please Fill Estatus";
-      }
+    //   if(!$("#sexo").val()) {
+    //     error_message+="<br>Please Fill Sexo";
+    //   }
+    //   if(!$("#rfc").val()) {
+    //     error_message+="<br>Please Fill RFC";
+    //   }
+    //   if(!$("#curp").val()) {
+    //     error_message+="<br>Please Fill CURP";
+    //   }
+    //   if(!$("#mobile").val()) {
+    //     error_message+="<br>Please Fill Mobile";
+    //   }
+    //   if(!$("#address").val()) {
+    //     error_message+="<br>Please Fill Calle";
+    //   }
+    //   if(!$("#numExt").val()) {
+    //     error_message+="<br>Please Fill Numero Exterior";
+    //   }
+    //   if(!$("#numInt").val()) {
+    //     error_message+="<br>Please Fill Numero Interior";
+    //   }
+    //   if(!$("#fracc").val()) {
+    //     error_message+="<br>Please Fill Fraccionamiento";
+    //   }
+    //   if(!$("#cp").val()) {
+    //     error_message+="<br>Please Fill Codigo Postal";
+    //   }
+    //   if(!$("#ciudad").val()) {
+    //     error_message+="<br>Please Fill Ciudad";
+    //   }
+    //   if(!$("#estado").val()) {
+    //     error_message+="<br>Please Fill Estado";
+    //   }
+    //   if(!$("#email").val()) {
+    //     error_message+="<br>Please Fill Correo";
+    //   }
+    //   if(!$("#nivelEstudio").val()) {
+    //     error_message+="<br>Please Fill Nivel Estudio";
+    //   }
+    //   if(!$("#profe").val()) {
+    //     error_message+="<br>Please Fill Numero Profesion";
+    //   }
+    //   if(!$("#funcion").val()) {
+    //     error_message+="<br>Please Fill Numero Puesto";
+    //   }
+    //   if(!$("#regimen").val()) {
+    //     error_message+="<br>Please Fill Numero Regimen";
+    //   }
+    //   if(!$("#interno").val()) {
+    //     error_message+="<br>Please Fill Numero Interno";
+    //   }
+    //   if(!$("#claveP").val()) {
+    //     error_message+="<br>Please Fill Clave Personal";
+    //   }
+    //   if(!$("#tipopersona").val()) {
+    //     error_message+="<br>Please Fill Tipo de Persona";
+    //   }
+    //   if(!$("#areaacademica").val()) {
+    //     error_message+="<br>Please Fill AREA ACADEMICA";
+    //   }
+    //   if(!$("#departamento").val()) {
+    //     error_message+="<br>Please Fill DPTO";
+    //   }
+    //   if(!$("#evaluacionDepartamento").val()) {
+    //     error_message+="<br>Please Fill EVALUACION DPTO";
+    //   }
+    //   if(!$("#evaluacionAlumno").val()) {
+    //     error_message+="<br>Please Fill EVALUACION ALUMNO";
+    //   }
+    //   if(!$("#gobiernoF").val()) {
+    //     error_message+="<br>Please Fill GOBIERNO FEDERAL";
+    //   }
+    //   if(!$("#sep").val()) {
+    //     error_message+="<br>Please Fill SEP";
+    //   }
+    //   if(!$("#rama").val()) {
+    //     error_message+="<br>Please Fill Rama";
+    //   }
+    //   if(!$("#sni").val()) {
+    //     error_message+="<br>Please Fill SNI";
+    //   }
+    //   if(!$("#fecIng").val()) {
+    //     error_message+="<br>Please Fill Fecha Ingreso";
+    //   }
+    //   if(!$("#estatus").val()) {
+    //     error_message+="<br>Please Fill Estatus";
+    //   }
 
 
       // Display error if any else submit form

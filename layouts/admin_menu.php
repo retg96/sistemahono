@@ -186,15 +186,15 @@
               <div id="collapseFour" class="collapse" aria-labelledby="headingOne">
                 <div>
                   <ul>
-                    <li><a href="#">Puesto</a></li>
-                    <li><a href="#">Área Académica</a></li>
+                    <li><a href="puesto.php">Puesto</a></li>
+                    <li><a href="areas_academicas.php">Áreas Académica</a></li>
                     <li><a href="#">Grupo Jerárquico</a></li>
-                    <li><a href="#">Modalidad</a></li>
-                    <li><a href="#">Motivo de Ausencia</a></li>
-                    <li><a href="#">Nacionalidad</a></li>
-                    <li><a href="#">Nivel de Estudios</a></li>
-                    <li><a href="#">Régimen</a></li>
-                    <li><a href="#">Tipo de SNI</a></li>
+                    <li><a href="modalidad.php">Modalidad</a></li>
+                    <li><a href="motivo_ausencia.php">Motivo de Ausencia</a></li>
+                    <li><a href="nacionalidad.php">Nacionalidad</a></li>
+                    <li><a href="nivel_estudios.php">Nivel de Estudios</a></li>
+                    <li><a href="regimen.php">Régimen</a></li>
+                    <li><a href="tipo_sni.php">Tipo de SNI</a></li>
                     <li><a href="#">Tipo de Carrera</a></li>
                     <li><a href="#">Tipo de Persona</a></li>
                     <li><a href="#">Periodo del Semestre</a></li>
