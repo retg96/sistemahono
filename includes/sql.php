@@ -301,6 +301,22 @@ function ausencia(){
   return $result;
 }
 
+function tipo_carrera(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM tipocarrera";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function semestre(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM semestre";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
 function convenio(){
   global $db;
   $results = array();
@@ -308,6 +324,7 @@ function convenio(){
   $result = find_by_sql($sql);
   return $result;
 }
+
 function find_all_convenios(){
   global $db;
   $sql = "SELECT convenio.id,personal.NoSie,personal.Nombre,personal.ApPat,personal.ApMat,personal.TituloAbreviado,personal.Profesion,personal.Puesto,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";

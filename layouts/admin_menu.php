@@ -195,9 +195,9 @@
                     <li><a href="nivel_estudios.php">Nivel de Estudios</a></li>
                     <li><a href="regimen.php">Régimen</a></li>
                     <li><a href="tipo_sni.php">Tipo de SNI</a></li>
-                    <li><a href="#">Tipo de Carrera</a></li>
-                    <li><a href="#">Tipo de Persona</a></li>
-                    <li><a href="#">Periodo del Semestre</a></li>
+                    <li><a href="tipo_carrera.php">Tipo de Carrera</a></li>
+                    <li><a href="tipo_persona.php">Tipo de Persona</a></li>
+                    <li><a href="periodo_semestre.php">Periodo del Semestre</a></li>
                     <li><a href="#">Formato Convenio</a></li>
                   </ul>
                 </div>
