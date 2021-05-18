@@ -159,3 +159,236 @@ function current_user(){
   return $current_user;
 }
 
+/*--------------------------------------------------------------*/
+/* Find all Group name
+/*--------------------------------------------------------------*/
+function find_by_groupName($val)
+{
+  global $db;
+  $sql = "SELECT nomb_gpo FROM grupos_usuarios WHERE nomb_gpo = '{$db->escape($val)}' LIMIT 1 ";
+  $result = $db->query($sql);
+  return($db->num_rows($result) === 0 ? TRUE : FALSE);
+}
+/*--------------------------------------------------------------*/
+/* Find group level
+/*--------------------------------------------------------------*/
+function find_by_groupLevel($level)
+{
+  global $db;
+  //$sql = "SELECT group_level FROM user_groups WHERE group_level = '{$db->escape($level)}' LIMIT 1 ";
+  $sql = "SELECT * FROM grupos_usuarios WHERE nivel_gpo = '{$db->escape($level)}' LIMIT 1 ";
+  $result = $db->query($sql);
+  //return($db->num_rows($result) === 0 ? TRUE : FALSE);
+  return $result->fetch_assoc();
+}
+
+/*--------------------------------------------------------------*/
+/* Function for checking which user level has access to page
+/*--------------------------------------------------------------*/
+function page_require_level($required_level) {
+  global $session;
+  $current_user = current_user();
+
+  /* caution */
+  /* === === */
+  if ( !$current_user ) {
+    redirect('home.php',FALSE);
+    return FALSE;
+  }
+  $login_group = find_by_groupLevel($current_user['nivel_usuario']);
+
+  // if user is not logged in
+  if (!$session->isUserLoggedIn(TRUE)) {
+    $session->msg('d','Por favor Iniciar sesión...');
+    redirect('index.php', FALSE);
+  }
+  // if group status is inactive
+  elseif($login_group['estatus_gpo'] === '0') {
+    $session->msg('d','Este nivel de usaurio esta inactivo!');
+    redirect('home.php',FALSE);
+  }
+  // checking if (user level) <= (required level)
+  elseif($current_user['nivel_usuario'] <= (int)$required_level) {
+    return TRUE;
+  }
+  else {
+    $session->msg("d", "¡Lo siento! no tienes permiso para ver la página.");
+    redirect('home.php', FALSE);
+  }
+}
+
+function personal(){
+  global $db;
+  $results = array();
+  $sql = "SELECT id,NoSie,Nombre,ApPat,ApMat,FechaNacimiento,RFC, CURP,NumeroCelular FROM personal";
+ // $sql .="g.group_proveedores ";
+//$sql .="FROM proveedores u ";
+  //$sql .="LEFT JOIN proveedores_groups g ";
+  //$sql .="ON g.group_level=u.proveedores_level ORDER BY u.name ASC";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function nacionalidades(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM nacionalidad";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function estudios(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM nivelestudio";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function puestos(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM puesto";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function regimenes(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM regimen";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function tip_persona(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM tipopersona";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function areas_aca(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM areaacademica";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function departamentos(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM departamento";
+  $result = find_by_sql($sql);
+  return $result;
+}
+function formatos(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM formatoconvenio";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function sni(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM sni";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function ausencia(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM motivoausencia";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function tipo_carrera(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM tipocarrera";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function semestre(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM semestre";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function convenio(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM convenio";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function find_all_convenios(){
+  global $db;
+  $sql = "SELECT convenio.id,personal.NoSie,personal.Nombre,personal.ApPat,personal.ApMat,personal.TituloAbreviado,personal.Profesion,personal.Puesto,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function find_all_personal(){
+  global $db;
+  $sql =" SELECT e.id,e.NoSie,e.Nombre,e.ApPat,e.ApMat,e.TituloAbreviado,e.Puesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 
+  $sql .=" FROM personal e"; 
+  $sql .=" INNER JOIN tipopersona p ON e.IdTipoPersona = p.id"; 
+  $sql .=" INNER JOIN regimen r ON e.IdRegimen = r.id"; 
+  $sql .=" INNER JOIN departamento d ON e.IdDepartamento = d.id"; 
+  $sql .=" INNER JOIN areaacademica a ON e.IdAreaAcademica=a.id"; 
+  $sql .=" INNER JOIN sni s ON e.IdSNI = s.id"; 
+  $sql .=" INNER JOIN motivoausencia m ON e.IdMotivoAusencia = m.id"; 
+  $sql .=" WHERE e.NoSie NOT LIKE '' "; 
+  $sql .=" ORDER By e.NoSie ASC";
+
+  $result = find_by_sql($sql);
+  return $result;
+  // return $result;
+}
+
+function find_all_formatos(){
+  global $db;
+  $sql='SELECT formatoconvenio.id,formatoconvenio.Director,formatoconvenio.SubServiciosA,formatoconvenio.SubAcademico,formatoconvenio.SubPlaneacionV,formatoconvenio.JefeDepartamento,formatoconvenio.JefeDepartamentoPPP,formatoconvenio.JefeDepartamentoRH,formatoconvenio.IdDepartamento,departamento.id,departamento.Departamento FROM formatoConvenio INNER JOIN departamento ON departamento.id=formatoconvenio.IdDepartamento ORDER BY formatoconvenio.id DESC';
+  // $sql =" SELECT e.id,e.NoSie,e.Nombre,e.ApPat,e.ApMat,e.TituloAbreviado,e.Puesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 
+  // $sql .=" FROM personal e"; 
+  // $sql .=" INNER JOIN tipopersona p ON e.IdTipoPersona = p.id"; 
+  // $sql .=" INNER JOIN regimen r ON e.IdRegimen = r.id"; 
+  // $sql .=" INNER JOIN departamento d ON e.IdDepartamento = d.id"; 
+  // $sql .=" INNER JOIN areaacademica a ON e.IdAreaAcademica=a.id"; 
+  // $sql .=" INNER JOIN sni s ON e.IdSNI = s.id"; 
+  // $sql .=" INNER JOIN motivoausencia m ON e.IdMotivoAusencia = m.id"; 
+  // $sql .=" WHERE e.NoSie NOT LIKE '' "; 
+  // $sql .=" ORDER By e.NoSie ASC";
+
+  $result = find_by_sql($sql);
+  return $result;
+  // return $result;
+}
+
+function convenio_dos(){
+  global $db;
+  $sql ="SELECT personal.id,personal.NoSie,horariodocentemateria.id,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF,materia.id,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,convenio.id FROM horariodocentemateria INNER JOIN materia ON materia.id=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.IdModalidad=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.IdCarrera=materia.IdCarrera INNER JOIN convenio ON convenio.IdConvenio = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.IdPersonal =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio = '.$idconvenio.' ORDER BY materia.ClaveMateria";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+
+function modalidad(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM modalidad";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
