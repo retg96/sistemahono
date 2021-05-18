@@ -284,6 +284,13 @@ function departamentos(){
   $result = find_by_sql($sql);
   return $result;
 }
+function formatos(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM formatoconvenio";
+  $result = find_by_sql($sql);
+  return $result;
+}
 
 function sni(){
   global $db;
@@ -350,6 +357,25 @@ function find_all_personal(){
   // return $result;
 }
 
+function find_all_formatos(){
+  global $db;
+  $sql='SELECT formatoconvenio.id,formatoconvenio.Director,formatoconvenio.SubServiciosA,formatoconvenio.SubAcademico,formatoconvenio.SubPlaneacionV,formatoconvenio.JefeDepartamento,formatoconvenio.JefeDepartamentoPPP,formatoconvenio.JefeDepartamentoRH,formatoconvenio.IdDepartamento,departamento.id,departamento.Departamento FROM formatoConvenio INNER JOIN departamento ON departamento.id=formatoconvenio.IdDepartamento ORDER BY formatoconvenio.id DESC';
+  // $sql =" SELECT e.id,e.NoSie,e.Nombre,e.ApPat,e.ApMat,e.TituloAbreviado,e.Puesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 
+  // $sql .=" FROM personal e"; 
+  // $sql .=" INNER JOIN tipopersona p ON e.IdTipoPersona = p.id"; 
+  // $sql .=" INNER JOIN regimen r ON e.IdRegimen = r.id"; 
+  // $sql .=" INNER JOIN departamento d ON e.IdDepartamento = d.id"; 
+  // $sql .=" INNER JOIN areaacademica a ON e.IdAreaAcademica=a.id"; 
+  // $sql .=" INNER JOIN sni s ON e.IdSNI = s.id"; 
+  // $sql .=" INNER JOIN motivoausencia m ON e.IdMotivoAusencia = m.id"; 
+  // $sql .=" WHERE e.NoSie NOT LIKE '' "; 
+  // $sql .=" ORDER By e.NoSie ASC";
+
+  $result = find_by_sql($sql);
+  return $result;
+  // return $result;
+}
+
 function convenio_dos(){
   global $db;
   $sql ="SELECT personal.id,personal.NoSie,horariodocentemateria.id,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF,materia.id,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,convenio.id FROM horariodocentemateria INNER JOIN materia ON materia.id=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.IdModalidad=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.IdCarrera=materia.IdCarrera INNER JOIN convenio ON convenio.IdConvenio = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.IdPersonal =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio = '.$idconvenio.' ORDER BY materia.ClaveMateria";
@@ -365,3 +391,4 @@ function modalidad(){
   $result = find_by_sql($sql);
   return $result;
 }
+

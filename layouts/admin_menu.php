@@ -198,7 +198,7 @@
                     <li><a href="tipo_carrera.php">Tipo de Carrera</a></li>
                     <li><a href="tipo_persona.php">Tipo de Persona</a></li>
                     <li><a href="periodo_semestre.php">Periodo del Semestre</a></li>
-                    <li><a href="#">Formato Convenio</a></li>
+                    <li><a href="formato_convenio.php">Formato Convenio</a></li> 
                   </ul>
                 </div>
               </div>
