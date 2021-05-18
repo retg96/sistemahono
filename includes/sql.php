@@ -291,7 +291,27 @@ function formatos(){
   $result = find_by_sql($sql);
   return $result;
 }
-
+function pagos(){
+  global $db;
+  $results = array();
+  $sql = 'SELECT * FROM periodopagos ORDER BY id desc';
+  $result = find_by_sql($sql);
+  return $result;
+}
+function sin_pagos(){
+  global $db;
+  $results = array();
+  $sql = 'SELECT * FROM rangonopago ORDER BY id desc';
+  $result = find_by_sql($sql);
+  return $result;
+}
+function fecha_sin_pagos(){
+  global $db;
+  $results = array();
+  $sql = 'SELECT * FROM fechanopago ORDER BY id desc';
+  $result = find_by_sql($sql);
+  return $result;
+}
 function sni(){
   global $db;
   $results = array();
