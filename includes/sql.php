@@ -118,7 +118,7 @@ function authenticate($username='', $password='') {
   global $db;
   $username = $db->escape($username);
   $password = $db->escape($password);
-  $sql  = sprintf("SELECT id,clave,password,nivel_usuario FROM usuarios WHERE clave ='%s' LIMIT 1", $username);
+  $sql  = sprintf("SELECT id,clave,password,nivel_usuario FROM users WHERE clave ='%s' LIMIT 1", $username);
   $result = $db->query($sql);
   if($db->num_rows($result)){
     $user = $db->fetch_assoc($result);
@@ -138,7 +138,7 @@ function updateLastLogIn($user_id)
 {
 	global $db;
   $date = make_date();
-  $sql = "UPDATE usuarios SET ultimo_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
+  $sql = "UPDATE users SET ultimo_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
   $result = $db->query($sql);
   return ($result && $db->affected_rows() === 1 ? TRUE : FALSE);
 }
@@ -153,7 +153,7 @@ function current_user(){
   if( !$current_user ) {
     if(isset($_SESSION['user_id'])) {
       $user_id = intval($_SESSION['user_id']);
-      $current_user = find_by_id('usuarios',$user_id);
+      $current_user = find_by_id('users',$user_id);
     }
   }
   return $current_user;
