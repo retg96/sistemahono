@@ -55,7 +55,7 @@
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_periodo_pago.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -75,7 +75,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Personal?',
+                      title: 'Eliminar Periodo Pago?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -94,7 +94,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El personal se eliminó correctamente'
+                      text: 'El periodo del pago se eliminó correctamente'
                   })
               }
 
