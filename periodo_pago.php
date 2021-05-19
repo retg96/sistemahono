@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>PERIODOS DE PAGO</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERIODO</a>
+         <a href="add_periodo_pago.php" class="btn btn-info pull-right">AGREGAR PERIODO</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -32,9 +32,9 @@
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
             <th>Fecha de inicio periodo de pago</th>
-		    <th>Fecha de fin periodo de pago</th>
-			<th>Fecha de Comprobante fiscal</th>
-			<th>Fecha de Pago</th>
+		        <th>Fecha de fin periodo de pago</th>
+			      <th>Fecha de Comprobante fiscal</th>
+			      <th>Fecha de Pago</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
         </thead>

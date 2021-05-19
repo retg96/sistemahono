@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>PERIODOS SIN PAGO</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERIODO</a>
+         <a href="add_periodo_sin_pago.php" class="btn btn-info pull-right">AGREGAR PERIODO</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">

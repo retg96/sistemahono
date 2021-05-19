@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>FECHAS SIN PAGO</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
+         <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
