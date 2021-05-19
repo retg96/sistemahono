@@ -212,9 +212,9 @@
               <div id="collapseFive" class="collapse" aria-labelledby="headingOne">
                 <div>
                   <ul>
-                    <li><a href="#">Acceso</a></li>
+                    <li><a href="control_acceso.php">Acceso</a></li>
                     <li><a href="#">Materias</a></li>
-                    <li><a href="#">Carreras</a></li>
+                    <li><a href="carreras.php">Carreras</a></li>
                     <li><a href="#">Subdirecciones</a></li>
                     <li><a href="#">Departamentos</a></li>
                     <li><a href="#">Información General</a></li>

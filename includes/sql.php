@@ -312,6 +312,14 @@ function fecha_sin_pagos(){
   $result = find_by_sql($sql);
   return $result;
 }
+function acceso(){
+  global $db;
+  $results = array();
+  $sql = 'SELECT users.id,users.Clave, rol.Nombre,subdireccion.Subdireccion,departamento.Departamento FROM users INNER JOIN rol ON users.nivel_usuario =rol.id INNER JOIN departamento ON departamento.id=users.IdDepartamento INNER JOIN subdireccion ON departamento.IdSubdireccion = subdireccion.id';
+  ;
+  $result = find_by_sql($sql);
+  return $result;
+}
 function sni(){
   global $db;
   $results = array();
@@ -332,6 +340,14 @@ function tipo_carrera(){
   global $db;
   $results = array();
   $sql = "SELECT * FROM tipocarrera";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function carrera(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM carrera";
   $result = find_by_sql($sql);
   return $result;
 }
