@@ -47,7 +47,7 @@
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_fecha_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 

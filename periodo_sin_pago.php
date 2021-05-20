@@ -32,8 +32,8 @@
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
             <th>Fecha de inicio</th>
-			<th>Fecha final</th>
-			<th>Descripción</th>
+            <th>Fecha final</th>
+            <th>Descripción</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
         </thead>
@@ -49,7 +49,7 @@
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_periodo_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
