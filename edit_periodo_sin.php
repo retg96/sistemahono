@@ -21,7 +21,7 @@ $pago = find_by_id('rangonopago',(int)$_GET['id']);
 
 if(!$pago){
   $session->msg("d","Error: No se encontró id de producto.");
-  redirect('Proveedores.php');
+  redirect('periodo_sin_pago.php');
 }
  	if(isset($_POST['upd_pago'])){
 		// $req_fields = array('nombre_prov','raz_soc','direccion','telefono', 'correo', 'ord_comp' );
