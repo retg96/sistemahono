@@ -4,20 +4,20 @@
   page_require_level(2);
 ?>
 <?php
-  $puesto = find_by_id('puesto',(int)$_GET['id']);
-  if(!$puesto){
+  $area = find_by_id('areaacademica',(int)$_GET['id']);
+  if(!$area){
     $session->msg("d","ID vacío");
-    redirect('puesto.php');
+    redirect('areas_academicas.php');
   }
 ?>
 <?php
-  $delete_id = delete_by_id('puesto',(int)$puesto['id']);
+  $delete_id = delete_by_id('areaacademica',(int)$area['id']);
   if($delete_id){
       // $session->msg("s","Proovedor Eliminado Correctamente");
       // redirect('Proveedores.php');
-      header('location: puesto.php?m=1');
+      header('location: areas_academicas.php?m=1');
   } else {
       $session->msg("d","Eliminación falló");
-      redirect('puesto.php');
+      redirect('areas_academicas.php');
   }
 ?>

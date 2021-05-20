@@ -1,5 +1,5 @@
 <?php
-  $page_title = 'Editar Puesto';
+  $page_title = 'Agregar Puesto';
   require_once('includes/load.php');
 
 //   $nacionalidades = nacionalidades();
@@ -12,19 +12,12 @@
 //   $all_sni = sni();
 //   $motivo_ausencia = ausencia();
 //   $personales = personal();
+// $all_pagos = pagos();
 $all_personal = find_all_personal();
 $all_puestos = puestos();
 ?>
 <?php
-$puesto = find_by_id('puesto',(int)$_GET['id']);
-// $all_categories = find_all('categories');
-// $all_photo = find_all('media');
-
-if(!$puesto){
-  $session->msg("d","Error: No se encontró id de producto.");
-  redirect('puesto.php');
-}
- 	if(isset($_POST['upd_puesto'])){
+ 	if(isset($_POST['add_puesto'])){
 		// $req_fields = array('nombre_prov','raz_soc','direccion','telefono', 'correo', 'ord_comp' );
 		$req_fields = array('FI','FF');
 		validate_fields($req_fields);
@@ -38,38 +31,25 @@ if(!$puesto){
 			//    $media_id = remove_junk($db->escape($_POST['product-photo']));
 			//  }
 			//  $date    = make_date();
-            
-            $query   = "UPDATE puesto SET";
-            $query  .=" Puesto ='{$p_fi}', ";
-            $query  .=" Pago ='{$p_ff}'";
-            $query  .=" WHERE id ='{$puesto['id']}'";
-            
-            $result = $db->query($query);
-            if( $result ) {
-                if( $db->affected_rows() === 1 ) {
-                    $session->msg('s',"El periodo de pago ha sido actualizado correctamente.");
-                } else {
-                    /* no row was changed */
-                    $session->msg('w',"No se cambió ningún registro." 
-                    //. "query: " . $query 
-                     . "Info: " . $db->get_info( )
-                     );
-                }
-                redirect('puesto.php', false);
-                    }
-                                else {
-                                    /* SQL query error */
-                        $session->msg('d',"Lo siento, actualización falló." 
-                    . "Message: " . $db->get_last_error( ) 
-                    );
-                    redirect('edit_puesto.php?id='.$puesto['id'], false);
-                    }
-
-                    } else{
-                    $session->msg("d", $errors);
-                    redirect('edit_puesto.php?id='.$puesto['id'], false);
-                    }
-        }
+			$query  = "INSERT INTO puesto (";
+			$query .=" Puesto,Pago";
+			$query .=") VALUES (";
+			$query .=" '{$p_fi}', '{$p_ff}'";
+			$query .=")";
+			// $query .=" ON DUPLICATE KEY UPDATE NoSie='{$p_sie}'";
+     if($db->query($query)){
+       $session->msg('s',"Puesto agregado exitosamente. ");
+       redirect('puesto.php', false);
+      } else {
+       $session->msg('d',' Lo siento, registro falló.' . $db->get_last_error());
+        $session->msg('d',' Lo siento, registro falló.');
+        redirect('puesto.php', false);
+      }
+   } else{
+     $session->msg("d", $errors);
+     redirect('add_puesto.php',false);
+   }
+ }
 
 	
 
@@ -86,32 +66,32 @@ if(!$puesto){
         <div class="panel-heading">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>Editar Puesto</span>
+            <span>Agregar Puesto</span>
          </strong>
         </div>
 
         <div class="panel-body">
          <div class="col-md-12">
          <div class="alert alert-success hide"></div>	
-         <form id="register_form" novalidate method="post" action="edit_puesto.php?id=<?php echo (int)$puesto['id'] ?>" class="clearfix">
+         <form id="register_form" novalidate method="post" action="add_puesto.php" class="clearfix">
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
 
                         <div class="form-group">
                             <label for="">Puesto</label>
-                            <input type="text" class="form-control"  name='FI' id='fi' value="<?php echo remove_junk($puesto['Puesto']);?>">
+                            <input type="text" class="form-control"  name='FI' id='fi'>
                         </div>
                         <div class="form-group">
                             <label for="">Pago</label>
-                            <input type="number" class="form-control"  name='FF' id='ff' value="<?php echo remove_junk($puesto['Pago']);?>">
+                            <input type="number" class="form-control"  name='FF' id='ff'>
                         </div>
 
                     </div>
                     </div>
                 </div>
                 <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);">
-              <button type="submit" name="upd_puesto" class="btn btn-primary">Actualizar</button>
+              <button type="submit" name="add_puesto" class="btn btn-primary">Agregar</button>
               
           </form>
          </div>

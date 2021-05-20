@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>PUESTO</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PUESTO</a>
+         <a href="add_puesto.php" class="btn btn-info pull-right">AGREGAR PUESTO</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -31,7 +31,7 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Id Clave</th>
+            <!-- <th>Id Clave</th> -->
             <th>Puesto</th>
             <th>Pago</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
@@ -41,17 +41,17 @@
         <?php foreach($all_puestos as $puesto): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($puesto['id']))?></td>
+           <!-- <td><?php echo remove_junk(ucwords($puesto['id']))?></td> -->
            <td><?php echo remove_junk(ucwords($puesto['Puesto']))?></td>
            <td><?php echo remove_junk(ucwords($puesto['Pago']))?></td>
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$puesto['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_puesto.php?id=<?php echo (int)$puesto['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$puesto['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_puesto.php?id=<?php echo (int)$puesto['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -71,7 +71,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Personal?',
+                      title: 'Eliminar Puesto?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -90,7 +90,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El personal se eliminó correctamente'
+                      text: 'El puesto se eliminó correctamente'
                   })
               }
 
