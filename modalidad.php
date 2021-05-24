@@ -31,7 +31,7 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Id</th>
+            <!-- <th>Id</th> -->
             <th>Modalidad</th>
             <th>Pago</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
@@ -41,7 +41,7 @@
         <?php foreach($all_modalidades as $modalidad): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($modalidad['id']))?></td>
+           <!-- <td><?php echo remove_junk(ucwords($modalidad['id']))?></td> -->
            <td><?php echo remove_junk(ucwords($modalidad['Modalidad']))?></td>
            <td><?php echo remove_junk(ucwords($modalidad['Pago']))?></td>
            

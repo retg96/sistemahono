@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>MOTIVO AUSENCIA</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR MOTIVO</a>
+         <a href="add_motivo.php" class="btn btn-info pull-right">AGREGAR MOTIVO</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -31,7 +31,7 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Id</th>
+            <!-- <th>Id</th> -->
             <th>Motivo</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
@@ -40,16 +40,16 @@
         <?php foreach($all_ausencias as $ausencia): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($ausencia['id']))?></td>
+           <!-- <td><?php echo remove_junk(ucwords($ausencia['id']))?></td> -->
            <td><?php echo remove_junk(ucwords($ausencia['MotivoAusencia']))?></td>
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$ausencia['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_motivo.php?id=<?php echo (int)$ausencia['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$ausencia['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_motivo.php?id=<?php echo (int)$ausencia['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -69,7 +69,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Personal?',
+                      title: 'Eliminar Motivo?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -88,7 +88,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El personal se eliminó correctamente'
+                      text: 'El motivo se eliminó correctamente'
                   })
               }
 
@@ -122,8 +122,7 @@
                       processing: true,
                       lengthMenu: [[5, 10, -1], [5, 10, "All"]],
                       "aoColumns": [
-                          { "sWidth": "1%" }, // 2nd column width 
-                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "10%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
