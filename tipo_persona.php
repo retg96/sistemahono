@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>TIPO DE PERSONA</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR TIPO</a>
+         <a href="add_persona.php" class="btn btn-info pull-right">AGREGAR TIPO</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -31,8 +31,8 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Id</th>
-            <th>Tipo de Carrera</th>
+            <!-- <th>Id</th> -->
+            <th>Tipo de Persona</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
         </thead>
@@ -40,16 +40,16 @@
         <?php foreach($all_personas as $persona): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($persona['id']))?></td>
+           <!-- <td><?php echo remove_junk(ucwords($persona['id']))?></td> -->
            <td><?php echo remove_junk(ucwords($persona['TipoPersona']))?></td>
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$persona['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_persona.php?id=<?php echo (int)$persona['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$persona['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_persona.php?id=<?php echo (int)$persona['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -69,7 +69,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Personal?',
+                      title: 'Eliminar Tipo de Persona?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -88,7 +88,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El personal se eliminó correctamente'
+                      text: 'El tipo de persona se eliminó correctamente'
                   })
               }
 
@@ -124,7 +124,7 @@
                       "aoColumns": [
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,
