@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>REGIMEN</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR REGIMEN</a>
+         <a href="add_regimen.php" class="btn btn-info pull-right">AGREGAR REGIMEN</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -31,7 +31,7 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Id</th>
+            <!-- <th>Id</th> -->
             <th>Régimen</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
@@ -40,16 +40,16 @@
         <?php foreach($all_regimenes as $regimen): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($regimen['id']))?></td>
+           <!-- <td><?php echo remove_junk(ucwords($regimen['id']))?></td> -->
            <td><?php echo remove_junk(ucwords($regimen['Regimen']))?></td>
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$regimen['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_regimen.php?id=<?php echo (int)$regimen['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$regimen['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_regimen.php?id=<?php echo (int)$regimen['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -69,7 +69,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Personal?',
+                      title: 'Eliminar Regimen?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -88,7 +88,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El personal se eliminó correctamente'
+                      text: 'El regimen se eliminó correctamente'
                   })
               }
 
@@ -124,7 +124,7 @@
                       "aoColumns": [
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,
