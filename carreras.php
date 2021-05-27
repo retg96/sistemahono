@@ -34,27 +34,27 @@
             <!-- <th class="text-center" style="width: 50px;"></th> -->
             <th>Clave</th>
             <th>Nombre de la carrera</th>
-			<th>Abreviatura</th>
-			<th>Nombre corto</th>
-			<th>Estatus</th>
-			<th>Numero</th>
-			<th>Tipo de carrera</th>
-			<th>Departamento</th>
+            <th>Abreviatura</th>
+            <th>Nombre corto</th>
+            <th>Estatus</th>
+            <th>Numero</th>
+            <th>Tipo de carrera</th>
+            <th>Departamento</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
         </thead>
         <tbody class="boddy">
             <?php 
                 $result=$db->query('SELECT * FROM carrera');
-    			while($carrera=mysqli_fetch_assoc($result)) {
+    		          while($carrera=mysqli_fetch_assoc($result)) {
 
-                $tipoc=$db->query('SELECT TipoCarrera FROM tipocarrera WHERE id="'.$carrera['IdTipoCarrera'].'"');
+                $tipoc=$db->query('SELECT TipoCarrera FROM tipocarrera WHERE id="'.$carrera['id'].'"');
                 $tcarrera=mysqli_fetch_assoc($tipoc);
     
                 $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$carrera['IdDepartamento'].'"');
                 $departamento=mysqli_fetch_assoc($dep);
              
-    ?>
+            ?>
 
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
