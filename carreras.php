@@ -1,14 +1,13 @@
 <?php
-  $page_title = 'CARRERAS';
+  $page_title = 'Carreras';
   require_once('includes/load.php');
 ?>
 <?php
 // Checkin What level user has permission to view this page
  page_require_level(1);
 //pull out all user form database
-//  $all_tipos = tipo_carrera();
-//  $all_carreras = carrera();
-//  $all_depas = departamentos();
+ $all_nacionalidades = nacionalidades();
+
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -22,9 +21,9 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>CARRERAS</span>
+          <span>Carreras</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR CARRERA</a>
+         <a href="add_carreras.php" class="btn btn-info pull-right">AGREGAR CARRERA</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -32,33 +31,34 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
+            <!-- <th>Id</th> -->
             <th>Clave</th>
-            <th>Nombre de la carrera</th>
+            <th>Nombre</th>
             <th>Abreviatura</th>
-            <th>Nombre corto</th>
+            <th>Nombre Corto</th>
             <th>Estatus</th>
-            <th>Numero</th>
-            <th>Tipo de carrera</th>
+            <th>Número</th>
+            <th>Totipo Carrera</th>
             <th>Departamento</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
           </tr>
         </thead>
         <tbody class="boddy">
-            <?php 
-                $result=$db->query('SELECT * FROM carrera');
+        <?php 
+                $result=$db->query('SELECT * FROM carrera ORDER BY carrera ASC');
     		          while($carrera=mysqli_fetch_assoc($result)) {
 
-                $tipoc=$db->query('SELECT TipoCarrera FROM tipocarrera WHERE id="'.$carrera['id'].'"');
+                $tipoc=$db->query('SELECT TipoCarrera FROM tipocarrera WHERE id="'.$carrera['IdTipoCarrera'].'"');
                 $tcarrera=mysqli_fetch_assoc($tipoc);
     
                 $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$carrera['IdDepartamento'].'"');
                 $departamento=mysqli_fetch_assoc($dep);
              
-            ?>
-
+          ?>
           <tr>
+
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <!-- <td><?php echo remove_junk(ucwords($carrera['id']))?></td> -->
+           <!-- <td><?php echo remove_junk(ucwords($f['id']))?></td> -->
            <td><?php echo remove_junk(ucwords($carrera['Clave']))?></td>
            <td><?php echo remove_junk(ucwords($carrera['Carrera']))?></td>
            <td><?php echo remove_junk(ucwords($carrera['Abreviatura']))?></td>
@@ -71,20 +71,17 @@
 
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_personal.php?id=<?php echo (int)$carrera['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_carreras.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$carrera['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_carreras.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
            </td>
           </tr>
-          <?php
-            }
-        ?>
-        
+          <?php } ?>
        </tbody>
      </table>
      <?php if(isset($_GET['m'])) : ?>
@@ -98,7 +95,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Personal?',
+                      title: 'Eliminar Carrera?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -117,7 +114,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El personal se eliminó correctamente'
+                      text: 'La carrera se eliminó correctamente'
                   })
               }
 
@@ -152,6 +149,13 @@
                       lengthMenu: [[5, 10, -1], [5, 10, "All"]],
                       "aoColumns": [
                           { "sWidth": "1%" }, // 2nd column width 
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],

@@ -141,7 +141,7 @@
                       // "sScrollY": "320px",
                       responsive: true,
                       processing: true,
-                      lengthMenu: [[10, 15, -1], [10, 15, "All"]],
+                      lengthMenu: [[5, 10, -1], [5, 10, "All"]],
                       "aoColumns": [
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
