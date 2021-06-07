@@ -360,6 +360,14 @@ function semestre(){
   return $result;
 }
 
+function subdireccion(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM subdireccion";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
 function convenio(){
   global $db;
   $results = array();

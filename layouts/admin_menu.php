@@ -215,7 +215,7 @@
                     <li><a href="control_acceso.php">Acceso</a></li>
                     <li><a href="materias.php">Materias</a></li>
                     <li><a href="carreras.php">Carreras</a></li>
-                    <li><a href="#">Subdirecciones</a></li>
+                    <li><a href="subdirecciones.php">Subdirecciones</a></li>
                     <li><a href="#">Departamentos</a></li>
                     <li><a href="info_general.php">Información General</a></li>
                   </ul>
