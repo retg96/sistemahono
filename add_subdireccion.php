@@ -2,63 +2,63 @@
   $page_title = 'Agregar Subdirección';
   require_once('includes/load.php');
 
-//   $nacionalidades = nacionalidades();
-//   $estudios = estudios();
-//   $puestos = puestos();
-//   $regimenes = regimenes();
-//   $tipo_personas = tip_persona();
-//   $areas_academicas = areas_aca();
-//   $dptos = departamentos();
-//   $all_sni = sni();
-//   $motivo_ausencia = ausencia();
-//   $personales = personal();
-// $all_pagos = pagos();
 $all_personal = find_all_personal();
 $all_puestos = puestos();
 ?>
+<?php include_once('layouts/header.php'); ?>
+
 <?php
  	if(isset($_POST['add_subdireccion'])){
-		// $req_fields = array('nombre_prov','raz_soc','direccion','telefono', 'correo', 'ord_comp' );
 		$req_fields = array('FI');
 		validate_fields($req_fields);
 		if(empty($errors)){
 			$p_fi  = remove_junk($db->escape($_POST['FI']));
 
-			//  if (is_null($_POST['product-photo']) || $_POST['product-photo'] === "") {
-			//    $media_id = '0';
-			//  } else {
-			//    $media_id = remove_junk($db->escape($_POST['product-photo']));
-			//  }
-			//  $date    = make_date();
 			$query  = "INSERT INTO subdireccion (";
 			$query .=" Subdireccion";
 			$query .=") VALUES (";
 			$query .=" '{$p_fi}'";
 			$query .=")";
+
 			// $query .=" ON DUPLICATE KEY UPDATE NoSie='{$p_sie}'";
      if($db->query($query)){
-       $session->msg('s',"Puesto agregado exitosamente. ");
-       redirect('subdirecciones.php', false);
+          echo"<script type='text/javascript'>
+          $(document).ready(function() {
+            Swal.fire({
+              title: 'Agregado',
+              text: 'La subdirección se agregó correctamente',
+              icon: 'success',
+              timer: 2000
+            }).then(
+              function () {
+                location.href = 'subdirecciones.php';
+              }
+            )
+            })
+          </script>";
       } else {
-       $session->msg('d',' Lo siento, registro falló.' . $db->get_last_error());
-        $session->msg('d',' Lo siento, registro falló.');
-        redirect('subdirecciones.php', false);
+        echo"<script type='text/javascript'>
+        $(document).ready(function() {
+          Swal.fire({
+            title: 'Error',
+            text: 'Lo siento, registro falló',
+            icon: 'error',
+            timer: 2000
+          }).then(
+            function () {
+              location.href = 'subdirecciones.php';
+            }
+          )
+          })
+        </script>";
       }
    } else{
      $session->msg("d", $errors);
      redirect('add_subdirecciones.php',false);
    }
  }
-
-	
-
 ?>
-<?php include_once('layouts/header.php'); ?>
-  <div class="row">
-  <div class="col-md-12">
-    <?php echo display_msg($msg); ?>
-  </div>
-</div>
+
   <div class="row">
   <div class="col-md-12">
       <div class="panel panel-default">
@@ -79,12 +79,13 @@ $all_puestos = puestos();
 
                         <div class="form-group">
                             <label for="">Nombre</label>
-                            <input type="text" class="form-control"  name='FI' id='fi'>
+                            <input type="text" class="form-control"  name='FI' id='fi' required>
                         </div>
                     </div>
                     </div>
                 </div>
-                <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);">
+                <button type="submit" class="btn btn-danger" onclick="location.href='subdirecciones.php'">Cancelar</button>
+                <!-- <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);"> -->
               <button type="submit" name="add_subdireccion" class="btn btn-primary">Agregar</button>
               
           </form>

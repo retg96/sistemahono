@@ -15,6 +15,7 @@
 $all_personal = find_all_personal();
 $all_puestos = puestos();
 ?>
+<?php include_once('layouts/header.php'); ?>
 <?php
 $subdireccion = find_by_id('subdireccion',(int)$_GET['id']);
 // $all_categories = find_all('categories');
@@ -44,39 +45,68 @@ if(!$subdireccion){
             $result = $db->query($query);
             if( $result ) {
                 if( $db->affected_rows() === 1 ) {
-                    $session->msg('s',"La subdirección ha sido actualizado correctamente.");
+                    echo"<script type='text/javascript'>
+                          $(document).ready(function() {
+                            Swal.fire({
+                              title: 'Actualizado',
+                              text: 'La subdirección se actualizó correctamente',
+                              icon: 'success',
+                              timer: 2000
+                            }).then(
+                              function () {
+                                location.href = 'subdirecciones.php';
+                              }
+                            )
+                            })
+                      </script>";
                 } else {
                     /* no row was changed */
-                    $session->msg('w',"No se cambió ningún registro." 
-                    //. "query: " . $query 
-                     . "Info: " . $db->get_info( )
-                     );
+                    echo"<script type='text/javascript'>
+                          $(document).ready(function() {
+                            Swal.fire({
+                              title: 'Error',
+                              text: 'No se pudo actualizar el registro',
+                              icon: 'error',
+                              timer: 2000
+                            }).then(
+                              function () {
+                                location.href = 'subdirecciones.php';
+                                // location.href = 'edit_subdireccion.php?id='".$subdireccion['id'].";
+                              }
+                            )
+                            })
+                      </script>";
                 }
-                redirect('subdirecciones.php', false);
                     }
-                                else {
-                                    /* SQL query error */
-                        $session->msg('d',"Lo siento, actualización falló." 
-                    . "Message: " . $db->get_last_error( ) 
-                    );
-                    redirect('edit_subdireccion.php?id='.$subdireccion['id'], false);
+                      else {
+                        /* SQL query error */
+                        echo"<script type='text/javascript'>
+                          $(document).ready(function() {
+                            Swal.fire({
+                              title: 'Error',
+                              text: 'Lo siento, actualización falló',
+                              icon: 'error',
+                              timer: 2000
+                            }).then(
+                              function () {
+                                location.href = 'edit_subdireccion.php';
+                              }
+                            )
+                            })
+                      </script>";
+                    // . "Message: " . $db->get_last_error( ) 
+                    // );
+                    // redirect('edit_subdireccion.php?id='.$subdireccion['id'], false);
                     }
-
-                    } else{
-                    $session->msg("d", $errors);
-                    redirect('edit_subdireccion.php?id='.$subdireccion['id'], false);
-                    }
+                   } 
+                  //  else{
+                  //   $session->msg("d", $errors);
+                  //   redirect('edit_subdireccion.php?id='.$subdireccion['id'], false);
+                  //   }
         }
 
-	
-
 ?>
-<?php include_once('layouts/header.php'); ?>
-  <div class="row">
-  <div class="col-md-12">
-    <?php echo display_msg($msg); ?>
-  </div>
-</div>
+
   <div class="row">
   <div class="col-md-12">
       <div class="panel panel-default">

@@ -16,6 +16,8 @@ if(!$personal){
   redirect('carreras.php');
 }
 ?>
+<?php include_once('layouts/header.php'); ?>
+
 <?php
 if(isset($_POST['upd_carrera'])){
 
@@ -46,46 +48,70 @@ if(isset($_POST['upd_carrera'])){
 
       $result = $db->query($query);
       			if( $result ) {
-      				if($db->affected_rows() === 1 ) {
-      					// $session->msg('s',"La carrera ha sido actualizado.");
-
+      				if($db->affected_rows() === 8 ) {
+                echo"<script type='text/javascript'>
+                $(document).ready(function() {
+                  Swal.fire({
+                    title: 'Actualizado',
+                    text: 'La carrera se actualizó correctamente',
+                    icon: 'success',
+                    timer: 2000
+                  }).then(
+                    function () {
+                      location.href = 'carreras.php';
+                    }
+                  )
+                  })
+            </script>";
       				} else {
       					/* no row was changed */
-      					$session->msg('w',"No se cambió ningún registro." 
-      					//. "query: " . $query 
-      				 	. "Info: " . $db->get_info();
-      				 	);
+      					echo"<script type='text/javascript'>
+                          $(document).ready(function() {
+                            Swal.fire({
+                              title: 'Error',
+                              text: 'No se pudo actualizar el registro',
+                              icon: 'error',
+                              timer: 2000
+                            }).then(
+                              function () {
+                                location.href = 'carreras.php';
+                              }
+                            )
+                            })
+                      </script>";
       				}
-              print( "La materia ha sido actualizado\n" );
-      				redirect('carreras.php', false);
-              //redirect('edit_product.php?id='.$product['id'], false);
+
            	}
       			else {
       				/* SQL query error */
-          		$session->msg('d',"Lo siento, actualización falló." 
-             	. "Message: " . $db->get_last_error( ) 
-             	);
-              //print( "Failed\n" );
-             	redirect('edit_carreras.php?id='.$personal['id'], false);
+              echo"<script type='text/javascript'>
+              $(document).ready(function() {
+                Swal.fire({
+                  title: 'Error',
+                  text: 'Lo siento, actualizaciÃ³n fallÃ³',
+                  icon: 'error',
+                  timer: 2000
+                }).then(
+                  function () {
+                    location.href = 'edit_subdireccion.php';
+                  }
+                )
+                })
+          </script>";
+
             }
 
-   } else{
-      $session->msg("d", $errors);
-      //print( "error\n" );
-     	redirect('edit_carreras.php?id='.$personal['id'], false);
-   }
+   } 
 
-//exit;
 }
 
 ?>
-<?php include_once('layouts/header.php'); ?>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-12">
     <?php echo display_msg($msg); ?>
   </div>
-</div>
+</div> -->
   <div class="row">
   <div class="col-md-12">
       <div class="panel panel-default">

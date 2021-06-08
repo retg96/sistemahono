@@ -26,11 +26,6 @@ if ($db->query($sql) === TRUE) {
                   function () {
                     location.href = 'carreras.php';
                   },
-                  function (dismiss) {
-                    if (dismiss === 'timer') {
-                        location.href = 'carreras.php';
-                    }
-                  }
                 )
                 })
           </script>";
@@ -46,11 +41,7 @@ if ($db->query($sql) === TRUE) {
                   function () {
                     location.href = 'add_carreras.php';
                   },
-                  function (dismiss) {
-                    if (dismiss === 'timer') {
-                        location.href = 'add_carreras.php';
-                    }
-                  }
+                
                 )
                 })
           </script>";
