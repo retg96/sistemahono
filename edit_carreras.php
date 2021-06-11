@@ -1,179 +1,144 @@
 <?php
   $page_title = 'Editar Carrera';
   require_once('includes/load.php');
-  // Checkin What level user has permission to view this page
-  page_require_level(2);
+
+//   $nacionalidades = nacionalidades();
+//   $estudios = estudios();
+//   $puestos = puestos();
+//   $regimenes = regimenes();
+//   $tipo_personas = tip_persona();
+//   $areas_academicas = areas_aca();
+//   $dptos = departamentos();
+//   $all_sni = sni();
+//   $motivo_ausencia = ausencia();
+//   $personales = personal();
+$all_depas = departamentos();
+$carreras = carrera();
+$tipos = tipo_carrera();
 ?>
 <?php
+$fecha = find_by_id('carrera',(int)$_GET['id']);
+// $all_categories = find_all('categories');
+// $all_photo = find_all('media');
 
-$personal = find_by_id('carrera',(int)$_GET['id']);
-$tipos=tipo_carrera();
-$depas =departamentos();
-
-
-if(!$personal){
-  $session->msg("d","Error: No se encontró id de la persona.");
+if(!$fecha){
+  $session->msg("d","Error: No se encontró id de producto.");
   redirect('carreras.php');
 }
+ 	if(isset($_POST['upd_carrera'])){
+		// $req_fields = array('nombre_prov','raz_soc','direccion','telefono', 'correo', 'ord_comp' );
+		$req_fields = array('FI','FCF','FA','FE','FU','FO','FR','FS');
+		validate_fields($req_fields);
+		if(empty($errors)){
+			$p_fi  = remove_junk($db->escape($_POST['FI']));
+			$p_fcf   = remove_junk($db->escape($_POST['FCF']));
+      $p_fa   = remove_junk($db->escape($_POST['FA']));
+      $p_fe   = remove_junk($db->escape($_POST['FE']));
+      $p_fu   = remove_junk($db->escape($_POST['FU']));
+      $p_fo   = remove_junk($db->escape($_POST['FO']));
+      $p_fr   = remove_junk($db->escape($_POST['FR']));
+      $p_fs   = remove_junk($db->escape($_POST['FS']));
+
+
+			//  if (is_null($_POST['product-photo']) || $_POST['product-photo'] === "") {
+			//    $media_id = '0';
+			//  } else {
+			//    $media_id = remove_junk($db->escape($_POST['product-photo']));
+			//  }
+			//  $date    = make_date();
+
+            $query   = "UPDATE carrera SET";
+            $query  .=" Clave ='{$p_fi}', ";
+            $query  .=" Carrera ='{$p_fcf}',";
+            $query  .=" Abreviatura ='{$p_fa}',";
+            $query  .=" NombreCorto ='{$p_fe}',";
+            $query  .=" Numero ='{$p_fu}',";
+            $query  .=" Estatus ='{$p_fo}',";
+            $query  .=" IdDepartamento ='{$p_fr}',";
+            $query  .=" IdTipoCarrera ='{$p_fs}'";
+            $query  .=" WHERE id ='{$fecha['id']}'";
+            
+            $result = $db->query($query);
+            if( $result ) {
+                if( $db->affected_rows() === 1 ) {
+                    $session->msg('s',"El periodo de pago ha sido actualizado correctamente.");
+                } else {
+                    /* no row was changed */
+                    $session->msg('w',"No se cambió ningún registro." 
+                    //. "query: " . $query 
+                     . "Info: " . $db->get_info( )
+                     );
+                }
+                redirect('carreras.php', false);
+                    }
+                                else {
+                                    /* SQL query error */
+                        $session->msg('d',"Lo siento, actualización falló." 
+                    . "Message: " . $db->get_last_error( ) 
+                    );
+                    redirect('edit_carreras.php?id='.$fecha['id'], false);
+                    }
+
+                    } else{
+                    $session->msg("d", $errors);
+                    redirect('edit_carreras.php?id='.$fecha['id'], false);
+                    }
+        }
+
+	
+
 ?>
 <?php include_once('layouts/header.php'); ?>
-
-<?php
-if(isset($_POST['upd_carrera'])){
-
-		$req_fields = array('FA','FE','FU','FO','FH','FL','FC','FR');
-    validate_fields($req_fields);
-
-    if(empty($errors)){
-
-      $p_fa  = remove_junk($db->escape($_POST['FA']));
-			$p_fe  = remove_junk($db->escape($_POST['FE']));
-			$p_fu  = remove_junk($db->escape($_POST['FU']));
-			$p_fo  = remove_junk($db->escape($_POST['FO']));
-			$p_fh  = remove_junk($db->escape($_POST['FH']));
-			$p_fl  = remove_junk($db->escape($_POST['FL']));
-			$p_fc  = remove_junk($db->escape($_POST['FC']));
-			$p_fr  = remove_junk($db->escape($_POST['FR']));
-
-      $query   = "UPDATE carrera SET";
-      $query  .=" Clave ='{$p_fa}', ";
-      $query  .=" Carrera ='{$p_fe}', ";
-      $query  .=" Abreviatura ='{$p_fu}',";
-      $query  .=" NombreCorto ='{$p_fo}',";
-      $query  .=" Numero ='{$p_fh}',";
-      $query  .=" Estatus ='{$p_fl}',";
-      $query  .=" IdDepartamento='{$p_fc}',";
-      $query  .=" IdTipoCarrera='{$p_fr}'";
-      $query  .=" WHERE id ='{$personal['id']}'";
-
-      $result = $db->query($query);
-      			if( $result ) {
-      				if($db->affected_rows() === 8 ) {
-                echo"<script type='text/javascript'>
-                $(document).ready(function() {
-                  Swal.fire({
-                    title: 'Actualizado',
-                    text: 'La carrera se actualizó correctamente',
-                    icon: 'success',
-                    timer: 2000
-                  }).then(
-                    function () {
-                      location.href = 'carreras.php';
-                    }
-                  )
-                  })
-            </script>";
-      				} else {
-      					/* no row was changed */
-      					echo"<script type='text/javascript'>
-                          $(document).ready(function() {
-                            Swal.fire({
-                              title: 'Error',
-                              text: 'No se pudo actualizar el registro',
-                              icon: 'error',
-                              timer: 2000
-                            }).then(
-                              function () {
-                                location.href = 'carreras.php';
-                              }
-                            )
-                            })
-                      </script>";
-      				}
-
-           	}
-      			else {
-      				/* SQL query error */
-              echo"<script type='text/javascript'>
-              $(document).ready(function() {
-                Swal.fire({
-                  title: 'Error',
-                  text: 'Lo siento, actualizaciÃ³n fallÃ³',
-                  icon: 'error',
-                  timer: 2000
-                }).then(
-                  function () {
-                    location.href = 'edit_subdireccion.php';
-                  }
-                )
-                })
-          </script>";
-
-            }
-
-   } 
-
-}
-
-?>
-
-<!-- <div class="row">
+  <div class="row">
   <div class="col-md-12">
     <?php echo display_msg($msg); ?>
   </div>
-</div> -->
+</div>
   <div class="row">
   <div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>Editar Materia</span>
+            <span>Editar Carrera</span>
          </strong>
         </div>
 
         <div class="panel-body">
          <div class="col-md-12">
          <div class="alert alert-success hide"></div>	
-         <form id="register_form" method="post" action="edit_carreras.php?id=<?php echo (int)$personal['id'] ?>" class="clearfix">
-         <?php 
-						$IdCarrera = $_GET["id"];
-					 	$result=$db->query('SELECT * FROM carrera WHERE id='.$IdCarrera)or die(mysqli_error());
-					 		while($f=mysqli_fetch_array($result)) {
-					 	?>
+         <form id="register_form" method="post" action="edit_carreras.php?id=<?php echo (int)$fecha['id'] ?>" class="clearfix">
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
 
                         <div class="form-group">
                             <label for="">Clave</label>
-                            <input type="text" class="form-control" name='FA' id='fa' value="<?php echo remove_junk($personal['Clave']);?>" autofocus>
+                            <input type="text" class="form-control"  name='FI' id='fi' value="<?php echo remove_junk($fecha['Clave']);?>">
                         </div>
-
                         <div class="form-group">
-                            <label>Nombre</label>	
-							              <input type="" class="form-control" name="FE"  id='fe' value="<?php echo remove_junk($personal['Carrera']);?>" autofocus>
+                            <label for="">Carrera</label>
+                            <input type="text" class="form-control"  name='FCF' id='fcf' value="<?php echo remove_junk($fecha['Carrera']);?>">
                         </div>
                         <div class="form-group">
                             <label for="">Abreviatura</label>
-                            <input type="text" class="form-control" name='FU' id='fu' value="<?php echo remove_junk($personal['Abreviatura']);?>" autofocus>
+                            <input type="text" class="form-control"  name='FA' id='fa' value="<?php echo remove_junk($fecha['Abreviatura']);?>">
                         </div>
                         <div class="form-group">
-                            <label for="curp">Nombre corto</label>
-                            <input type="text" class="form-control" name='FO' id='fo' value="<?php echo remove_junk($personal['NombreCorto']);?>" autofocus>
+                            <label for="">Nombre Corto</label>
+                            <input type="text" class="form-control"  name='FE' id='fe' value="<?php echo remove_junk($fecha['NombreCorto']);?>">
                         </div>
                         <div class="form-group">
-                          <label>Estatus:</label><br>		
-						              <select class="form-control" name='FH' id='fh' required>
-						                <option value="<?php echo $f['Estatus']; ?>"><?php echo $f['Estatus']; ?></option>	
-                            <option value="Activo">Activo</option>
-                            <option value="Inactivo">Inactivo</option>										
-						            </select>
-                       </div>
-
-                       <div class="form-group">
-                        <label for="">Numero de Alumnos</label>
-                        <input type="number" class="form-control" name='FL' id='fl' value="<?php echo remove_junk($personal['Numero']);?>" autofocus>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="smi">Tipo de Carrera</label>
-                        <select class="form-control" name='FC' id="fc">
-                          <option value="">Selecciona una opcion</option>
-                          <?php  foreach ($tipos as $tipo): ?>
-                            <option value="<?php echo (int)$tipo['id']; ?>" <?php if($personal['IdTipoCarrera'] === $tipo['id']): echo "selected"; endif; ?> >
-                              <?php echo remove_junk($tipo['TipoCarrera']); ?></option>
-                              <?php endforeach; ?>
+                            <label for="">Alumnos</label>
+                            <input type="number" class="form-control"  name='FU' id='fu' value="<?php echo remove_junk($fecha['Numero']);?>">
+                        </div>
+                        <div class="form-group">
+                        <label>Estatus</label>
+                        <select class="form-control" name='FO' id="fo" >
+                          <!-- <option value="">Selecciona una opcion</option> -->
+                          <option value="<?php echo $fecha['Estatus']; ?>"><?php echo $fecha['Estatus']; ?></option>	
+                          <option value="Activo">Activo</option>
+                          <option value="Inactivo">Inactivo</option>	
                         </select>                    
                     </div>
 
@@ -181,27 +146,35 @@ if(isset($_POST['upd_carrera'])){
                         <label for="smi">Departamento</label>
                         <select class="form-control" name='FR' id="fr" >
                           <option value="">Selecciona una opcion</option>
-                          <?php  foreach ($depas as $depa): ?>
-                            <option value="<?php echo (int)$depa['id']; ?>" <?php if($personal['IdDepartamento'] === $depa['id']): echo "selected"; endif; ?> >
+                          <?php  foreach ($all_depas as $depa): ?>
+                            <option value="<?php echo (int)$depa['id']; ?>" <?php if($fecha['IdDepartamento'] === $depa['id']): echo "selected"; endif; ?> >
                               <?php echo remove_junk($depa['Departamento']); ?></option>
                               <?php endforeach; ?>
                         </select>                    
                     </div>
-
+                    <div class="form-group">
+                        <label for="smi">Tipo de Carrera</label>
+                        <select class="form-control" name='FS' id="fs" >
+                          <option value="">Selecciona una opcion</option>
+                          <?php  foreach ($tipos as $tipo): ?>
+                            <option value="<?php echo (int)$tipo['id']; ?>" <?php if($fecha['IdTipoCarrera'] === $tipo['id']): echo "selected"; endif; ?> >
+                              <?php echo remove_junk($tipo['TipoCarrera']); ?></option>
+                              <?php endforeach; ?>
+                        </select>                    
+                    </div>
                     </div>
                     </div>
                 </div>
-                <?php
-  								}
- 							?>
                 <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);">
-              <button type="submit" name="upd_carrera" class="btn btn-primary">Agregar</button>
-
+              <button type="submit" name="upd_carrera" class="btn btn-primary">Actualizar</button>
+              
           </form>
          </div>
         </div>
       </div>
     </div>
   </div>
+
+  
 
 <?php include_once('layouts/footer.php'); ?>

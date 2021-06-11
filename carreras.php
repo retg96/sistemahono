@@ -2,19 +2,7 @@
   $page_title = 'Carreras';
   require_once('includes/load.php');
 ?>
-<?php
-// Checkin What level user has permission to view this page
- page_require_level(1);
-//pull out all user form database
- $all_nacionalidades = nacionalidades();
-
-?>
 <?php include_once('layouts/header.php'); ?>
-<div class="row">
-   <div class="col-md-12">
-     <?php echo display_msg($msg); ?>
-   </div>
-</div>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
@@ -25,66 +13,60 @@
        </strong>
          <a href="add_carreras.php" class="btn btn-info pull-right">AGREGAR CARRERA</a>
       </div>
-     <div class="panel-body">
+
+      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
         <thead class="headd">
-          <tr>
-            <!-- <th class="text-center" style="width: 50px;">Id</th> -->
-            <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <!-- <th>Id</th> -->
+					  <tr>
             <th>Clave</th>
             <th>Nombre</th>
             <th>Abreviatura</th>
             <th>Nombre Corto</th>
             <th>Estatus</th>
             <th>Número</th>
-            <th>Totipo Carrera</th>
+            <th>Tipo Carrera</th>
             <th>Departamento</th>
             <th class="text-center" style="width: 10%;">Acciones</th>
-          </tr>
-        </thead>
-        <tbody class="boddy">
-        <?php 
-                $result=$db->query('SELECT * FROM carrera ORDER BY carrera ASC');
-    		          while($carrera=mysqli_fetch_assoc($result)) {
+					  </tr>
+            </thead>
+            <tbody class="boddy">
+					  <?php 
+					  $result=$db->query('SELECT * FROM carrera')or die(mysqli_error());
+    					while($f=mysqli_fetch_array($result)) {
 
-                $tipoc=$db->query('SELECT TipoCarrera FROM tipocarrera WHERE id="'.$carrera['IdTipoCarrera'].'"');
-                $tcarrera=mysqli_fetch_assoc($tipoc);
-    
-                $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$carrera['IdDepartamento'].'"');
-                $departamento=mysqli_fetch_assoc($dep);
-             
-          ?>
-          <tr>
+					   $tipoc=$db->query('SELECT TipoCarrera FROM tipocarrera WHERE id="'.$f['IdTipoCarrera'].'"') or die (mysqli_error());
+					$tcarrera=mysqli_fetch_assoc($tipoc);
 
-           <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <!-- <td><?php echo remove_junk(ucwords($f['id']))?></td> -->
-           <td><?php echo remove_junk(ucwords($carrera['Clave']))?></td>
-           <td><?php echo remove_junk(ucwords($carrera['Carrera']))?></td>
-           <td><?php echo remove_junk(ucwords($carrera['Abreviatura']))?></td>
-           <td><?php echo remove_junk(ucwords($carrera['NombreCorto']))?></td>
-           <td><?php echo remove_junk(ucwords($carrera['Estatus']))?></td>
-           <td><?php echo remove_junk(ucwords($carrera['Numero']))?></td>
-           			
-           <td><?php echo remove_junk(ucwords($tcarrera['TipoCarrera']))?></td>
-           <td><?php echo remove_junk(ucwords($departamento['Departamento']))?></td>
-
-           <td class="text-center">
+					 $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$f['IdDepartamento'].'"') or die (mysqli_error());
+					$departamento=mysqli_fetch_assoc($dep);
+					 ?>
+					  <tr>
+					    <td><?php echo $f['Clave']; ?></td>
+					    <td><?php echo $f['Carrera']; ?></td>
+					    <td><?php echo $f['Abreviatura']; ?></td>
+					    <td><?php echo $f['NombreCorto']; ?></td>
+					    <td><?php echo $f['Estatus']; ?></td>
+					    <td><?php echo $f['Numero']; ?></td>
+					    <td><?php echo $tcarrera['TipoCarrera']; ?></td>
+					    <td><?php echo $departamento['Departamento']; ?></td>
+					    <td class="text-center">
            <div class="btn-group">
-              <a href="edit_carreras.php?id=<?php echo (int)$carrera['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_carreras.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_carreras.php?id=<?php echo (int)$carrera['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_carreras.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
            </td>
-          </tr>
-          <?php } ?>
-       </tbody>
-     </table>
-     <?php if(isset($_GET['m'])) : ?>
+					  </tr>
+					  <?php
+  						}
+ 					?>
+           </tbody>
+					</table>
+          <?php if(isset($_GET['m'])) : ?>
             <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
           <?php endif; ?>
           <!-- <script src="jquery-3.5.1.min.js"></script>
@@ -200,8 +182,10 @@
               font-size: 10pt!important;
             }
           </style>
-     </div>
-    </div>
-  </div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
 </div>
-  <?php include_once('layouts/footer.php'); ?>
+<?php include_once('layouts/footer.php'); ?>
