@@ -216,7 +216,7 @@
                     <li><a href="materias.php">Materias</a></li>
                     <li><a href="carreras.php">Carreras</a></li>
                     <li><a href="subdirecciones.php">Subdirecciones</a></li>
-                    <li><a href="#">Departamentos</a></li>
+                    <li><a href="departamentos.php">Departamentos</a></li>
                     <li><a href="info_general.php">Información General</a></li>
                   </ul>
                 </div>
