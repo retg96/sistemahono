@@ -231,9 +231,9 @@
               <div id="collapseSix" class="collapse" aria-labelledby="headingOne">
                 <div>
                   <ul>
-                    <li><a href="#">Personal Docente</a></li>
-                    <li><a href="#">Personal por Departamento</a></li>
-                    <li><a href="#">Personal por Régimen</a></li>
+                    <li><a href="personal_dcte.php">Personal Docente</a></li>
+                    <li><a href="personal_dpto.php">Personal por Departamento</a></li>
+                    <li><a href="personal_regimen.php">Personal por Régimen</a></li>
                   </ul>
                 </div>
               </div>

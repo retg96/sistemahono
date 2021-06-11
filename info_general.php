@@ -67,7 +67,6 @@
                             $resultado2 = $db->query($query2); 
 					  		 if (!empty($resultado2) && $resultado2->num_rows > 0) { 
 					  		while($fila2 = mysqli_fetch_array($resultado2)){  
-
                             $query3 ="SELECT personal.NoSie, personal.Nombre, personal.ApPat, personal.ApMat, personal.RFC, personal.Profesion, personal.FechaIngresoTec, convenio.IdPersonal FROM personal INNER JOIN convenio ON personal.id = convenio.IdPersonal WHERE convenio.IdPersonal = ".$fila['IdPersonal'];
 
 					  		$resultado3 = $db->query($query3); 
