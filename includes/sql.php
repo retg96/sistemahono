@@ -183,6 +183,39 @@ function find_by_groupLevel($level)
 }
 
 /*--------------------------------------------------------------*/
+/* Find all user by
+/* Joining users table and user gropus table
+/*--------------------------------------------------------------*/
+function find_all_user(){
+  global $db;
+  $results = array();
+  $sql = "SELECT u.id,u.clave,u.nivel_usuario,u.status,u.ultimo_login,";
+  $sql .="g.group_name ";
+  $sql .="FROM users u ";
+  $sql .="LEFT JOIN user_groups g ";
+  $sql .="ON g.group_level=u.nivel_usuario ORDER BY u.clave ASC";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+function find_us(){
+  global $db;
+  $results = array();
+  // SELECT usuarios.IdUsuario,usuarios.Clave, rol.Nombre,subdireccion.Subdireccion,departamento.Departamento FROM usuarios INNER JOIN rol ON usuarios.IdRol =rol.IdRol INNER JOIN departamento ON departamento.IdDepartamento=usuarios.IdDepartamento INNER JOIN subdireccion ON departamento.IdSubdireccion = subdireccion.id')
+  $sql = "SELECT u.id,u.clave,u.nivel_usuario,u.status,u.ultimo_login,s.Subdireccion,d.Departamento";
+  $sql .="g.group_name ";
+  $sql .="FROM users u ";
+  $sql .="LEFT JOIN departamento d ";
+  $sql .="ON d.id=u.IdDepartamento";
+  $sql .="LEFT JOIN subdireccion s ";
+  $sql .="ON s.id=u.Id ORDER BY u.clave ASC";
+  $sql .="LEFT JOIN user_groups g ";
+  $sql .="ON g.group_level=u.nivel_usuario ORDER BY u.clave ASC";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+/*--------------------------------------------------------------*/
 /* Function for checking which user level has access to page
 /*--------------------------------------------------------------*/
 function page_require_level($required_level) {

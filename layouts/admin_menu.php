@@ -154,7 +154,7 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
                 <div>
                   <ul>
-                    <li><a href="personal_tecnm_operativo.php">Personal</a></li>
+                    <li><a href="personal_operativo.php">Personal</a></li>
                     <li><a href="horarios_operativo.php">Horarios</a></li>
                     <li><a href="convenios_operativo.php">Convenios</a></li>
                   </ul>
