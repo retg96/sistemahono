@@ -282,7 +282,7 @@
         <div class="panel-body">
          <div class="col-md-12">
          <div class="alert alert-success hide"></div>	
-         <form id="register_form" novalidate method="post" action="personal_tecnm_añadir.php" class="clearfix">
+         <form id="register_form" method="post" action="personal_tecnm_añadir.php" class="clearfix">
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">

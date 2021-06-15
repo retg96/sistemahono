@@ -71,7 +71,7 @@
                         </div>
                         <div class="form-group">
                           <label>Departamento:</label><br>
-								            <select name="departamento" class="form-control" name='departamento' required>
+								            <select class="form-control" name='departamento' required>
 									            <?php 
                               $result=$db->query('SELECT * FROM departamento');
                                 while($f=mysqli_fetch_array($result)) {

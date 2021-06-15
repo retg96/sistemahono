@@ -1,70 +1,135 @@
 <?php
-  $page_title = 'Personal Operativo';
+  $page_title = 'Horario Operativo';
   require_once('includes/load.php');
+  $idconvenio = $_GET["id"];
 ?>
 <?php include_once('layouts/header.php'); ?>
+<?php 
+		    if(isset($idconvenio)){
+	    ?>
+
+        <?php 
+			$result=$db->query('SELECT * FROM convenioope WHERE id ='.$idconvenio.'') or die (mysqli_error());
+				while($fi=mysqli_fetch_array($result)) {
+    				$result2=$db->query('SELECT * FROM personaloperativo WHERE id ='.$fi['IdPersonalOperativo'].'') or die (mysqli_error());
+    			}
+    			while($f=mysqli_fetch_array($result2)) {
+		?>
+			<!-- <label for="search">Nombre: </label>
+			<input type="text" value="<?php echo $f['NombreCompleto']; ?>" readonly></input> -->
+							
+		<?php } 
+			$convenio='';
+			$result2=$db->query( 'SELECT id FROM convenioope WHERE id ='.$idconvenio.'')or die (mysqli_error());
+			while($f=mysqli_fetch_array($result2)) {
+			$convenio=$f['id'];
+			}
+	    ?>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>Personal Operativo</span>
+          <span>Horario Operativo</span>
        </strong>
-         <a href="add_operativo.php" class="btn btn-info pull-right">AGREGAR CARRERA</a>
+         <a href="add_horario_ope.php?id=<?php echo $convenio; ?>" class="btn btn-info pull-right">AGREGAR HORARIO</a>
       </div>
+
+
+        <!-- <button onclick="location.href='horario_operativo_añadir.php?id=<?php echo $convenio; ?>'" type="submit" class="btnsE pull-right" name="Añadir">AGREGAR HORARIO</button> -->
 
       <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
         <thead class="headd">
-					  <tr>
-            <th>Sie</th>
-            <th>Nombre</th>
-            <th>Sexo</th>
-            <th>RFC</th>
-            <th>Curp</th>
-            <th>Celular</th>
-            <th>Nivel de Estudios</th>
-            <th>Puesto</th>
-            <th>Dpto</th>
-            <th class="text-center" style="width: 10%;">Acciones</th>
-					  </tr>
+			<tr>
+                <th>Sie</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miercoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sabado</th>
+                <th>Domingo</th>
+                <th>Total de Horas</th>
+                <th class="text-center" style="width: 10%;">Acciones</th>
+			</tr>
             </thead>
             <tbody class="boddy">
-					  <?php 
-					  $result=$db->query('SELECT * FROM personaloperativo')or die(mysqli_error());
-    					while($f=mysqli_fetch_array($result)) {
+            <?php 
+					  	
+					  	$query ="SELECT horariooperativo.id, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.id WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
 
-					   $regimen=$db->query('SELECT Regimen FROM regimen WHERE id="'.$f['IdRegime'].'"') or die (mysqli_error());
-					$tregimen=mysqli_fetch_assoc($regimen);
+					  	$cont=0;
+					  	$resultado = $db->query($query);
+    					while($f=mysqli_fetch_array($resultado)) {
 
-          $estudio=$db->query('SELECT NivelEstudio FROM nivelestudio WHERE id="'.$f['IdNivelEstudio'].'"') or die (mysqli_error());
-					$testudio=mysqli_fetch_assoc($estudio);
+    						$query2 ="SELECT personaloperativo.id, personaloperativo.ClaveSie FROM personaloperativo WHERE personaloperativo.id =".$f['IdPersonalOperativo'];
 
-          $puesto=$db->query('SELECT Puesto FROM puesto WHERE id="'.$f['IdPuesto'].'"') or die (mysqli_error());
-					$tpuesto=mysqli_fetch_assoc($puesto);
+    						$resultado2 = $db->query($query2);
+    					while($f2=mysqli_fetch_array($resultado2)) {
+    						
+    					$h1= new DateTime($f['LunesHoraI']);
+						$h2= new DateTime($f['LunesHoraF']);
+						$h3= new DateTime($f['MartesHoraI']);
+						$h4= new DateTime($f['MartesHoraF']);
+						$h5= new DateTime($f['MiercolesHoraI']);
+						$h6= new DateTime($f['MiercolesHoraF']);
+						$h7= new DateTime($f['JuevesHoraI']);
+						$h8= new DateTime($f['JuevesHoraF']);
+						$h9= new DateTime($f['ViernesHoraI']);
+						$h10= new DateTime($f['ViernesHoraF']);
+						$h11= new DateTime($f['SabadoHoraI']);
+						$h12= new DateTime($f['SabadoHoraF']);
+						$h13= new DateTime($f['DomingoHoraI']);
+						$h14= new DateTime($f['DomingoHoraF']);
 
-					 $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$f['IdDepartamento'].'"') or die (mysqli_error());
-					$departamento=mysqli_fetch_assoc($dep);
-					 ?>
+    						$horasD = $h1->diff($h2); 
+							$horasdiarias = $horasD->format('%H');
+							$cont+=$horasdiarias;
+
+							$horasD = $h3->diff($h4);
+							$horasdiarias = $horasD->format('%H');
+							$cont+=$horasdiarias;
+
+							$horasD = $h5->diff($h6);
+								$horasdiarias = $horasD->format('%H');
+								$cont+=$horasdiarias;
+
+							$horasD = $h7->diff($h8);
+							$horasdiarias = $horasD->format('%H');
+							$cont+=$horasdiarias;
+
+							$horasD = $h9->diff($h10);
+							$horasdiarias = $horasD->format('%H');
+							$cont+=$horasdiarias;
+
+							$horasD = $h11->diff($h12);
+							$horasdiarias = $horasD->format('%H');
+							$cont+=$horasdiarias;
+
+							$horasD = $h13->diff($h14);
+							$horasdiarias = $horasD->format('%H');
+							$cont+=$horasdiarias;
+    						?>
 					  <tr>
-					    <td><?php echo $f['ClaveSie']; ?></td>
-					    <td><?php echo $f['NombreCompleto']; ?></td>
-					    <td><?php echo $f['Sexo']; ?></td>
-					    <td><?php echo $f['RFC']; ?></td>
-					    <td><?php echo $f['Curp']; ?></td>
-					    <td><?php echo $f['NumeroCelular']; ?></td>
-					    <!-- <td><?php echo $tregimen['Regimen']; ?></td> -->
-              <td><?php echo $testudio['NivelEstudio']; ?></td>
-              <td><?php echo $tpuesto['Puesto']; ?></td>
-					    <td><?php echo $departamento['Departamento']; ?></td>
+                      <td><?php echo $f2['ClaveSie'];?></td>
+					    <td><?php echo $f['LunesHoraI']," - ",$f['LunesHoraF'];?></td>
+					    <td><?php echo $f['MartesHoraI']," - ",$f['MartesHoraF'];?></td>
+					    <td><?php echo $f['MiercolesHoraI']," - ",$f['MiercolesHoraF'];?></td>
+					    <td><?php echo $f['JuevesHoraI']," - ",$f['JuevesHoraF'];?></td>
+					    <td><?php echo $f['ViernesHoraI']," - ",$f['ViernesHoraF'];?></td>
+					    <td><?php echo $f['SabadoHoraI']," - ",$f['SabadoHoraF'];?></td>
+					    <td><?php echo $f['DomingoHoraI']," - ",$f['DomingoHoraF'];?></td>
+					    <td><?php echo $cont ?></td>
+					    <?php }?>
 					    <td class="text-center">
            <div class="btn-group">
-              <a href="edit_operativo.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_operativo.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
@@ -72,9 +137,12 @@
 					  </tr>
 					  <?php
   						}
+  					}
  					?>
+                
            </tbody>
-					</table>
+		</table>
+        <input type="button" class="btn btn-danger" value="Regresar" onclick="history.go(-1);">
           <?php if(isset($_GET['m'])) : ?>
             <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
           <?php endif; ?>
@@ -86,7 +154,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Operativo?',
+                      title: 'Eliminar Horario?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -105,7 +173,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El operativo se eliminó correctamente'
+                      text: 'El horario se eliminó correctamente'
                   })
               }
 
