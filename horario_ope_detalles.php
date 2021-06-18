@@ -1,62 +1,141 @@
-<?php
-  $page_title = 'Horario Operativo';
-  require_once('includes/load.php');
-  $idconvenio = $_GET["id"];
-?>
-<?php include_once('layouts/header.php'); ?>
-<?php 
-		    if(isset($idconvenio)){
-	    ?>
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head> -->
+	<?php 
+	  $page_title = 'Horario Operativo';
+    require_once('includes/load.php');
+		/*session_start();
+		$_SESSION['Clave'];
 
-        <?php 
-			$result=$db->query('SELECT * FROM convenioope WHERE id ='.$idconvenio.'') or die (mysqli_error());
-				while($fi=mysqli_fetch_array($result)) {
-    				$result2=$db->query('SELECT * FROM personaloperativo WHERE id ='.$fi['IdPersonalOperativo'].'') or die (mysqli_error());
-    			}
-    			while($f=mysqli_fetch_array($result2)) {
-		?>
-			<!-- <label for="search">Nombre: </label>
-			<input type="text" value="<?php echo $f['NombreCompleto']; ?>" readonly></input> -->
+		if(isset($_SESSION['Clave'])){
+		$clave=$_SESSION['Clave'];
+		}*/
+		$idconvenio = $_GET["id"];
+	?>
+	<!-- <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-escale=1.0">
+	<title>Horarios | ITA</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+	<link rel="stylesheet" type="text/css" href="css/estiloMenu.css">
+	<link rel="stylesheet"  href="fonts/fonts.css">
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Michroma&display=swap');
+	</style>
+
+	<style>span{color:#fff;}</style>
+	<script  src="js/alerta.js"></script>
+	
+</head> -->
+<!-- <body> -->
+<!-- <div class="padre">
+	<div class="contenedor-menuV">
+		<div class="espacio" >
+			<div>
+			<h4> MENU </h4>
+		</div>
+		</div>
+
+		<div class="espacio"></div>
+		<div class="pull-center">
+			<img src='img/logoITA.jpg' class='imgRedonda'/>
+		</div>
+		<div class="espacio2"></div>
+		<div>
+			<ul class="menu">
+				<li><a href="#">PERSONAL DOCENTE</a>
+					<ul>
+					<li><a href="personal_tecnm_principal.php">PERSONAL DOCENTE</a></li>
+					<li><a href="horarios.php">HORARIOS DOCENTE</a></li>
+					<li><a href="convenios.php">CONVENIOS DOCENTE</a></li>
+					</ul>
+				</li>
+				<li><a href="#">PERSONAL OPERATIVO</a>
+					<ul>
+					<li><a href="personal_tecnm_operativo.php">PERSONAL OPERATIVO</a></li>
+					<li><a href="horarios_operativo.php">HORARIOS OPERATIVOS</a></li>
+					<li><a href="convenios_operativo.php">CONVENIOS OPERATIVO</a></li>
+					</ul>
+				</li>
+				<li><a href="pagos.php">PAGOS</a></li>
+				<li><a href="#">TABLAS</a>
+					<ul>
+					<li><a href="seleccion_tablas.php">SELECCION TABLAS</a>
+					<li><a href="control_acceso.php">CONTROL DE ACCESO</a></li>
+					<li><a href="materias.php">Materias</a></li>
+					<li><a href="carreras.php">Carreras</a></li>
+					<li><a href="subdireccion.php">Subdirecciones</a></li>
+					<li><a href="departamento.php">Departamentos</a></li>
+					</ul>
+				
+				</li>
+				<li><a href="inicio_sesion.html" class=" close ">CERRAR SESION </a> <a href="inicio_sesion.html" class=" icon-enter"> </a> </li>
+
+			</ul>
+		</div>
+	</div> -->
+
+	<!-- <div class="tablaPrincipal">
+		<div class="title">
+			<div >
+				<ul class="navigationBarM pull-left">
+					<li><a href="#" class="menu-bar icon-menu3"> </a></li>
+				</ul>
+			</div>
+			<div>
+			<ul class="navigationBar pull-right">
+				<li><a href="#"> NOMBRE DE USUARIO </a><a class="icon-user"> </a></li>
+
+			</ul>
+			</div>
+		</div> -->
+		<div class="contentTable">
+			<div class="contentTab">
+				<div>
+					<h2>HORARIO OPERATIVO</h2>
+				</div>
+				<?php 
+					 if(isset($idconvenio)){
+				?>
+				<div class="espacio2"></div>
+				<div>
+					
+					<?php 
+					  	$result=$db->query('SELECT * FROM convenioope WHERE id ='.$idconvenio.'') or die (mysqli_error());
+					  	
+    					while($fi=mysqli_fetch_array($result)) {
+    						$result2=$db->query('SELECT * FROM personaloperativo WHERE id ='.$fi['IdPersonalOperativo'].'') or die (mysqli_error());
+    					}
+    					while($f=mysqli_fetch_array($result2)) {
+						?>
+							<label for="search">Nombre: </label>
+							<input type="text" value="<?php echo $f['NombreCompleto']?>" readonly></input>
 							
-		<?php } 
-			$convenio='';
-			$result2=$db->query( 'SELECT id FROM convenioope WHERE id ='.$idconvenio.'')or die (mysqli_error());
-			while($f=mysqli_fetch_array($result2)) {
-			$convenio=$f['id'];
-			}
-	    ?>
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix">
-        <strong>
-          <span class="glyphicon glyphicon-th"></span>
-          <span>Horario Operativo</span>
-       </strong>
-         <a href="add_horario_ope.php?id=<?php echo $convenio; ?>" class="btn btn-info pull-right">AGREGAR HORARIO</a>
-      </div>
-
-
-        <!-- <button onclick="location.href='horario_operativo_añadir.php?id=<?php echo $convenio; ?>'" type="submit" class="btnsE pull-right" name="Añadir">AGREGAR HORARIO</button> -->
-
-      <div class="panel-body">
-      <table class="table table-bordered table-striped" id="mitabla">
-        <thead class="headd">
-			<tr>
-                <th>Sie</th>
-                <th>Lunes</th>
-                <th>Martes</th>
-                <th>Miercoles</th>
-                <th>Jueves</th>
-                <th>Viernes</th>
-                <th>Sabado</th>
-                <th>Domingo</th>
-                <th>Total de Horas</th>
-                <th class="text-center" style="width: 10%;">Acciones</th>
-			</tr>
-            </thead>
-            <tbody class="boddy">
-            <?php 
+						<?php } 
+							$convenio='';
+							$result2=$db->query('SELECT id FROM convenioope WHERE id ='.$idconvenio.'')or die (mysqli_error());
+							while($f=mysqli_fetch_array($result2)) {
+									$convenio=$f['id'];
+								}
+						 ?>
+						<br><button onclick="location.href='add_horario_ope.php?id=<?php echo $convenio; ?>'" type="submit" class="btnsE pull-right" name="Añadir">AGREGAR HORARIO</button>
+				</div>
+				<div class="espacio2"></div>
+				<div>
+					<table border=1>
+					  <tr>
+					  	<th>Clave Sie</th>
+					    <th>Lunes</th>
+					    <th>Martes</th>
+					    <th>Miercoles</th>
+					    <th>Jueves</th>
+					    <th>Viernes</th>
+					    <th>Sabado</th>
+					    <th>Domingo</th>
+					    <th>Numero de horas semanales</th>
+					    <th>Editar/Eliminar</th>
+					  </tr>
+					  <tr>
+					  	<?php 
 					  	
 					  	$query ="SELECT horariooperativo.id, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.id WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
 
@@ -112,8 +191,7 @@
 							$horasdiarias = $horasD->format('%H');
 							$cont+=$horasdiarias;
     						?>
-					  <tr>
-                      <td><?php echo $f2['ClaveSie'];?></td>
+    					<td><?php echo $f2['ClaveSie'];?></td>
 					    <td><?php echo $f['LunesHoraI']," - ",$f['LunesHoraF'];?></td>
 					    <td><?php echo $f['MartesHoraI']," - ",$f['MartesHoraF'];?></td>
 					    <td><?php echo $f['MiercolesHoraI']," - ",$f['MiercolesHoraF'];?></td>
@@ -123,148 +201,28 @@
 					    <td><?php echo $f['DomingoHoraI']," - ",$f['DomingoHoraF'];?></td>
 					    <td><?php echo $cont ?></td>
 					    <?php }?>
-					    <td class="text-center">
-           <div class="btn-group">
-              <a href="edit_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
-                <span class="glyphicon glyphicon-edit"></span>
-              </a>
+					</td>
 
-              <a href="delete_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
-                <span class="glyphicon glyphicon-trash"></span>
-              </a>
-           </div>
-           </td>
+					    <td><div class="pull-center">
+					    <button type="submit" class="btnsEdition icon-pencil" name="Editar" onclick="location.href='horarios_operativo_editar.php?id=<?php echo $f['id']?>'"></button>
+					    <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorarioOperativo(<?=$f['id']?>,'<?=$idconvenio?>' )"></button></div>
+					    </td>
 					  </tr>
 					  <?php
   						}
   					}
  					?>
-                
-           </tbody>
-		</table>
-        <input type="button" class="btn btn-danger" value="Regresar" onclick="history.go(-1);">
-          <?php if(isset($_GET['m'])) : ?>
-            <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
-          <?php endif; ?>
-          <!-- <script src="jquery-3.5.1.min.js"></script>
-          <script src="sweetalert2.all.min.js"></script> -->
-          <script>
-              $('.btn-del').on('click', function(e){
-                  e.preventDefault();
-                  const href = $(this).attr('href')
+					</table>
 
-                  Swal.fire({
-                      title: 'Eliminar Horario?',
-                      icon: 'warning',
-                      showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Eliminar'
-                      }).then((result) => {
-                      if (result.value) {
-                          document.location.href = href;
-                      }
-                      })
-                  
-              })
-
-              const flashdata = $('.flash-data').data('flashdata')
-              if(flashdata){
-                  Swal.fire({
-                      icon :'success',
-                      title: 'Eliminado',
-                      text: 'El horario se eliminó correctamente'
-                  })
-              }
-
-              // $('#btn').on('click', function() {
-              //     Swal.fire({
-              //         title: 'Deseas eliminar este estudiante?',
-              //         icon: 'warning',
-              //         showCancelButton: true,
-              //         confirmButtonColor: '#3085d6',
-              //         cancelButtonColor: '#d33',
-              //         confirmButtonText: 'Eliminar'
-              //         }).then((result) => {
-              //         if (result.isConfirmed) {
-              //             Swal.fire(
-              //             'Eliminado con éxito',
-              //             'El estudiante ha sido eliminado.',
-              //             'success'
-              //             )
-              //         }
-              //         })
-              // })
-              </script>
-              <script>
-                  $(document).ready(function() {
-                    $('#mitabla').DataTable({
-                      "bAutoWidth": false,
-                      // "sScrollX": "100%", //This is what made my columns increase in size.
-                      // "bScrollCollapse": true,
-                      // "sScrollY": "320px",
-                      responsive: true,
-                      processing: true,
-                      lengthMenu: [[5, 10, -1], [5, 10, "All"]],
-                      "aoColumns": [
-                          { "sWidth": "1%" }, // 2nd column width 
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-
-                          // { "sWidth": "40%" } // 3rd column width and so on 
-                        ],
-                      "bInfo" : false,
-                      "language":{
-                        "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
-                      }
-                    });
-                    $('#mitabla').parent().addClass('table-responsive');
-                  } );
-          </script>
-          <style>
-          .dataTables_wrapper .dataTables_paginate .paginate_button {
-              padding : 0px;
-              margin-left: 0px;
-              display: inline;
-              border: 0px;
-              font-size: 9pt !important;
-          }
-
-          .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-              border: 0px;
-
-          }
-          .form-control {
-            height: 28px;
-            padding: 6px 12px;
-            font-size: 9pt;
-            }
-            label{
-              font-size: 9pt!important;
-            }
-            .dataTables_info{
-              font-size: 9pt!important;
-              text-align: left;
-            }
-            .mitabla{
-              widht: -50px!important;
-              /* font-size: 9pt!important; */
-            }
-            .headd, .boddy{
-              font-size: 10pt!important;
-            }
-          </style>
+					<br><br>			
+					
 				</div>
-			
+				<br><button class="btns pull-left" onclick="location.href='horarios_operativo.php'">VOLVER</button><br><br><br>
 			</div>
 		</div>
 	</div>
 </div>
-<?php include_once('layouts/footer.php'); ?>
+	<!-- <script src="js/jquery.js" ></script>
+	<script src="js/abrir.js" ></script>
+</body>
+</html> -->
