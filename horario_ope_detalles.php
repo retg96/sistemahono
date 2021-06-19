@@ -1,9 +1,10 @@
 <!-- <!DOCTYPE html>
-<html lang="es">
-<head> -->
-	<?php 
+<html lang="es">-->
+<head>
+<?php 
 	  $page_title = 'Horario Operativo';
     require_once('includes/load.php');
+    include_once('layouts/header.php');
 		/*session_start();
 		$_SESSION['Clave'];
 
@@ -22,11 +23,11 @@
 	@import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Michroma&display=swap');
 	</style>
 
-	<style>span{color:#fff;}</style>
-	<script  src="js/alerta.js"></script>
+	<style>span{color:#fff;}</style> -->
+	<!-- <script  src="js/alerta.js"></script> -->
 	
-</head> -->
-<!-- <body> -->
+</head>
+<body>
 <!-- <div class="padre">
 	<div class="contenedor-menuV">
 		<div class="espacio" >
@@ -88,6 +89,8 @@
 			</ul>
 			</div>
 		</div> -->
+
+    
 		<div class="contentTable">
 			<div class="contentTab">
 				<div>
@@ -205,6 +208,7 @@
 
 					    <td><div class="pull-center">
 					    <button type="submit" class="btnsEdition icon-pencil" name="Editar" onclick="location.href='horarios_operativo_editar.php?id=<?php echo $f['id']?>'"></button>
+              <!-- <button type="submit" class="btnsEdition icon-pencil btn-del" name="Eliminar" onclick="location.href='delete_horario_ope.php?id=<?php echo $f['id']?>'"></button> -->
 					    <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorarioOperativo(<?=$f['id']?>,'<?=$idconvenio?>' )"></button></div>
 					    </td>
 					  </tr>
@@ -213,11 +217,24 @@
   					}
  					?>
 					</table>
+        <script>
+          function ConfirmBorrarHorarioOperativo(horario,idconvenio) {
+                  
+                      if (confirm("¿Estas seguro de eliminar el registro del horario seleccionado? ")){
+                      
+                        window.location.assign("delete_horario_ope.php" + "?horario=" + horario + "&idconvenio=" + idconvenio)
+                  
+                      }else{
+                  
+                          alert("Operacion cancelada");
+                  
+                      }
+                  }
+            
+        </script>
 
-					<br><br>			
-					
 				</div>
-				<br><button class="btns pull-left" onclick="location.href='horarios_operativo.php'">VOLVER</button><br><br><br>
+				<button class="btns pull-left" onclick="location.href='horarios_operativo.php'">VOLVER</button><br><br><br>
 			</div>
 		</div>
 	</div>
