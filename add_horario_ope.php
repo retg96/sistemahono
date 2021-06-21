@@ -2,6 +2,7 @@
 	<?php 
 	$page_title = 'Agregar Horario Operativo';
 	require_once('includes/load.php');
+	include_once('layouts/header.php');
 	$idconvenio=$_GET['id'];
 	?>
 	<!-- <meta charset="utf-8">
@@ -83,15 +84,26 @@
 			</div>
 		</div> -->
 
-		<div class="contentTable">
-			<div class="contentTab">
-				<div>
+		<!-- <div class="contentTable"> -->
+			<!-- <div class="contentTab"> -->
+				<!-- <div>
 					<h2>AÑADIR NUEVO HORARIO OPERATIVO</h2>
-				</div>
-				<div class="espacio2 pull center">
-				</div>
+				</div> -->
+				<div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong>
+            <span class="glyphicon glyphicon-th"></span>
+            <span>Agregar Horario Operativo</span>
+         </strong>
+        </div>
+
+		<div class="panel-body">
+				<div class="col-md-12">
+				<div class="alert alert-success hide"></div>
 				<form method="post" action="añadir_nuevo_horario_operativo.php">
-						<div class="datos_personal-flex">
+				<div class="row">
+                  		 <div class="col-md-6">
 							<?php 
 
 							$querytiempo = "SELECT * FROM convenioope WHERE id =".$idconvenio;
@@ -156,18 +168,22 @@
 
 					  	$NumH=0;
     						?>
-								<div>
+								
 									<input type="" name="id" value="<?php echo $idconvenio?>" hidden>
 									<input type="" name="idpersonal" value="<?php echo $f['IdPersonalOperativo']?>" hidden>
 
-									<label>Clave del personal:</label><br>
+									<div class="form-group">
+										<label>Clave del personal:</label><br>
+										<input type="" class="form-control" name="ClaveSie" value="<?php echo $f['ClaveSie']?>" readonly>
+									</div>
 
-									<input type="" name="ClaveSie" value="<?php echo $f['ClaveSie']?>" readonly><br>
 								<?php }?>
 
 									<p>Asignacion de Horarios:</p>
+
+									<div class="form-group">
 									<label>Lunes:</label>
-									<select name="LunesHoraI">
+									<select class="form-control" name="LunesHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -185,7 +201,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="LunesHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="LunesHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -202,9 +221,12 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+
+									<div class="form-group">
 									<label>Martes:</label>
-									<select name="MartesHoraI">
+									<select class="form-control" name="MartesHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -222,7 +244,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="MartesHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="MartesHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -239,9 +264,12 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+
+									<div class="form-group">
 									<label>Miercoles:</label>
-									<select name="MiercolesHoraI">
+									<select class="form-control" name="MiercolesHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -259,7 +287,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="MiercolesHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="MiercolesHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -276,9 +307,12 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+
+									<div class="form-group">
 									<label>Jueves:</label>
-									<select name="JuevesHoraI">
+									<select class="form-control" name="JuevesHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -296,7 +330,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="JuevesHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="JuevesHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -313,9 +350,12 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+
+									<div class="form-group">
 									<label>Viernes:</label>
-									<select name="ViernesHoraI">
+									<select class="form-control" name="ViernesHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -333,7 +373,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="ViernesHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="ViernesHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -350,9 +393,12 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
-								<label>Sabado:</label>
-									<select name="SabadoHoraI">
+									</select>
+									</div>
+
+									<div class="form-group">
+									<label>Sabado:</label>
+									<select class="form-control" name="SabadoHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -370,7 +416,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="SabadoHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="SabadoHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -387,9 +436,12 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+
+									<div class="form-group">
 									<label>Domingo:</label>
-									<select name="DomingoHoraI">
+									<select class="form-control" name="DomingoHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -407,7 +459,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="DomingoHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="DomingoHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -424,19 +479,24 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+
 								</div>
 								<div>
-									<br><button type="submit" class="btnsE pull-right" >AGREGAR HORARIO</button><br><br><br>
-									<button type="" formaction='horario_ope_detalles.php?id=<?php echo $_GET['id'];?>'" class="btnsC pull-left">CANCELAR</button><br><br>
+								</div>
+		</div>
+									<button type="" class="btn btn-danger" formaction='horario_ope_detalles.php?id=<?php echo $_GET['id'];?>'" class="btnsC pull-left">CANCELAR</button>
+									<button type="submit" class="btn btn-primary" >AGREGAR HORARIO</button>
+
 									</div>
 								</div>	
 							
-
+						</div>
+						</div>
 						</div>	
 
-				</form>
-				<br>			
+				</form>			
 			</div>
 		</div>
 	</div>
