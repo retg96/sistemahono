@@ -1,5 +1,5 @@
 <?php
-include ('../conexion.php');
+require_once ('../includes/load.php');
 require_once dirname(__FILE__).'/PHPWord-master/src/PhpWord/Autoloader.php';
 \PhpOffice\PhpWord\Autoloader::register();
 
@@ -19,7 +19,8 @@ $templateWord="";
                         $FRangoNoPago= "";
 
 
-                        $result=mysqli_query($conexion,'SELECT personaloperativo.IdPersonalOperativo,personaloperativo.ClaveSie, horariooperativo.IdHorarioOperativo,horariooperativo.LunesHoraI,horariooperativo.MartesHoraI,horariooperativo.MiercolesHoraI,horariooperativo.JuevesHoraI,horariooperativo.ViernesHoraI,horariooperativo.SabadoHoraI,horariooperativo.DomingoHoraI,horariooperativo.LunesHoraF,horariooperativo.MartesHoraF,horariooperativo.MiercolesHoraF,horariooperativo.JuevesHoraF,horariooperativo.ViernesHoraF,horariooperativo.SabadoHoraF,horariooperativo.DomingoHoraF, puesto.Puesto,puesto.Pago,convenioope.IdConvenioOpe FROM horariooperativo INNER JOIN convenioope ON convenioope.IdConvenioOpe = horariooperativo.IdConvenioOpe INNER JOIN personaloperativo ON personaloperativo.IdPersonalOperativo =convenioope.IdPersonalOperativo INNER JOIN puesto ON puesto.IdPuesto = personaloperativo.IdPuesto WHERE horariooperativo.IdConvenioOpe = '.$id.' ORDER BY (personaloperativo.IdPersonalOperativo)') or die (mysqli_error());
+                        $result=$db->query('SELECT personaloperativo.id,personaloperativo.ClaveSie, horariooperativo.id,horariooperativo.LunesHoraI,horariooperativo.MartesHoraI,horariooperativo.MiercolesHoraI,horariooperativo.JuevesHoraI,horariooperativo.ViernesHoraI,horariooperativo.SabadoHoraI,horariooperativo.DomingoHoraI,horariooperativo.LunesHoraF,horariooperativo.MartesHoraF,horariooperativo.MiercolesHoraF,horariooperativo.JuevesHoraF,horariooperativo.ViernesHoraF,horariooperativo.SabadoHoraF,horariooperativo.DomingoHoraF, puesto.Puesto,puesto.Pago,convenioope.id FROM horariooperativo INNER JOIN convenioope ON convenioope.id = horariooperativo.IdConvenioOpe INNER JOIN personaloperativo ON personaloperativo.id =convenioope.IdPersonalOperativo INNER JOIN puesto ON puesto.id = personaloperativo.IdPuesto WHERE horariooperativo.IdConvenioOpe ="'.$id.'" ORDER BY (personaloperativo.id)') or die (mysqli_error());
+
 
 
                         $PagoTotal=0;
@@ -325,15 +326,17 @@ $regimen = "";
 $puesto = "";
 $nivelestudio = "";
 
-include ('../conexion.php');
-$result=mysqli_query($conexion,'SELECT personaloperativo.Nombre,personaloperativo.ApPat,personaloperativo.ApMat,personaloperativo.Sexo,personaloperativo.Calle,personaloperativo.NoExterior,personaloperativo.NoInterior,personaloperativo.Fraccionamiento,personaloperativo.CP,personaloperativo.Ciudad,personaloperativo.Estado,personaloperativo.Fraccionamiento,personaloperativo.CP,personaloperativo.Ciudad,personaloperativo.RFC,personaloperativo.IdPuesto,puesto.Puesto,departamento.IdDepartamento,departamento.Departamento,departamento.Abreviatura,convenioope.IdConvenioOpe,convenioope.FechaFin,horariooperativo.IdHorarioOperativo,horariooperativo.LunesHoraI,horariooperativo.MartesHoraI,horariooperativo.MiercolesHoraI,horariooperativo.JuevesHoraI,horariooperativo.ViernesHoraI,horariooperativo.SabadoHoraI,horariooperativo.DomingoHoraI,horariooperativo.LunesHoraF,horariooperativo.MartesHoraF,horariooperativo.MiercolesHoraF,horariooperativo.JuevesHoraF,horariooperativo.ViernesHoraF,horariooperativo.SabadoHoraF,horariooperativo.DomingoHoraF,regimen.Regimen,nivelestudio.NivelEstudio FROM personaloperativo 
-INNER JOIN convenioope on convenioope.IdPersonalOperativo = personaloperativo.IdPersonalOperativo 
-INNER JOIN horariooperativo ON horariooperativo.IdConvenioOpe =convenioope.IdConvenioOpe
-INNER JOIN regimen ON regimen.IdRegime = personaloperativo.IdRegime 
-INNER JOIN departamento ON departamento.IdDepartamento = personaloperativo.IdDepartamento 
-INNER JOIN nivelestudio ON personaloperativo.IdNivelEstudio=nivelestudio.IdNivelEstudio
-INNER JOIN puesto ON puesto.IdPuesto=personaloperativo.IdPuesto
-WHERE horariooperativo.IdConvenioOpe='.$id.'')or die(mysqli_error());
+// include ('../conexion.php');
+$result=$db->query('SELECT personaloperativo.NombreCompleto,personaloperativo.Sexo,personaloperativo.Calle,personaloperativo.NoExterior,personaloperativo.NoInterior,personaloperativo.Fraccionamiento,personaloperativo.CP,personaloperativo.Ciudad,personaloperativo.Estado,personaloperativo.Fraccionamiento,personaloperativo.CP,personaloperativo.Ciudad,personaloperativo.RFC,personaloperativo.IdPuesto,puesto.Puesto,departamento.id,departamento.Departamento,departamento.Abreviatura,convenioope.id,convenioope.FechaFin,horariooperativo.id,horariooperativo.LunesHoraI,horariooperativo.MartesHoraI,horariooperativo.MiercolesHoraI,horariooperativo.JuevesHoraI,horariooperativo.ViernesHoraI,horariooperativo.SabadoHoraI,horariooperativo.DomingoHoraI,horariooperativo.LunesHoraF,horariooperativo.MartesHoraF,horariooperativo.MiercolesHoraF,horariooperativo.JuevesHoraF,horariooperativo.ViernesHoraF,horariooperativo.SabadoHoraF,horariooperativo.DomingoHoraF,regimen.Regimen,nivelestudio.NivelEstudio FROM personaloperativo 
+INNER JOIN convenioope on convenioope.IdPersonalOperativo = personaloperativo.id 
+INNER JOIN horariooperativo ON horariooperativo.IdConvenioOpe =convenioope.id
+INNER JOIN regimen ON regimen.id = personaloperativo.IdRegime 
+INNER JOIN departamento ON departamento.id = personaloperativo.IdDepartamento 
+INNER JOIN nivelestudio ON personaloperativo.IdNivelEstudio=nivelestudio.id
+INNER JOIN puesto ON puesto.id=personaloperativo.IdPuesto
+WHERE horariooperativo.IdConvenioOpe="'.$id.'"')or die(mysqli_error());
+
+// ="'.$id.'"
 
 $dom=array();
 $domicilio="";
@@ -393,7 +396,7 @@ $iddepartamento = $f['IdDepartamento'];
 
 }
 
-$result2=mysqli_query($conexion,'SELECT * FROM formatoconvenio WHERE IdDepartamento='.$iddepartamento.'')or die(mysqli_error());
+$result2=$db->query('SELECT * FROM formatoconvenio WHERE IdDepartamento="'.$iddepartamento.'"')or die(mysqli_error());
 
 while($f2=mysqli_fetch_array($result2)) {
     $subServiciosA = $f2['SubServiciosA'];
@@ -405,7 +408,7 @@ while($f2=mysqli_fetch_array($result2)) {
     $jefeDepartamentoPPP = $f2['JefeDepartamentoPPP'];  
 }
 
-$result3=mysqli_query($conexion,'SELECT * FROM convenioope WHERE IdConvenioOpe ='.$id)or die(mysqli_error());
+$result3=$db->query('SELECT * FROM convenioope WHERE id ="'.$id.'"')or die(mysqli_error());
 
 while($f3=mysqli_fetch_array($result3)) {
     $diaSf1= date("d", strtotime($f3['FechaInicio'])); $mesSf1= date("m", strtotime($f3['FechaInicio'])); $anioSf1= date("Y", strtotime($f3['FechaInicio']));
@@ -439,7 +442,7 @@ while($f3=mysqli_fetch_array($result3)) {
     
 }
 
-$result4=mysqli_query($conexion,'SELECT * FROM periodopagos')or die(mysqli_error());
+$result4=$db->query('SELECT * FROM periodopagos')or die(mysqli_error());
 
 $cont2=0;
 $valuesP=[];
@@ -522,7 +525,7 @@ $diaSemestref1= 0; $mesSemestref1= 0; $mesLSemestref1=""; $anioSemestref1= 0;
 $diaSemestref2= 0; $mesSemestref2= 0; $mesLSemestref2=""; $anioSemestref2= 0;
 
 
-$result5=mysqli_query($conexion,'SELECT * FROM semestre WHERE Estatus ="Activo"')or die(mysqli_error());
+$result5=$db->query('SELECT * FROM semestre WHERE Estatus ="Activo"')or die(mysqli_error());
 
 while($f5=mysqli_fetch_array($result5)) {
     $diaSemestref1= date("d", strtotime($f5['FechaInicio'])); $mesSemestref1= date("m", strtotime($f5['FechaInicio'])); $anioSemestref1= date("Y", strtotime($f5['FechaInicio']));
@@ -572,7 +575,7 @@ if($regimen=="Asimilados"){
 
 
 
-$templateWord->setValue('Nombre',mb_strtoupper ($nombreCompleto,'utf-8'));
+$templateWord->setValue('NombreCompleto',mb_strtoupper ($nombreCompleto,'utf-8'));
 $templateWord->setValue('ApellidoPaterno',mb_strtoupper ($apePat,'utf-8'));
 $templateWord->setValue('ApellidoMaterno',mb_strtoupper ($apeMat,'utf-8'));
 $templateWord->setValue('Profesion',$puesto);

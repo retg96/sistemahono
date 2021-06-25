@@ -50,8 +50,8 @@
                       <td><?php echo $fe['id'];?></td>
                       <td><?php echo $fe['FechaInicio'];?></td>
                       <td><?php echo $fe['FechaFin'];?></td>
-                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['IdConvenioOpe'];?>'>DESCARGAR</a></td>
-                      <td><a class='btn btn-success btn-xs' href='personal_tecnm_operativo_detalles_convenio_individual.php?id=<?php echo $fe['IdConvenioOpe'];?>'>DETALLES</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['id'];?>'>DESCARGAR</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_personal_operativo.php?id=<?php echo $fe['id'];?>'>DETALLES</a></td>
                         
 					   
 					    <td class="text-center">
