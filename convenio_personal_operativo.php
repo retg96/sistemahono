@@ -27,7 +27,7 @@
       </div>
 
 
-<div class="container">
+<div class="container" style="margin-left:-1px;">
 <br>
   <!-- <h2>Dynamic Tabs</h2> -->
   <ul class="nav nav-tabs" id="myTab">
@@ -154,9 +154,73 @@
           <?php } ?>
 </div>
 <!---END-->
-<button type='' class="btn btn-danger" onclick="location.href='convenio_ope_detalles.php?id=<?php echo $idpersonal ?>'">Regresar</button><br><br>
+<button type='' class="btn btn-danger btn-sm" onclick="location.href='convenio_ope_detalles.php?id=<?php echo $idpersonal ?>'">Regresar</button><br><br>
 
-  </div>
+<script>
+                  $(document).ready(function() {
+                    $('#mitabla').DataTable({
+                      "bAutoWidth": false,
+                      // "sScrollX": "100%", //This is what made my columns increase in size.
+                      // "bScrollCollapse": true,
+                      // "sScrollY": "320px",
+                      responsive: true,
+                      processing: true,
+                      lengthMenu: [[5, 10, -1], [5, 10, "All"]],
+                      "aoColumns": [
+                          { "sWidth": "1%" }, // 2nd column width 
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+						  { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+
+                          // { "sWidth": "40%" } // 3rd column width and so on 
+                        ],
+                      "bInfo" : false,
+                      "language":{
+                        "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json"
+                      }
+                    });
+                    $('#mitabla').parent().addClass('table-responsive');
+                  } );
+          </script>
+          <style>
+          .dataTables_wrapper .dataTables_paginate .paginate_button {
+              padding : 0px;
+              margin-left: 0px;
+              display: inline;
+              border: 0px;
+              font-size: 9pt !important;
+          }
+
+          .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+              border: 0px;
+
+          }
+          .form-control {
+            height: 28px;
+            padding: 6px 12px;
+            font-size: 9pt;
+            }
+            label{
+              font-size: 9pt!important;
+            }
+            .dataTables_info{
+              font-size: 9pt!important;
+              text-align: left;
+            }
+            .mitabla{
+              widht: -50px!important;
+              /* font-size: 9pt!important; */
+            }
+            .headd, .boddy{
+              font-size: 10pt!important;
+            }
+          </style>
+
+</div>
   
 </div>
 <script>
