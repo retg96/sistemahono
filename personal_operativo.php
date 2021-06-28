@@ -11,7 +11,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>Personal Operativo</span>
        </strong>
-         <a href="add_operativo.php" class="btn btn-info pull-right">AGREGAR CARRERA</a>
+         <a href="add_operativo.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a>
       </div>
 
       <div class="panel-body">
