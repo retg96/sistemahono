@@ -1,84 +1,89 @@
 <?php
   $page_title = 'Convenios Individuales';
   require_once('includes/load.php');
+  include_once('layouts/header.php');
+
 ?>
+<!-- <!DOCTYPE html>
+<html lang="en">-->
 <head>
-    <meta charset="utf-8">
-    <title>Patrones Responsive Web Design</title>
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 </head>
-<style>
-/* .box {
-    max-width: 1200px;
-    width: 95%;
-    margin: 0 auto;
-} */
 
-@media (min-width: 768px) {
-    .con-sidebar,.box_2 {
-        display: flex;
-        gap: 2rem;
-    }
-    .detalles{
-        flex: 1;
-    }
-    .tabla {
-        flex: 3;
-    } 
-}
+<body>
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <strong>
+          <span class="glyphicon glyphicon-th"></span>
+          <span>Convenios Individuales</span>
+       </strong>
+         <!-- <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a> -->
+      </div>
 
 
-</style>
-		<div class="contentTable">
-			<div class="contentTab">
-				<div>
-					<h2>Detalles Convenio operativo</h2>
-				</div>
-				<div class="espacio2"></div>
-				<div>
-				<?php 
-					$idconvenio = $_GET['id'];
-					$query = "SELECT personaloperativo.id,personaloperativo.ClaveSie,personaloperativo.NombreCompleto,personaloperativo.Calle, personaloperativo.NoExterior, personaloperativo.NoInterior, personaloperativo.Fraccionamiento, personaloperativo.RFC,regimen.Regimen FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime=regimen.id INNER JOIN convenioope ON convenioope.IdPersonalOperativo=personaloperativo.id WHERE convenioope.id=".$_GET['id']." ";
-					$resultado = $db->query($query);
+<div class="container">
+<br>
+  <!-- <h2>Dynamic Tabs</h2> -->
+  <ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
+    <li><a data-toggle="tab" href="#menu1">Horarios</a></li>
+    <!-- <li><a data-toggle="tab" href="#menu2">Home</a></li>
+    <li><a data-toggle="tab" href="#menu3">Menu 3</a></li> -->
+  </ul>
 
-					while($f=mysqli_fetch_array($resultado)) {
-						$idpersonal=$f['id'];
-				?>
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>Datos Personales</h3>
+        <?php 
+          $idconvenio = $_GET['id'];
+          $query = "SELECT personaloperativo.id,personaloperativo.ClaveSie,personaloperativo.NombreCompleto,personaloperativo.Calle, personaloperativo.NoExterior, personaloperativo.NoInterior, personaloperativo.Fraccionamiento, personaloperativo.RFC,regimen.Regimen FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime=regimen.id INNER JOIN convenioope ON convenioope.IdPersonalOperativo=personaloperativo.id WHERE convenioope.id=".$_GET['id']." ";
+          $resultado = $db->query($query);
+
+          while($f=mysqli_fetch_array($resultado)) {
+          $idpersonal=$f['id'];
+          ?>
+      <label>Numero SIE:</label>
+      <input class="form-control" type='text' name='ClaveSie' value="<?php echo $f['ClaveSie']?>" readonly>
 					
-                   <div class='box con-sidebar'>
-                   		<div>
-                            <label>Numero SIE:</label><br>
-                            <input type='text' name='ClaveSie' value="<?php echo $f['ClaveSie']?>" readonly><br>
-                            <label>Nombre:</label><br>
-                            <input type='text' name='Nombre' value="<?php echo $f['NombreCompleto']?>" readonly><br>
+      <label>Nombre:</label>
+      <input class="form-control" type='text' name='Nombre' value="<?php echo $f['NombreCompleto']?>" readonly>
                             
-                            <label>Domicilio:</label><br>
-                            <textarea type='text' name='Domicilio' readonly><?php echo $f['Calle'], ', ',$f['NoExterior'], ' ',$f['NoInterior'],', ' ,$f['Fraccionamiento'] ?></textarea><br>
-                            <label>RFC:</label><br>
-                            <input type='text' name='RFC' value="<?php echo $f['RFC']?>" readonly><br>
-                        	<label>Regimen:</label><br>
-                            <input type='text' name='Regimen' value="<?php echo $f['Regimen']?>" readonly><br>
-                   		</div>
-                        <div class="box_2">
-						<!-- <div class="titulo">
-                        	<h2>HORARIO</h2>
-						</div> -->
-                       		<table border=1>
-					  <tr>
+      <label>Domicilio:</label>
+      <textarea class="form-control" type='text' name='Domicilio' readonly><?php echo $f['Calle'], ', ',$f['NoExterior'], ' ',$f['NoInterior'],', ' ,$f['Fraccionamiento'] ?></textarea>
+      <label>RFC:</label>
+      <input class="form-control" type='text' name='RFC' value="<?php echo $f['RFC']?>" readonly>
+      <label>Regimen:</label>
+      <input class="form-control" type='text' name='Regimen' value="<?php echo $f['Regimen']?>" readonly> <br>
+                   		
+      
+</div>
+<!---END-->
 
-					    <th>Lunes</th>
-					    <th>Martes</th>
-					    <th>Miércoles</th>
-					    <th>Jueves</th>
-					    <th>Viernes</th>
-					    <th>Sábado</th>
-					    <th>Domingo</th>
-					    <th>Numero de horas semanales</th>
-					  </tr>
-					  <tr>
+
+<div id="menu1" class="tab-pane fade">
+  <h3>Horarios</h3>
+  <table class="table table-bordered table-striped" id="mitabla">
+        					<thead class="headd">
+					  		<tr>
+
+							<th>Lunes</th>
+							<th>Martes</th>
+							<th>Miércoles</th>
+							<th>Jueves</th>
+							<th>Viernes</th>
+							<th>Sábado</th>
+							<th>Domingo</th>
+							<th>Numero de horas semanales</th>
+						</tr>
+						</thead>
+						<tbody class="boddy">
+						<tr>
 					  	<?php 
 					  	
 					  	$query ="SELECT horariooperativo.id, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.id WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
@@ -88,7 +93,7 @@
 					  	$resultado = $db->query($query);
     					while($f=mysqli_fetch_array($resultado)) {
 
-    					$h1= new DateTime($f['LunesHoraI']);
+    				$h1= new DateTime($f['LunesHoraI']);
 						$h2= new DateTime($f['LunesHoraF']);
 						$h3= new DateTime($f['MartesHoraI']);
 						$h4= new DateTime($f['MartesHoraF']);
@@ -144,17 +149,24 @@
 					
 					  </tr>
 					  <?php } ?>
+					  </tbody>
 					</table>
-                    <?php
-					}
-				
-					?>
-
-				</div>
-				</div>
-				<br><button type='' class='btnSE pull-left' onclick="location.href='convenio_ope_detalles.php?id=<?php echo $idpersonal ?>'">VOLVER</button><br><br><br>
-                
-			</div>
-		</div>
-	</div>
+          <?php } ?>
 </div>
+<!---END-->
+<button type='' class="btn btn-danger" onclick="location.href='convenio_ope_detalles.php?id=<?php echo $idpersonal ?>'">Regresar</button><br><br>
+
+  </div>
+  
+</div>
+<script>
+$('#myTab a').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+}) 
+</script>
+
+</body>
+
+
+<?php include_once('layouts/footer.php'); ?>

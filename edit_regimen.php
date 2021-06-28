@@ -90,7 +90,7 @@ if(!$regimen){
         <div class="panel-body">
          <div class="col-md-12">
          <div class="alert alert-success hide"></div>	
-         <form id="register_form" novalidate method="post" action="edit_regimen.php?id=<?php echo (int)$regimen['id'] ?>" class="clearfix">
+         <form id="register_form" method="post" action="edit_regimen.php?id=<?php echo (int)$regimen['id'] ?>" class="clearfix">
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
