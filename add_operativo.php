@@ -14,7 +14,7 @@
   $dptos = departamentos();
   $all_sni = sni();
   $motivo_ausencia = ausencia();
-  $personales = personal();
+  $personales = personal_operativo();
 ?>
 <?php
  	if(isset($_POST['add_personal'])){
@@ -415,7 +415,7 @@
                           
                       <!-- <input type="button" name="previous" class="previous-form btn btn-default" value="Regresar" /> -->
                       <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);">
-                      <button type="submit" name="submit" class="btn btn-primary">Agregar proveedor</button> 
+                      <button type="submit" name="submit" class="btn btn-primary">Agregar</button> 
                 
                         <!-- <input type="button" name="previous" class="previous-form btn btn-default" value="Regresar" />
                         <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />  -->

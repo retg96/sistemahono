@@ -253,7 +253,7 @@ function page_require_level($required_level) {
 function personal(){
   global $db;
   $results = array();
-  $sql = "SELECT id,NoSie,Nombre,ApPat,ApMat,FechaNacimiento,RFC, CURP,NumeroCelular FROM personal";
+  $sql = "SELECT * FROM personal";
  // $sql .="g.group_proveedores ";
 //$sql .="FROM proveedores u ";
   //$sql .="LEFT JOIN proveedores_groups g ";
@@ -261,6 +261,19 @@ function personal(){
   $result = find_by_sql($sql);
   return $result;
 }
+
+function personal_operativo(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM personaloperativo";
+ // $sql .="g.group_proveedores ";
+//$sql .="FROM proveedores u ";
+  //$sql .="LEFT JOIN proveedores_groups g ";
+  //$sql .="ON g.group_level=u.proveedores_level ORDER BY u.name ASC";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
 
 function nacionalidades(){
   global $db;

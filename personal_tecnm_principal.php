@@ -11,7 +11,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>Personal TECNM</span>
        </strong>
-         <a href="add_operativo.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a>
+         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a>
       </div>
 
       <div class="panel-body">
