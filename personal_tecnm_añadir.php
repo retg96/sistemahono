@@ -20,6 +20,153 @@
 <?php include_once('layouts/header.php'); ?>
 <!-- <script type="text/javascript" src="libs/js/form.js"></script> -->
 <script>
+  $(document).ready(function(){  
+    var form_count = 1, previous_form, next_form, total_forms;
+    total_forms = $("fieldset").length;  
+    $(".next-form").click(function(){
+      previous_form = $(this).parent();
+      next_form = $(this).parent().next();
+      next_form.show();
+      previous_form.hide();
+      // setProgressBarValue(++form_count);
+    });  
+    $(".previous-form").click(function(){
+      previous_form = $(this).parent();
+      next_form = $(this).parent().prev();
+      next_form.show();
+      previous_form.hide();
+      setProgressBarValue(--form_count);
+    });
+    // Handle form submit and validation
+    $( "#register_form" ).add_personal(function(event) {    
+      // var error_message = '';
+    //   if(!$("#sie").val()) {
+    //     error_message+="Please Fill SIE Input";
+    // }
+    //   if(!$("#nombre").val()) {
+    //       error_message+="Please Fill Name Input";
+    //   }
+    //   if(!$("#apPat").val()) {
+    //       error_message+="<br>Please Fill Apellido Paterno";
+    //   }
+    //   if(!$("#apMat").val()) {
+    //       error_message+="<br>Please Fill Apellido Paterno";
+    //   }
+    //   if(!$("#titAbre").val()) {
+    //     error_message+="<br>Please Fill Titulo Abreviado";
+    //   }
+    //   if(!$("#fecNac").val()) {
+    //     error_message+="<br>Please Fill Fecha Nacimiento";
+    //   }
+    //   if(!$("#nacionalidad").find(":selected").text()) {
+    //     error_message+="<br>Please Fill Nacionalidad";
+    //   }
+
+    //   if(!$("#sexo").val()) {
+    //     error_message+="<br>Please Fill Sexo";
+    //   }
+    //   if(!$("#rfc").val()) {
+    //     error_message+="<br>Please Fill RFC";
+    //   }
+    //   if(!$("#curp").val()) {
+    //     error_message+="<br>Please Fill CURP";
+    //   }
+    //   if(!$("#mobile").val()) {
+    //     error_message+="<br>Please Fill Mobile";
+    //   }
+    //   if(!$("#address").val()) {
+    //     error_message+="<br>Please Fill Calle";
+    //   }
+    //   if(!$("#numExt").val()) {
+    //     error_message+="<br>Please Fill Numero Exterior";
+    //   }
+    //   if(!$("#numInt").val()) {
+    //     error_message+="<br>Please Fill Numero Interior";
+    //   }
+    //   if(!$("#fracc").val()) {
+    //     error_message+="<br>Please Fill Fraccionamiento";
+    //   }
+    //   if(!$("#cp").val()) {
+    //     error_message+="<br>Please Fill Codigo Postal";
+    //   }
+    //   if(!$("#ciudad").val()) {
+    //     error_message+="<br>Please Fill Ciudad";
+    //   }
+    //   if(!$("#estado").val()) {
+    //     error_message+="<br>Please Fill Estado";
+    //   }
+    //   if(!$("#email").val()) {
+    //     error_message+="<br>Please Fill Correo";
+    //   }
+    //   if(!$("#nivelEstudio").val()) {
+    //     error_message+="<br>Please Fill Nivel Estudio";
+    //   }
+    //   if(!$("#profe").val()) {
+    //     error_message+="<br>Please Fill Numero Profesion";
+    //   }
+    //   if(!$("#funcion").val()) {
+    //     error_message+="<br>Please Fill Numero Puesto";
+    //   }
+    //   if(!$("#regimen").val()) {
+    //     error_message+="<br>Please Fill Numero Regimen";
+    //   }
+    //   if(!$("#interno").val()) {
+    //     error_message+="<br>Please Fill Numero Interno";
+    //   }
+    //   if(!$("#claveP").val()) {
+    //     error_message+="<br>Please Fill Clave Personal";
+    //   }
+    //   if(!$("#tipopersona").val()) {
+    //     error_message+="<br>Please Fill Tipo de Persona";
+    //   }
+    //   if(!$("#areaacademica").val()) {
+    //     error_message+="<br>Please Fill AREA ACADEMICA";
+    //   }
+    //   if(!$("#departamento").val()) {
+    //     error_message+="<br>Please Fill DPTO";
+    //   }
+    //   if(!$("#evaluacionDepartamento").val()) {
+    //     error_message+="<br>Please Fill EVALUACION DPTO";
+    //   }
+    //   if(!$("#evaluacionAlumno").val()) {
+    //     error_message+="<br>Please Fill EVALUACION ALUMNO";
+    //   }
+    //   if(!$("#gobiernoF").val()) {
+    //     error_message+="<br>Please Fill GOBIERNO FEDERAL";
+    //   }
+    //   if(!$("#sep").val()) {
+    //     error_message+="<br>Please Fill SEP";
+    //   }
+    //   if(!$("#rama").val()) {
+    //     error_message+="<br>Please Fill Rama";
+    //   }
+    //   if(!$("#sni").val()) {
+    //     error_message+="<br>Please Fill SNI";
+    //   }
+    //   if(!$("#fecIng").val()) {
+    //     error_message+="<br>Please Fill Fecha Ingreso";
+    //   }
+    //   if(!$("#estatus").val()) {
+    //     error_message+="<br>Please Fill Estatus";
+    //   }
+
+
+      // // Display error if any else submit form
+      // if(error_message) {
+      //     $('.alert-success').removeClass('hide').html(error_message);
+      //     return false;
+      // } else {
+      //     return true;	
+      // }    
+    });  
+  });
+</script>
+<style type="text/css">
+  #register_form fieldset:not(:first-of-type) {
+    display: none;
+  }
+</style>
+<script>
 	function habilitarSelect(valor){
 		if(valor==1){
 		document.getElementById("interno").disabled = false;
@@ -58,13 +205,14 @@
         <div class="panel-body">
          <div class="col-md-12">
          <div class="alert alert-success hide"></div>	
-         <form id="register_form" method="post" action="añadir_personal.php" class="clearfix">
+         <form novalidate id="register_form" method="post" action="añadir_personal.php" class="clearfix">
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
 
-                  <!-- <fieldset>
-                    <h2>Paso 1: Datos Personales</h2> -->
+
+                  <fieldset>
+                    <h2>Paso 1</h2>
                         <div class="form-group">
                             <label>Número de Sie:</label>	
                             <input type=""  class="form-control" name='NoSie' required>
@@ -86,7 +234,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Nacionalidad:</label><br>
+                            <label>Nacionalidad:</label>
 						                <select name="departamento" class="form-control" name='Nacionalidad' required>
                                 <option value=''>Seleccione una opcion</option>";
 						                    <?php 
@@ -100,7 +248,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Sexo:</label><br>
+                            <label>Sexo:</label>
 						                <select class="form-control" name='Sexo' required>
                                 <option value=''>Seleccione una opcion</option>
                                 <option value='-'>-</option>
@@ -112,12 +260,12 @@
                             <label>RFC</label>	
 							              <input type="" class="form-control" name='RFC' required>
                         </div>
-                            <!-- <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);">
-                            <input type="button" class="next-form btn btn-info" value="Siguiente"/> -->
-                 <!-- </fieldset>
+                        <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);">
+                            <input type="button" class="next-form btn btn-info" value="Siguiente"/>
+                 </fieldset>
 
                  <fieldset>
-                    <h2> Paso 2: Domicilio</h2> -->
+                    <h2> Paso 2:</h2>
                     <div class="form-group">
                         <label>CURP</label>	
 							          <input type="" class="form-control" name='CURP' required>
@@ -142,6 +290,12 @@
                         <label>Fraccionamiento</label>	
 							          <input type="text" class="form-control" name='Fraccionamiento' required>
                     </div>
+                    <input type="button" name="previous" class="previous-form btn btn-danger" value="Regresar" />
+                    <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                  </fieldset>
+
+                  <fieldset>
+                    <h2> Paso 3: </h2>
                     <div class="form-group">
                         <label>Código Postal</label>	
 							          <input type="text" class="form-control" name='CP' required>
@@ -158,15 +312,9 @@
                         <label>Email</label>	
 							          <input type="text" class="form-control" name='Email' required>
                     </div>
-                        <!-- <input type="button" name="previous" class="previous-form btn btn-default" value="Regresar" />
-                        <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" /> -->
-                  <!-- </fieldset> -->
-
-                    <!-- <fieldset>
-                    <h2> Paso 3: Nivel de Estudios</h2> -->
 
                     <div class="form-group">
-                        <label>Nivel de Estudios:</label><br>
+                        <label>Nivel de Estudios:</label>
 						            <select name='NivelEstudio' class="form-control" required>
                           <option value=''>Seleccione una opcion</option>
 						              <?php 
@@ -183,9 +331,14 @@
                         <label>Profesión</label>	
 							          <input type="text" class="form-control" name='Profesion' required>
                     </div>
+                    <input type="button" name="previous" class="previous-form btn btn-danger" value="Regresar" />
+                        <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                  </fieldset>
 
+                  <fieldset>
+                    <h2> Paso 4: </h2>
                     <div class="form-group">
-                      <label>Función / Puesto</label><br>
+                      <label>Función / Puesto</label>
                         <select name="Puesto" class="form-control" name='Puesto' required>
                         <option value=''>Seleccione una opcion</option>
                         <?php 
@@ -213,7 +366,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Interno:</label><br>
+                      <label>Interno:</label>
                       <select class="form-control" name='Interno' id='interno' disabled='true' required>
                           <option value=''>Seleccione una opcion</option>
                           <option value='S'>Si</option>
@@ -226,7 +379,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Área Académica</label><br>
+                      <label>Área Académica</label>
                         <select name='AreaAcademica' class="form-control" required>
                         <option value=''>Seleccione una opcion</option>
                         <?php 
@@ -241,7 +394,7 @@
 
 
                         <div class="form-group">
-                            <label>Departamento:</label><br>
+                            <label>Departamento:</label>
                               <select name='Departamento' class="form-control" required>
                               <option value=''>Seleccione una opcion</option>
                               <?php 
@@ -253,9 +406,14 @@
                             <?php } ?>
                             </select>      
                         </div>
+                        <input type="button" name="previous" class="previous-form btn btn-danger" value="Regresar" />
+                        <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />
+                  </fieldset>
 
+                  <fieldset>
+                    <h2> Paso 5: </h2>
                         <div class="form-group">
-                        <label>Evaluación del Departamento:</label><br>
+                        <label>Evaluación del Departamento:</label>
                         <select class="form-control" name='EvaluacionDepartamento' required>
                             <option value=''>Seleccione una opcion</option>
                             <option value='1'>Insuficiente</option>
@@ -268,7 +426,7 @@
                         </div>
 
                         <div class="form-group">
-                        <label>Evaluación del Alumno:</label><br>
+                        <label>Evaluación del Alumno:</label>
                         <select class="form-control" name='EvaluacionAlumno' required>
                           <option value=''>Seleccione una opcion</option>
                           <option value='1'>Insuficiente</option>
@@ -281,7 +439,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Tipo de Persona:</label><br>
+                            <label>Tipo de Persona:</label>
                               <select name='TipoPersona' class="form-control" required>
                               <option value=''>Seleccione una opcion</option>
                               <?php 
@@ -315,7 +473,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Motivo de Ausencia:</label><br>
+                            <label>Motivo de Ausencia:</label>
                               <select name='MotivoAusencia' class="form-control" required>
                               <option value=''>Seleccione una opcion</option>
                               <?php 
@@ -329,7 +487,7 @@
                         </div>
 
                         <div class="form-group">
-                        <label>Estatus:</label><br>
+                        <label>Estatus:</label>
                         <select class="form-control" name='Estatus' required>
                             <option value=''>Seleccione una opcion</option>
                             <option value='Activo'>Activo</option>
@@ -338,9 +496,11 @@
                         </div>
  
                       <!-- <input type="button" name="previous" class="previous-form btn btn-default" value="Regresar" /> -->
-                      <input type="button" class="btn btn-danger" value="Cancelar" onclick="history.go(-1);">
+                      <input type="button" name="previous" class="previous-form btn btn-danger" value="Regresar" />
                       <button type="submit" name="submit" class="btn btn-primary">Agregar</button> 
-                
+                      <!-- <input type="button" name="previous" class="btn btn-danger" value="Regresar" />
+                        <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" /> -->
+                  </fieldset>
                         <!-- <input type="button" name="previous" class="previous-form btn btn-default" value="Regresar" />
                         <input type="button" name="next" class="next-form btn btn-info" value="Siguiente" />  -->
                     <!-- </fieldset> -->
