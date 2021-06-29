@@ -58,7 +58,7 @@
         <div class="panel-body">
          <div class="col-md-12">
          <div class="alert alert-success hide"></div>	
-         <form novalidate id="register_form" method="post" action="añadir_personal.php" class="clearfix">
+         <form id="register_form" method="post" action="añadir_personal.php" class="clearfix">
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-6">
