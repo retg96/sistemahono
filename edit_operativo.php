@@ -56,7 +56,7 @@ if(!$fecha){
             $p_fl   = remove_junk($db->escape($_POST['FL']));
 
 
-            $sql = "INSERT INTO personaloperativo(ClaveSie, NombreCompleto, FechaNacimiento, Sexo, RFC, Curp, NumeroCelular, Calle, NoExterior, NoInterior, Fraccionamiento,CP,Ciudad,IdRegime, IdNivelEstudio, IdPuesto, IdNacionalidad, IdDepartamento) VALUES ('$ClaveSie','$Nombre','$Nacimiento','$Sexo','$RFC','$CURP','$Celular','$Calle', '$NoExterior', '$NoInterior', '$Fraccionamiento','$CP','$Ciudad','$Regimen','$NivelEstudio','$Puesto','$Nacionalidad','$Departamento')";
+            // $sql = "INSERT INTO personaloperativo(ClaveSie, NombreCompleto, FechaNacimiento, Sexo, RFC, Curp, NumeroCelular, Calle, NoExterior, NoInterior, Fraccionamiento,CP,Ciudad,IdRegime, IdNivelEstudio, IdPuesto, IdNacionalidad, IdDepartamento) VALUES ('$ClaveSie','$Nombre','$Nacimiento','$Sexo','$RFC','$CURP','$Celular','$Calle', '$NoExterior', '$NoInterior', '$Fraccionamiento','$CP','$Ciudad','$Regimen','$NivelEstudio','$Puesto','$Nacionalidad','$Departamento')";
 
             $query   = "UPDATE personaloperativo SET";
             $query  .=" ClaveSie ='{$p_fa}', ";
