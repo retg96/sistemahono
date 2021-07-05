@@ -4,6 +4,7 @@
   $idconvenio = $_GET["id"];
 ?>
 <?php include_once('layouts/header.php'); ?>
+
 <?php 
 		    if(isset($idconvenio)){
 	    ?>
@@ -36,7 +37,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>Horarios Personal</span>
        </strong>
-         <a href="add_horario_ope.php?id=<?php echo $convenio; ?>" class="btn btn-info pull-right">AGREGAR HORARIO</a>
+         <a href="add_horario.php?id=<?php echo $convenio; ?>" class="btn btn-info pull-right">AGREGAR HORARIO</a>
       </div>
 
 
@@ -159,6 +160,8 @@
               <a href="delete_horario.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
+              <!-- <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorario(<?=$f['id']?>,'<?=$f['id']?>' )"></button></div> -->
+
            </div>
            </td>
 					  </tr>
@@ -224,6 +227,19 @@
               //         })
               // })
               </script>
+              <!-- <script>
+function ConfirmBorrarHorario(horario,nosie) {
+          
+          if (confirm("¿Estas seguro de eliminar el registro del horario seleccionado? ")){
+          
+             window.location.assign("delete_horario.php" + "?horario=" + horario + "&nosie=" + nosie)
+       
+          }else{
+       
+              alert("Operacion cancelada");
+       
+          }
+      }</script> -->
               <script>
                   $(document).ready(function() {
                     $('#mitabla').DataTable({
@@ -258,6 +274,19 @@
                     $('#mitabla').parent().addClass('table-responsive');
                   } );
           </script>
+          <script>
+function ConfirmBorrarHorario(horario,nosie) {
+          
+          if (confirm("¿Estas seguro de eliminar el registro del horario seleccionado? ")){
+          
+             window.location.assign("delete_horario.php" + "?horario=" + horario + "&nosie=" + nosie)
+       
+          }else{
+       
+              alert("Operacion cancelada");
+       
+          }
+      }</script>
           <style>
           .dataTables_wrapper .dataTables_paginate .paginate_button {
               padding : 0px;

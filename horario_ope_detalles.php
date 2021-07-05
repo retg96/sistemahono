@@ -4,6 +4,7 @@
   $idconvenio = $_GET["id"];
 ?>
 <?php include_once('layouts/header.php'); ?>
+
 <?php 
 		    if(isset($idconvenio)){
 	    ?>
@@ -132,6 +133,9 @@
               <a href="delete_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
+
+              <!-- <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorario(<?=$f['IdHorarioOperativo']?>,'<?=$f['IdConvenio']?>' )"></button></div> -->
+
            </div>
            </td>
 					  </tr>
