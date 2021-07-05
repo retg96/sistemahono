@@ -9,7 +9,9 @@
 	    ?>
 
         <?php 
-			$result=$db->query('SELECT * FROM convenio WHERE id ='.$idconvenio.'') or die (mysqli_error());
+			// $result=$db->query('SELECT * FROM horariodocentemateria WHERE id ='.$idconvenio.'') or die (mysqli_error());
+      $result=$db->query('SELECT * FROM convenio WHERE id ='.$idconvenio.'') or die (mysqli_error());
+
 				while($fi=mysqli_fetch_array($result)) {
     				$result2=$db->query('SELECT * FROM personal WHERE id ='.$fi['IdPersonal'].'') or die (mysqli_error());
     			}
@@ -21,6 +23,7 @@
 		<?php } 
 			$convenio='';
 			$result2=$db->query( 'SELECT id FROM convenio WHERE id ='.$idconvenio.'')or die (mysqli_error());
+      // $result2=$db->query( 'SELECT id FROM horariodocentemateria WHERE id ='.$idconvenio.'')or die (mysqli_error());
 			while($f=mysqli_fetch_array($result2)) {
 			$convenio=$f['id'];
 			}
@@ -44,6 +47,8 @@
         <thead class="headd">
 			<tr>
                 <th>Sie</th>
+                <th>Materia</th>
+                <th>Modalidad</th>
                 <th>Lunes</th>
                 <th>Martes</th>
                 <th>Miercoles</th>
@@ -58,7 +63,24 @@
             <tbody class="boddy">
             <?php 
 					  	
-					  	$query ="SELECT horariodocentemateria.id, horariodocentemateria.LunesHoraI, horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, horariodocentemateria.DomingoHoraF, convenio.IdPersonal FROM horariodocentemateria INNER JOIN convenio ON horariodocentemateria.IdConvenio = convenio.id WHERE horariodocentemateria.IdConvenio =".$idconvenio;
+					  	$query ="SELECT horariodocentemateria.id,horariodocentemateria.IdMateria,horariodocentemateria.IdModalidad, horariodocentemateria.LunesHoraI, horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, horariodocentemateria.DomingoHoraF, convenio.IdPersonal FROM horariodocentemateria INNER JOIN convenio ON horariodocentemateria.IdConvenio = convenio.id WHERE horariodocentemateria.IdConvenio =".$idconvenio;
+              // $query ="SELECT horariodocentemateria.id,horariodocentemateria.IdMateria,horariodocentemateria.IdModalidad, horariodocentemateria.LunesHoraI, horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, horariodocentemateria.DomingoHoraF, materia.Materia, modalidad.Modalidad, carrera.Carrera
+              //  FROM horariodocentemateria 
+              //  INNER JOIN materia ON horariodocentemateria.IdMateria = materia.id
+              //  INNER JOIN modalidad ON horariodocentemateria.IdModalidad = modalidad.id
+              //  INNER JOIN carrera ON horariodocentemateria.IdCarrera = carrera.id
+              //  WHERE horariodocentemateria.IdConvenio =".$idconvenio;
+
+					  	// $query ="SELECT horariodocentemateria.id,horariodocentemateria.IdMateria,horariodocentemateria.IdModalidad, horariodocentemateria.LunesHoraI, 
+              // horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, 
+              // horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, 
+              // horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, 
+              // horariodocentemateria.DomingoHoraF, convenio.IdPersonal, materia.id, materia.Materia, modalidad.id,modalidad.Modalidad 
+              // FROM horariodocentemateria 
+              // INNER JOIN convenio ON horariodocentemateria.IdConvenio = convenio.id
+              // INNER JOIN materia ON horariodocentemateria.IdMateria = materia.id 
+              // INNER JOIN modalidad ON horariodocentemateria.IdModalidad = modalidad.id  
+              // WHERE horariodocentemateria.IdConvenio =".$idconvenio;
 
 					  	
 					  	$resultado = $db->query($query);
@@ -112,9 +134,13 @@
 							$horasD = $h13->diff($h14);
 							$horasdiarias = $horasD->format('%H');
 							$cont+=$horasdiarias;
+
+    						
     						?>
 					  <tr>
               <td><?php echo $f2['NoSie'];?></td>
+              <td><?php echo $f['IdMateria'];?></td>
+              <td><?php echo $f['IdModalidad'];?></td>
 					    <td><?php echo $f['LunesHoraI']," - ",$f['LunesHoraF'];?></td>
 					    <td><?php echo $f['MartesHoraI']," - ",$f['MartesHoraF'];?></td>
 					    <td><?php echo $f['MiercolesHoraI']," - ",$f['MiercolesHoraF'];?></td>
@@ -137,8 +163,9 @@
            </td>
 					  </tr>
 					  <?php
-  						}
+  						
   					}
+          }
  					?>
                 
            </tbody>
@@ -218,6 +245,8 @@
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
 
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],

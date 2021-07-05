@@ -4,83 +4,15 @@
 	 $page_title = 'Editar Horario';
      require_once('includes/load.php');
 	 include_once('layouts/header.php');
-    //  include_once('layouts/header.php');
+	$all_carreras=carrera();
+	$all_materias=materia();
+	$all_modalidades=modalidad();
 	?>
-	<!-- <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-escale=1.0">
-	<title>Editar horario personal operativo | ITA</title>
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-	<link rel="stylesheet" type="text/css" href="css/estiloMenu.css">
-	<link rel="stylesheet"  href="fonts/fonts.css">
-	<style>
-	@import url('https://fonts.googleapis.com/css2?family=Gruppo&family=Michroma&display=swap');
-	</style>
 
-	<style>span{color:#fff;}</style> -->
 	
 </head>
 <body>
-<!-- <div class="padre"> -->
-	<!-- <div class="contenedor-menuV">
-		<div class="espacio" >
-			<div>
-			<h4> MENU </h4>
-		</div>
-		</div>
 
-		<div class="espacio"></div>
-		<div class="pull-center">
-			<img src='img/logoITA.jpg' class='imgRedonda'/>
-		</div>
-		<div class="espacio2"></div>
-		<div>
-			<ul class="menu">
-				<li><a href="#">PERSONAL DOCENTE</a>
-					<ul>
-					<li><a href="personal_tecnm_principal.php">PERSONAL DOCENTE</a></li>
-					<li><a href="horarios.php">HORARIOS DOCENTE</a></li>
-					<li><a href="convenios.php">CONVENIOS DOCENTE</a></li>
-					</ul>
-				</li>
-				<li><a href="#">PERSONAL OPERATIVO</a>
-					<ul>
-					<li><a href="personal_tecnm_operativo.php">PERSONAL OPERATIVO</a></li>
-					<li><a href="horarios_operativo.php">HORARIOS OPERATIVOS</a></li>
-					<li><a href="convenios_operativo.php">CONVENIOS OPERATIVO</a></li>
-					</ul>
-				</li>
-				<li><a href="pagos.php">PAGOS</a></li>
-				<li><a href="#">TABLAS</a>
-					<ul>
-					<li><a href="seleccion_tablas.php">SELECCION TABLAS</a>
-					<li><a href="control_acceso.php">CONTROL DE ACCESO</a></li>
-					<li><a href="materias.php">Materias</a></li>
-					<li><a href="carreras.php">Carreras</a></li>
-					<li><a href="subdireccion.php">Subdirecciones</a></li>
-					<li><a href="departamento.php">Departamentos</a></li>
-					</ul>
-				
-				</li>
-				<li><a href="inicio_sesion.html" class=" close ">CERRAR SESION </a> <a href="inicio_sesion.html" class=" icon-enter"> </a> </li>
-
-			</ul>
-		</div>
-	</div>
-
-	<div class="tablaPrincipal">
-		<div class="title">
-			<div >
-				<ul class="navigationBarM pull-left">
-					<li><a href="#" class="menu-bar icon-menu3"> </a></li>
-				</ul>
-			</div>
-			<div>
-			<ul class="navigationBar pull-right">
-				<li><a href="#"> NOMBRE DE USUARIO </a><a class="icon-user"> </a></li>
-
-			</ul>
-			</div>
-		</div> -->
 		<div class="row">
   <div class="col-md-12">
       <div class="panel panel-default">
@@ -91,17 +23,11 @@
          </strong>
         </div>
 
-		<!-- <div class="contentTable"> -->
-			<!-- </div> -->
-			<!-- <div class="contentTab"> -->
-				<!-- <div>
-					<h2>EDITAR REGISTRO DEL HORARIO</h2>
-				</div> -->
-				<!-- <div class="espacio2"></div> -->
+	
 				<div class="panel-body">
 				<div class="col-md-12">
 				<div class="alert alert-success hide"></div>	
-					<form method="post" action="editar_horario_operativo_existente.php">
+					<form method="post" action="editar_horario_personal.php">
 						<?php 
 						$idhorario = $_GET["id"];
 						$conv="";
@@ -128,6 +54,48 @@
 								<div class="form-group">
 									<label>Clave del personal:</label>
 									<input type="" class="form-control" name="clavesie" value="<?php echo $c['NoSie']; ?>" readonly>
+								</div>
+								<!-- <div class="form-group">
+									<label>Carrera:</label>
+									<input type="" class="form-control" name="clavesie" value="<?php echo $f['IdCarrera']; ?>">
+								</div> -->
+								<div class="form-group">
+                        <label for="smi">Carrera</label>
+                        <select class="form-control" name="search" id="fr" >
+                          <option value="">Selecciona una opcion</option>
+                          <?php  foreach ($all_carreras as $carrera): ?>
+                            <option value="<?php echo (int)$carrera['id']; ?>" <?php if($f['IdCarrera'] === $carrera['id']): echo "selected"; endif; ?> >
+                              <?php echo remove_junk($carrera['Carrera']); ?></option>
+                              <?php endforeach; ?>
+                        </select>                    
+                    </div>
+					<div class="form-group">
+                        <label for="smi">Materia</label>
+                        <select class="form-control" name="materia" id="fr" >
+                          <option value="">Selecciona una opcion</option>
+                          <?php  foreach ($all_materias as $materia): ?>
+                            <option value="<?php echo (int)$materia['id']; ?>" <?php if($f['IdMateria'] === $materia['id']): echo "selected"; endif; ?> >
+                              <?php echo remove_junk($materia['Materia']); ?></option>
+                              <?php endforeach; ?>
+                        </select>                    
+                    </div>
+					<div class="form-group">
+                        <label for="smi">Modalidad</label>
+                        <select class="form-control" name="modalidad" id="fr" >
+                          <option value="">Selecciona una opcion</option>
+                          <?php  foreach ($all_modalidades as $modalidad): ?>
+                            <option value="<?php echo (int)$modalidad['id']; ?>" <?php if($f['IdModalidad'] === $modalidad['id']): echo "selected"; endif; ?> >
+                              <?php echo remove_junk($modalidad['Modalidad']); ?></option>
+                              <?php endforeach; ?>
+                        </select>                    
+                    </div>
+								<div class="form-group">
+									<label>Aula:</label>
+									<input type="" class="form-control" name="aula" value="<?php echo $f['Aula']; ?>">
+								</div>
+								<div class="form-group">
+									<label>Grupo:</label>
+									<input type="" class="form-control" name="grupo" value="<?php echo $f['Grupo']; ?>">
 								</div>
 							
 								<!-- <div> -->

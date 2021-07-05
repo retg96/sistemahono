@@ -482,3 +482,11 @@ function modalidad(){
   return $result;
 }
 
+function materia(){
+  global $db;
+  $results = array();
+  $sql = "SELECT * FROM materia";
+  $result = find_by_sql($sql);
+  return $result;
+}
+
