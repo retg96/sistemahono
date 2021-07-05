@@ -424,14 +424,14 @@ function convenio(){
 
 function find_all_convenios(){
   global $db;
-  $sql = "SELECT convenio.id,personal.NoSie,personal.Nombre,personal.ApPat,personal.ApMat,personal.TituloAbreviado,personal.Profesion,personal.Puesto,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";
+  $sql = "SELECT convenio.id,personal.NoSie,personal.NombreCompleto,personal.TituloAbreviado,personal.Profesion,personal.IdPuesto,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";
   $result = find_by_sql($sql);
   return $result;
 }
 
 function find_all_personal(){
   global $db;
-  $sql =" SELECT e.id,e.NoSie,e.Nombre,e.ApPat,e.ApMat,e.TituloAbreviado,e.Puesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 
+  $sql =" SELECT e.id,e.NoSie,e.NombreCompleto,e.TituloAbreviado,e.IdPuesto, p.TipoPersona, r.Regimen, d.Departamento, a.AreaAcademica, s.SNI, m.MotivoAusencia"; 
   $sql .=" FROM personal e"; 
   $sql .=" INNER JOIN tipopersona p ON e.IdTipoPersona = p.id"; 
   $sql .=" INNER JOIN regimen r ON e.IdRegimen = r.id"; 

@@ -1,5 +1,5 @@
 <?php
-  $page_title = 'Horarios';
+  $page_title = 'Horarios Personal';
   require_once('includes/load.php');
 ?>
 <?php
@@ -12,9 +12,9 @@
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
-   <div class="col-md-12">
+   <!-- <div class="col-md-12">
      <?php echo display_msg($msg); ?>
-   </div>
+   </div> -->
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -22,7 +22,7 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>Horarios</span>
+          <span>Horarios Personal</span>
        </strong>
          <!-- <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a> -->
       </div>
@@ -34,31 +34,48 @@
             <!-- <th class="text-center" style="width: 50px;"></th> -->
             <th>Convenio</th>
             <th>No. Sie</th>
-            <th>Nombre(s)</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
+            <th>Nombre</th>
             <th>Titulo Abreviado</th>
             <th>Departamento</th>
+            <!-- <th>Regimen</th> -->
             <th>Horario</th>
             <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
           </tr>
         </thead>
         <tbody class="boddy">
-        <?php foreach($all_convenios as $convenio): ?>
+        <?php 
+		    $result=$db->query('SELECT * FROM convenio')or die(mysqli_error());
+    		    while($f=mysqli_fetch_array($result)) {
+
+			$personal=$db->query('SELECT * FROM personal WHERE id="'.$f['IdPersonal'].'"') or die (mysqli_error());
+			$tpersonal=mysqli_fetch_assoc($personal);
+
+            $regimen=$db->query('SELECT Regimen FROM regimen WHERE id="'.$tpersonal['IdRegimen'].'"') or die (mysqli_error());
+            $tregimen=mysqli_fetch_assoc($regimen);
+
+            // $estudio=$db->query('SELECT NivelEstudio FROM nivelestudio WHERE id="'.$f['IdNivelEstudio'].'"') or die (mysqli_error());
+			// $testudio=mysqli_fetch_assoc($estudio);
+
+            // $puesto=$db->query('SELECT Puesto FROM puesto WHERE id="'.$f['IdPuesto'].'"') or die (mysqli_error());
+			// $tpuesto=mysqli_fetch_assoc($puesto);
+
+			$dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$tpersonal['IdDepartamento'].'"') or die (mysqli_error());
+			$departamento=mysqli_fetch_assoc($dep);
+		?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($convenio['id']))?></td>
-           <td><?php echo remove_junk(ucwords($convenio['NoSie']))?></td>
-           <td><?php echo remove_junk(ucwords($convenio['Nombre']))?></td>
-           <td><?php echo remove_junk(ucwords($convenio['ApPat']))?></td>
-           <td><?php echo remove_junk(ucwords($convenio['ApMat']))?></td>
-           <td><?php echo remove_junk(ucwords($convenio['TituloAbreviado']))?></td>
-          <td><?php echo remove_junk(ucwords($convenio['Departamento']))?></td>
+           <td><?php echo remove_junk(ucwords($f['id']))?></td>
+           <td><?php echo remove_junk(ucwords($tpersonal['NoSie']))?></td>
+           <td><?php echo remove_junk(ucwords($tpersonal['NombreCompleto']))?></td>
+           <td><?php echo remove_junk(ucwords($tpersonal['TituloAbreviado']))?></td> 
+          <td><?php echo remove_junk(ucwords($departamento['Departamento']))?></td>
+          <!-- <td><?php echo remove_junk(ucwords($tregimen['Regimen']))?></td> -->
+
            
            <td class="text-center">
            <div class="btn-group">
 
-              <a href="horario_detalles.php?id=<?php echo (int)$convenio['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="horario_perso_detalles.php?id=<?php echo (int)$f['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <!-- <span class="glyphicon glyphicon-edit"></span> -->
                 VER HORARIO
               </a>
@@ -74,7 +91,9 @@
            </div>
            </td>
           </tr>
-        <?php endforeach;?>
+          <?php
+  				}
+ 		?>
        </tbody>
      </table>
      <?php if(isset($_GET['m'])) : ?>
@@ -142,8 +161,6 @@
                       lengthMenu: [[5, 10, -1], [5, 10, "All"]],
                       "aoColumns": [
                           { "sWidth": "1%" }, // 2nd column width 
-                          { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
