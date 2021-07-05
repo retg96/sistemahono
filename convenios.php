@@ -1,5 +1,5 @@
 <?php
-  $page_title = 'Convenios Operativo';
+  $page_title = 'Convenios';
   require_once('includes/load.php');
 ?>
 <?php
@@ -22,7 +22,7 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>Convenios Operativo</span>
+          <span>Convenios </span>
        </strong>
          <!-- <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a> -->
       </div>
@@ -36,22 +36,22 @@
             <th>No. Sie</th>
             <th>Nombre</th>
             <th>Departamento</th>
-            <th>Regimen</th>
+            <th>Titulo Abreviado</th>
             <th>Horario</th>
             <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
           </tr>
         </thead>
         <tbody class="boddy">
         <?php 
-            $query = "SELECT personaloperativo.id, personaloperativo.ClaveSie, personaloperativo.Nombre, personaloperativo.ApPat,personaloperativo.ApMat, regimen.Regimen,departamento.Departamento FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime = regimen.IdRegime INNER JOIN departamento ON personaloperativo.IdDepartamento = departamento.IdDepartamento WHERE personaloperativo.ClaveSie NOT LIKE '' ORDER By personaloperativo.ClaveSie";
+            $query = "SELECT personal.id, personal.NoSie, personal.NombreCompleto, regimen.Regimen,departamento.Departamento FROM personal INNER JOIN regimen ON personal.IdRegimen = regimen.IdRegime INNER JOIN departamento ON personal.IdDepartamento = departamento.id WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";
 
-		    $result=$db->query('SELECT * FROM personaloperativo WHERE personaloperativo.ClaveSie NOT LIKE "" ORDER By personaloperativo.ClaveSie')or die(mysqli_error());
+		    $result=$db->query('SELECT * FROM personal WHERE personal.NoSie NOT LIKE "" ORDER By personal.NoSie')or die(mysqli_error());
     		    while($f=mysqli_fetch_array($result)) {
 
 			$dep=$db->query('SELECT * FROM departamento WHERE id="'.$f['IdDepartamento'].'"') or die (mysqli_error());
 			$departamento=mysqli_fetch_assoc($dep);
 
-            $regimen=$db->query('SELECT Regimen FROM regimen WHERE id="'.$f['IdRegime'].'"') or die (mysqli_error());
+            $regimen=$db->query('SELECT Regimen FROM regimen WHERE id="'.$f['IdRegimen'].'"') or die (mysqli_error());
             $tregimen=mysqli_fetch_assoc($regimen);
 
             // $estudio=$db->query('SELECT NivelEstudio FROM nivelestudio WHERE id="'.$f['IdNivelEstudio'].'"') or die (mysqli_error());
@@ -66,16 +66,16 @@
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
            <td><?php echo remove_junk(ucwords($f['id']))?></td>
-           <td><?php echo remove_junk(ucwords($f['ClaveSie']))?></td>
+           <td><?php echo remove_junk(ucwords($f['NoSie']))?></td>
            <td><?php echo remove_junk(ucwords($f['NombreCompleto']))?></td>
           <td><?php echo remove_junk(ucwords($departamento['Departamento']))?></td>
-          <td><?php echo remove_junk(ucwords($tregimen['Regimen']))?></td>
+          <td><?php echo remove_junk(ucwords($f['TituloAbreviado']))?></td>
 
            
            <td class="text-center">
            <div class="btn-group">
 
-              <a href="convenio_ope_detalles.php?id=<?php echo (int)$f['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="convenio_pers_detalles.php?id=<?php echo (int)$f['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <!-- <span class="glyphicon glyphicon-edit"></span> -->
                 VER CONVENIO
               </a>

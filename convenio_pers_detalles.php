@@ -1,102 +1,81 @@
 <?php
-  $page_title = 'Convenios Operativo';
+  $page_title = 'Convenios';
   require_once('includes/load.php');
 ?>
-<?php
-// Checkin What level user has permission to view this page
- page_require_level(1);
-//pull out all user form database
- $all_personal = find_all_personal();
- $convenios = convenio();
- $all_convenios = find_all_convenios();
-?>
 <?php include_once('layouts/header.php'); ?>
-<div class="row">
-   <div class="col-md-12">
-     <?php echo display_msg($msg); ?>
-   </div>
-</div>
+<?php 
+					$id = $_GET['id'];
+					$query = "SELECT personal.NoSie,personal.NombreCompleto,personal.Calle, personal.Fraccionamiento, personal.NumExterior, personal.NumInterior, personal.RFC,Regimen.Regimen FROM personal INNER JOIN regimen ON personal.IdRegimen=regimen.id WHERE personal.id=".$id." ";
+					$resultado = $db->query($query);
+
+					while($f=mysqli_fetch_array($resultado)) {
+				?>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>Convenios Operativo</span>
+          <span>Convenios</span>
        </strong>
-         <!-- <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a> -->
+         <a href="add_convenio_perso.php?id=<?php echo $id; ?>" class="btn btn-info pull-right">AGREGAR CONVENIO</a>
       </div>
-     <div class="panel-body">
+
+
+        <!-- <button onclick="location.href='horario_operativo_añadir.php?id=<?php echo $convenio; ?>'" type="submit" class="btnsE pull-right" name="Añadir">AGREGAR HORARIO</button> -->
+
+      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
         <thead class="headd">
-          <tr>
-            <!-- <th class="text-center" style="width: 50px;">Id</th> -->
-            <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Convenio</th>
-            <th>No. Sie</th>
-            <th>Nombre</th>
-            <th>Departamento</th>
-            <th>Regimen</th>
-            <th>Horario</th>
-            <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
-          </tr>
-        </thead>
-        <tbody class="boddy">
-        <?php 
-            $query = "SELECT personaloperativo.id, personaloperativo.ClaveSie, personaloperativo.Nombre, personaloperativo.ApPat,personaloperativo.ApMat, regimen.Regimen,departamento.Departamento FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime = regimen.IdRegime INNER JOIN departamento ON personaloperativo.IdDepartamento = departamento.IdDepartamento WHERE personaloperativo.ClaveSie NOT LIKE '' ORDER By personaloperativo.ClaveSie";
+			<tr>
+				<th>ID</th>
+				<th>Fecha de Inicio</th>
+				<th>Fecha Fin</th>
+				<th>Descargar</th>
+				<th>Detalles</th>
+        <th class="text-center" style="width: 10%;">Acciones</th>
+			</tr>
+            </thead>
+            <tbody class="boddy">
+            <?php 
 
-		    $result=$db->query('SELECT * FROM personaloperativo WHERE personaloperativo.ClaveSie NOT LIKE "" ORDER By personaloperativo.ClaveSie')or die(mysqli_error());
-    		    while($f=mysqli_fetch_array($result)) {
 
-			$dep=$db->query('SELECT * FROM departamento WHERE id="'.$f['IdDepartamento'].'"') or die (mysqli_error());
-			$departamento=mysqli_fetch_assoc($dep);
+										  	$result=$db->query('SELECT * FROM convenio WHERE IdPersonal ='.$id.' ORDER BY (InicioContrato)') or die (mysqli_error());
 
-            $regimen=$db->query('SELECT Regimen FROM regimen WHERE id="'.$f['IdRegime'].'"') or die (mysqli_error());
-            $tregimen=mysqli_fetch_assoc($regimen);
-
-            // $estudio=$db->query('SELECT NivelEstudio FROM nivelestudio WHERE id="'.$f['IdNivelEstudio'].'"') or die (mysqli_error());
-			// $testudio=mysqli_fetch_assoc($estudio);
-
-            // $puesto=$db->query('SELECT Puesto FROM puesto WHERE id="'.$f['IdPuesto'].'"') or die (mysqli_error());
-			// $tpuesto=mysqli_fetch_assoc($puesto);
-
-			// $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$tpersonal['IdDepartamento'].'"') or die (mysqli_error());
-			// $departamento=mysqli_fetch_assoc($dep);
-		?>
-          <tr>
-           <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($f['id']))?></td>
-           <td><?php echo remove_junk(ucwords($f['ClaveSie']))?></td>
-           <td><?php echo remove_junk(ucwords($f['NombreCompleto']))?></td>
-          <td><?php echo remove_junk(ucwords($departamento['Departamento']))?></td>
-          <td><?php echo remove_junk(ucwords($tregimen['Regimen']))?></td>
-
-           
-           <td class="text-center">
+										  	$NumH=0;
+										  	
+					    					while($fe=mysqli_fetch_array($result)) {
+					    					?>
+					  <tr>
+                      <td><?php echo $fe['id'];?></td>
+                      <td><?php echo $fe['InicioContrato'];?></td>
+                      <td><?php echo $fe['FinContrato'];?></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['id'];?>'>DESCARGAR</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_personal.php?id=<?php echo $fe['id'];?>'>DETALLES</a></td>
+                        
+					   
+					    <td class="text-center">
            <div class="btn-group">
-
-              <a href="convenio_ope_detalles.php?id=<?php echo (int)$f['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
-                <!-- <span class="glyphicon glyphicon-edit"></span> -->
-                VER CONVENIO
-              </a>
-              <!-- <a href="edit_personal.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_convenio_pers.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_personal.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_convenio.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
-              </a> -->
-              <!-- <a href="horario_detalles.php?id=<?php echo (int)$convenio['IdConvenio'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Horario" data-toggle="tooltip">VER HORARIO</a> -->
-              
+              </a>
            </div>
            </td>
-          </tr>
-          <?php
-  				}
- 		?>
-       </tbody>
-     </table>
-     <?php if(isset($_GET['m'])) : ?>
+					  </tr>
+					  <?php
+  						}
+            }
+				
+ 					?>
+                
+           </tbody>
+		</table>
+    <input type="button" class="btn btn-danger" value="Regresar" onclick="location.href='convenios.php'">
+          <?php if(isset($_GET['m'])) : ?>
             <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
           <?php endif; ?>
           <!-- <script src="jquery-3.5.1.min.js"></script>
@@ -107,7 +86,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Personal?',
+                      title: 'Eliminar Horario?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -126,7 +105,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El personal se eliminó correctamente'
+                      text: 'El horario se eliminó correctamente'
                   })
               }
 
@@ -166,6 +145,8 @@
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
+
+
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,
@@ -209,8 +190,10 @@
               font-size: 10pt!important;
             }
           </style>
-     </div>
-    </div>
-  </div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
 </div>
-  <?php include_once('layouts/footer.php'); ?>
+<?php include_once('layouts/footer.php'); ?>
