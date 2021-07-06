@@ -6,7 +6,9 @@
 // Checkin What level user has permission to view this page
  page_require_level(1);
 //pull out all user form database
- $all_users = find_all_user();
+//  $all_users = find_all_user();
+ $all_users = find_all_users();
+
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -29,7 +31,9 @@
         <thead>
           <tr>
             <!-- <th class="text-center" style="width: 50px;">#</th> -->
-            <th>Usuario </th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
             <th>Subdirección</th>
             <th class="text-center" style="width: 15%;">Rol</th>
             <th class="text-center" style="width: 10%;">Estado</th>
@@ -42,7 +46,9 @@
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
            <td><?php echo remove_junk(ucwords($a_user['clave']))?></td>
-           <td><?php echo remove_junk(ucwords($a_user['username']))?></td>
+           <td><?php echo remove_junk(ucwords($a_user['name']))?></td>
+           <td><?php echo remove_junk(ucwords($a_user['Departamento']))?></td>
+           <td><?php echo remove_junk(ucwords($a_user['subdireccion']))?></td>
            <td class="text-center"><?php echo remove_junk(ucwords($a_user['group_name']))?></td>
            <td class="text-center">
            <?php if($a_user['status'] === '1'): ?>

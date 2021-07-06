@@ -189,7 +189,7 @@ function find_by_groupLevel($level)
 function find_all_user(){
   global $db;
   $results = array();
-  $sql = "SELECT u.id,u.clave,u.nivel_usuario,u.status,u.ultimo_login,";
+  $sql = "SELECT u.id,u.clave,u.nivel_usuario,u.status,u.ultimo_login,u.name,u.IdDepartamento,";
   $sql .="g.group_name ";
   $sql .="FROM users u ";
   $sql .="LEFT JOIN user_groups g ";
@@ -197,6 +197,32 @@ function find_all_user(){
   $result = find_by_sql($sql);
   return $result;
 }
+
+function find_all_users(){
+  global $db;
+  $results = array();
+  $sql = "SELECT u.id,u.clave,u.name,u.nivel_usuario,u.status,u.ultimo_login,u.IdDepartamento,";
+  $sql .="d.Departamento, s.id, s.subdireccion, ";
+  $sql .="g.group_name ";
+  $sql .="FROM users u ";
+  $sql .="LEFT JOIN user_groups g ";
+  $sql .="ON g.group_level=u.nivel_usuario ";
+  $sql .="LEFT JOIN departamento d ";
+  $sql .="ON d.id=u.IdDepartamento ";
+  $sql .="LEFT JOIN subdireccion s ";
+  $sql .="ON s.id=d.id ORDER BY u.clave ASC ";
+
+  $result = find_by_sql($sql);
+  return $result;
+}
+
+// SELECT u.id,u.clave,u.name,u.nivel_usuario,u.status,u.ultimo_login,u.IdDepartamento, d.Departamento, s.id, s.subdireccion,g.group_name
+// FROM users u 
+// LEFT JOIN user_groups g ON g.group_level=u.nivel_usuario
+// LEFT JOIN departamento d ON d.id=u.IdDepartamento
+// LEFT JOIN subdireccion s ON s.id=d.id
+// ORDER BY u.clave 
+// ASC
 
 function find_us(){
   global $db;

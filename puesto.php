@@ -127,7 +127,7 @@
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,

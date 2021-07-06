@@ -1,88 +1,3 @@
-<!-- <ul>
-  <li>
-    <a href="admin.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>Panel de control</span>
-    </a>
-  </li>
-
-  <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-      <span>Accesos</span>
-    </a>
-    <ul class="nav submenu"> -->
-    <!--<ul class="nav menu">--
-      <!-- <li><a href="group.php">Administrar grupos</a> </li> --
-      <li><a href="users.php">Administrar usuarios</a> </li>
-   </ul>
-  </li>
-
-  <li>
-    <a href="categorie.php" >
-      <i class="glyphicon glyphicon-indent-left"></i>
-      <span>Categor&iacute;as</span>
-    </a>
-  </li>
-  <li>
-   <a href="product.php" >
-      <i class="glyphicon glyphicon-th-large"></i>
-      <span>Productos</span>
-    </a>
-  </li>
-  <li>
-    <ul class="nav submenu">
-       <li><a href="product.php">Administrar materiales</a></li>
-       <li><a href="add_product.php">Agregar materiales</a></li>
-   </ul>
-    </li>
-    <li>
-    <a href="Proveedores.php" >
-      <i class="glyphicon glyphicon-user"></i>
-      <span>Proveedores</span>
-    </a>
-  </li>
-  <li>
-    <a href="media.php" >
-      <i class="glyphicon glyphicon-picture"></i>
-      <span>Imagenes</span>
-    </a>
-    </li>
-    <li>
-    <a href="entradas.php" >
-      <i class="glyphicon glyphicon-th-list"></i>
-      <span>Entradas</span>
-    </a>
-    <li>
-    <a href="sales.php" >
-      <i class="glyphicon glyphicon-th-list"></i>
-      <span>Salidas</span>
-    </a>
-  </li>
-
-  <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-signal"></i>
-       <span>Reporte de Entradas</span>
-      </a>
-      <ul class="nav submenu">
-        <li><a href="sales_report.php">Entradas por fecha </a></li>
-      </ul>
-  </li>
-
-  <li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-signal"></i>
-       <span>Reporte de Salidas</span>
-      </a>
-      <ul class="nav submenu">
-        <li><a href="sales_report.php">Salidas por fecha </a></li>
-      </ul>
-  </li>
-</ul>-->
-
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -117,7 +32,7 @@
             </a>
       </div>
       <div class="side-inner">
-      <div class="header-date pull-left">
+      <div class="header-date">
         <strong>
           <?php echo date("d/m/Y");?>    
         </strong>
@@ -131,7 +46,7 @@
 
         
         <div class="nav-menu">
-          <ul>
+          <ul class="lista">
             <li class="accordion">
               <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsible">
                 <span class="icon-person_outline mr-3"></span>Docente
@@ -354,6 +269,20 @@
     <script src="libs/popper/popper.min.js"></script>
     <script src="libs/js/bootstrap.min.js"></script>
     <script src="libs/js/main.js"></script> 
+    <!-- <script>
+    $( document ).ready(function() {
+  $(".lista li").on("click", function(){
+    $(".lista").find(".activa").removeClass("activa");
+    $(this).addClass("activa");
+  });
+}); 
+</script>
+<style>
+    /*CSS*/
+.activa{
+	background-color:lightblue;
+}
+</style> -->
   </body>
 </html>
 
