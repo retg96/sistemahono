@@ -60,9 +60,13 @@
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_convenio.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <!-- <a href="delete_convenio.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
+              </a> -->
+              <a href="" class="btn btn-danger btn-xs" id="alertaPersonal" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip" onclick="ConfirmBorrarConvenioOperativo('<?php echo $fe['id'];?>','<?php echo $id;?>')">
+              <span class="glyphicon glyphicon-trash"></span>
               </a>
+
            </div>
            </td>
 					  </tr>
@@ -127,6 +131,20 @@
               //         }
               //         })
               // })
+              </script>
+              <script>
+              function ConfirmBorrarConvenioOperativo(id,idpersonal) {
+          
+                if (confirm("¿Estas seguro de eliminar el registro <"+id+">? Todas la informacion a este se eliminarán también")){
+                
+                    window.location.assign("delete_convenio_operativo.php?id="+id+"&idpersonaloperativo="+idpersonal);
+            
+                }else{
+            
+                    alert("Operacion cancelada");
+            
+                }
+            }
               </script>
               <script>
                   $(document).ready(function() {

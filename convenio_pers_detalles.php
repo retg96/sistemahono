@@ -60,9 +60,12 @@
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_convenio.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="" onclick="ConfirmBorrarConvenio('<?php echo $fe['id'];?>','<?php echo $id;?>')" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
+              <!-- <a class="btn btn-danger btn-xs" id="alertaPersonal" onclick="ConfirmBorrarConvenio('<?php echo $fe['id'];?>','<?php echo $id;?>')">
+              <span class="glyphicon glyphicon-trash"></span>
+              </a> -->
            </div>
            </td>
 					  </tr>
@@ -86,7 +89,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Horario?',
+                      title: 'Eliminar Convenio?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -105,7 +108,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'El horario se eliminó correctamente'
+                      text: 'El convenio se eliminó correctamente'
                   })
               }
 
@@ -127,6 +130,20 @@
               //         }
               //         })
               // })
+              </script>
+              <script>
+              function ConfirmBorrarConvenio(id,idpersonal) {
+          
+          if (confirm("¿Estas seguro de eliminar el registro <"+id+">? Todas la informacion a este se eliminarán también")){
+          
+              window.location.assign("delete_convenio.php?id="+id+"&idpersonal="+idpersonal);
+       
+          }else{
+       
+              alert("Operacion cancelada");
+       
+          }
+      }
               </script>
               <script>
                   $(document).ready(function() {
