@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>NACIONALIDAD</span>
        </strong>
-         <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR NACIONALIDAD</a>
+         <a href="add_nacionalidad.php" class="btn btn-info pull-right">AGREGAR NACIONALIDAD</a>
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">

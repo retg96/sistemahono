@@ -96,9 +96,32 @@ if(!$nacionalidad){
                   <div class="col-md-6">
 
                         <div class="form-group">
-                            <label for="">Motivo de Ausencia</label>
+                            <label for="">Nacionalidad</label>
                             <input type="text" class="form-control"  name='FI' id='fi' value="<?php echo remove_junk($nacionalidad['Nacionalidad']);?>">
-                        </div>
+                            <!-- <select class="form-control" name='FI' id='fi' required>
+                            <option value="<?php echo $nacionalidad['id']; ?>"><?php echo $nacionalidad['Nacionalidad']; ?></option>
+                            <?php 
+                              $result=$db->query('SELECT * FROM nacionalidad')or die(mysqli_error());
+                                while($f=mysqli_fetch_array($result)) {
+                              ?>
+                              <option value="<?php echo $f['id'] ?>"><?php echo $f['Nacionalidad'] ?></option>
+                            <?php } ?>
+                          </select> -->
+                         </div>
+
+                        <!-- <div class="form-group">
+								<label>Motivo Contratación:</label>
+								<select class="form-control" name="MotivoAusencia" required>
+									<option value="<?php echo $ausencia['id']; ?>"><?php echo $ausencia['MotivoAusencia']; ?></option>
+									<?php 
+										$result=$db->query('SELECT * FROM MotivoAusencia')or die(mysqli_error());
+				    					while($f=mysqli_fetch_array($result)) {
+    								?>
+										<option value="<?php echo $f['id'] ?>"><?php echo $f['MotivoAusencia'] ?></option>
+									<?php } ?>
+								</select>
+							</div> -->
+
                     </div>
                     </div>
                 </div>
