@@ -70,7 +70,7 @@
 			//  }
 			//  $date    = make_date();
 			$query  = "INSERT INTO personal (";
-			$query .=" NoSie,Nombre,ApPat,ApMat,TituloAbreviado,FechaNacimiento,IdNacionalidad,Sexo,RFC,CURP,NumeroCelular,Calle,NumExterior,NumInterior,
+			$query .=" NoSie,NombreCompleto,TituloAbreviado,FechaNacimiento,IdNacionalidad,Sexo,RFC,CURP,NumeroCelular,Calle,NumExterior,NumInterior,
                   Fraccionamiento,CP,Ciudad,Estado,Email,IdNivelEstudio,Profesion,Puesto,IdRegimen,Interno,ClavePresupuestal,IdTipoPersona,
                   IdAreaAcademica,IdDepartamento,EvaluacionDepartamento,EvaluacionAlumno,GobiernoFed,SEP,RAMA,IdSNI,FechaIngresoTec,
                   IdMotivoAusencia,Estatus";

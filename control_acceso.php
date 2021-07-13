@@ -47,7 +47,6 @@
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
            <td><?php echo remove_junk(ucwords($a_user['clave']))?></td>
            <td><?php echo remove_junk(ucwords($a_user['name']))?></td>
-           <!-- <td><?php echo remove_junk(ucwords($a_user['Departamento']))?></td> -->
            <td><?php echo remove_junk(ucwords($a_user['subdireccion']))?></td>
            <td><?php echo remove_junk(ucwords($a_user['Hijo']))?></td>
            <td class="text-center"><?php echo remove_junk(ucwords($a_user['group_name']))?></td>

@@ -96,7 +96,7 @@ if(!$regimen){
                   <div class="col-md-6">
 
                         <div class="form-group">
-                            <label for="">Nivel de Estudio</label>
+                            <label for="">Regimen</label>
                             <input type="text" class="form-control"  name='FI' id='fi' value="<?php echo remove_junk($regimen['Regimen']);?>">
                         </div>
                     </div>

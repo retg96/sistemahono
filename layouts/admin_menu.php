@@ -85,6 +85,7 @@
               <div id="collapseThree" class="collapse" aria-labelledby="headingOne">
                 <div>
                   <ul>
+                    <li><a href="pagos.php">Pagos</a></li>
                     <li><a href="periodo_pago.php">Periodos de Pago</a></li>
                     <li><a href="periodo_sin_pago.php">Periodos Sin Pago</a></li>
                     <li><a href="fecha_sin_pago.php">Fecha Sin Pago</a></li>
