@@ -7,30 +7,32 @@
 <?php
   $e_user = find_by_id('users',(int)$_GET['id']);
   $groups  = find_all('user_groups');
-//   $all_users = find_all_users();
+  $all_users = find_all_users();
   if(!$e_user){
     $session->msg("d","Missing user id.");
-    redirect('users.php');
+    redirect('control_acceso.php');
   }
 ?>
 
 <?php
 //Update User basic info
   if(isset($_POST['update'])) {
-    $req_fields = array('name','username','level');
+    $req_fields = array('name','username','level','subdireccion','hijo');
     validate_fields($req_fields);
     if(empty($errors)){
-             $id = (int)$e_user['id'];
+           $id = (int)$e_user['id'];
            $name = remove_junk($db->escape($_POST['name']));
-       $username = remove_junk($db->escape($_POST['username']));
-          $level = (int)$db->escape($_POST['level']);
-       $status   = remove_junk($db->escape($_POST['status']));
-            $sql = "UPDATE users SET name ='{$name}', username ='{$username}',user_level='{$level}',status='{$status}' WHERE id='{$db->escape($id)}'";
-         $result = $db->query($sql);
+           $username = remove_junk($db->escape($_POST['username']));
+           $level = (int)$db->escape($_POST['level']);
+           $subdireccion = (int)$db->escape($_POST['subdireccion']);
+           $hijo = (int)$db->escape($_POST['hijo']);
+           $status   = remove_junk($db->escape($_POST['status']));
+           $sql = "UPDATE users SET name ='{$name}', clave ='{$username}',nivel_usuario='{$level}',status='{$status}',IdSubdireccion='{$subdireccion}',IdHijo='{$hijo}' WHERE id='{$db->escape($id)}'";
+           $result = $db->query($sql);
           if($result && $db->affected_rows() === 1){
             //$session->msg('s',"Account Updated ");
             $session->msg('s',' Cuenta actualizada');
-            redirect('users.php', false);
+            redirect('control_acceso.php', false);
           } else {
             $session->msg('d',' Lo siento no se actualizó los datos.');
             redirect('edit_user.php?id='.(int)$e_user['id'], false);
@@ -111,20 +113,31 @@ if(isset($_POST['update-pass'])) {
 						<?php } ?>
 				</select> -->
             </div>
+            <!-- <div class="col-md-4">
+										<label for="category" class="control-label">Categor&iacute;a</label>
+                    <select class="form-control" name="category">
+                    	<option value="">Selecciona una categoría</option>
+                      <?php  foreach ($all_categories as $cat): ?>
+                        <option value="<?php echo (int)$cat['id']; ?>" <?php if($product['categorie_id'] === $cat['id']): echo "selected"; endif; ?> >
+                        <?php echo remove_junk($cat['name']); ?></option>
+                      <?php endforeach; ?>
+                 		</select>
+            </div>
+             -->
             <div class="form-group">
-				<label>Departamento:</label>
-			        <select class="form-control" name='Departamento' required>
+				<label>Subdireccion:</label>
+			        <select class="form-control" name="subdireccion" required>
 			            <option value="<?php echo $e_user['id']?>"><?php echo $e_user['IdSubdireccion']?></option>
 			            <?php 
-			            $result=$db->query('SELECT * FROM departamento')or die(mysqli_error());
+			            $result=$db->query('SELECT * FROM subdireccion')or die(mysqli_error());
 			            while($f=mysqli_fetch_array($result)) {?>
-			            <option value="<?php echo$f['id']?>"><?php echo $f['Departamento']?></option>
+			            <option value="<?php echo$f['id']?>"><?php echo $f['Subdireccion']?></option>
 			            <?php }?>
             		</select>
 			</div>
             <div class="form-group">
-				<label>Subdireccion:</label>
-			        <select class="form-control" name='Departamento' required>
+				<label>Hijo:</label>
+			        <select class="form-control" name="hijo" required>
 			            <option value="<?php echo $e_user['id']?>"><?php echo $e_user['IdHijo']?></option>
 			            <?php 
 			            $result=$db->query('SELECT * FROM hijo')or die(mysqli_error());

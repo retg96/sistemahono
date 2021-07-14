@@ -201,18 +201,16 @@ function find_all_user(){
 function find_all_users(){
   global $db;
   $results = array();
-  $sql = "SELECT u.id,u.clave,u.name,u.nivel_usuario,u.status,u.ultimo_login,u.IdDepartamento,";
-  $sql .="d.Departamento, s.id, s.subdireccion, h.id, h.Hijo, ";
+  $sql = "SELECT u.id,u.clave,u.name,u.nivel_usuario,u.status,u.ultimo_login,";
+  $sql .="s.Subdireccion, h.Hijo, ";
   $sql .="g.group_name ";
   $sql .="FROM users u ";
   $sql .="LEFT JOIN user_groups g ";
   $sql .="ON g.group_level=u.nivel_usuario ";
-  $sql .="LEFT JOIN departamento d ";
-  $sql .="ON d.id=u.IdDepartamento ";
   $sql .="LEFT JOIN subdireccion s ";
-  $sql .="ON s.id=d.id ";
+  $sql .="ON s.id=u.IdSubdireccion ";
   $sql .="LEFT JOIN hijo h ";
-  $sql .="ON h.id=s.id ORDER BY u.clave ASC ";
+  $sql .="ON h.id=u.IdHijo ORDER BY u.clave ASC ";
 
   $result = find_by_sql($sql);
   return $result;

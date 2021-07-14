@@ -233,8 +233,8 @@
 										<option value="21:00">21:00</option>
 									</select>
 									</div>
-
-									<select name="JuevesHoraF">
+									<div class="form-group">
+									<select class="form-control" name="JuevesHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -251,9 +251,11 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+									<div class="form-group">
 									<label>Viernes:</label>
-									<select name="ViernesHoraI">
+									<select class="form-control" name="ViernesHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -271,7 +273,9 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="ViernesHoraF">
+									</div>
+									<div class="form-group">
+									<select class="form-control" name="ViernesHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -288,9 +292,12 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+
+									<div class="form-group">
 								<label>Sabado:</label>
-									<select name="SabadoHoraI">
+									<select class="form-control" name="SabadoHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -308,7 +315,10 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="SabadoHoraF">
+									</div>
+
+									<div class="form-group">
+									<select class="form-control" name="SabadoHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -325,9 +335,11 @@
 										<option value="19:00">19:00</option>
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
-									</select><br>
+									</select>
+									</div>
+									<div class="form-group">
 									<label>Domingo:</label>
-									<select name="DomingoHoraI">
+									<select class="form-control" name="DomingoHoraI">
 										<option value="">Seleccione hora de inicio</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -345,7 +357,9 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<select name="DomingoHoraF">
+									</div>
+									<div class="form-group">
+									<select class="form-control" name="DomingoHoraF">
 										<option value="">Seleccione hora de salida</option>
 										<option value="7:00">7:00</option>
 										<option value="8:00">8:00</option>
@@ -363,12 +377,15 @@
 										<option value="20:00">20:00</option>
 										<option value="21:00">21:00</option>
 									</select>
-									<button type="submit" class="btnsE pull-right" >AGREGAR MATERIA</button>
+									</div>
+									<!-- <button type="submit" class="btnsE pull-right" >AGREGAR MATERIA</button> -->
+									<input type="button" class="btn btn-danger" value="Cancelar" onclick="location.href='horario_perso_detalles.php?id=<?php echo $_GET['id'];?>'">
+                      				<button type="submit" name="submit" class="btn btn-primary">Agregar</button> 
 								</div>		
 						</div>	
 
 				</form>
-					<button type="" onclick="location.href='horario_perso_detalles.php?id=<?php echo $_GET['id'];?>'" class="btns pull-left">CANCELAR</button><br><br><br>
+					<!-- <button type="" onclick="location.href='horario_perso_detalles.php?id=<?php echo $_GET['id'];?>'" class="btns pull-left">CANCELAR</button><br><br><br> -->
 			</div>
 		</div>
 	</div>
