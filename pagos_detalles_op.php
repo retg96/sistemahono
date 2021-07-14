@@ -363,7 +363,7 @@ $idpersonal="";
     					
     					<td class="text-center">
            					<div class="btn-group">
-                               <a href="edit_horario.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+                               <a href="edit_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
 								<span class="glyphicon glyphicon-edit"></span>
 							</a>
                             <a href="" onclick="ConfirmBorrarHorario(<?=$f['IdHorarioDocenteMateria']?>,'<?=$f['IdConvenio']?>' )" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
