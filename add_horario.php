@@ -38,7 +38,7 @@
                 <div class="row">
                   <div class="col-md-6">
 									<?php 
-									$sql=$db->query('SELECT * FROM personal INNER JOIN convenio ON convenio.IdPersonal = personal.id WHERE convenio.id="'.$id.'"') or die (mysqli_error());
+									$sql=$db->query('SELECT * FROM personal INNER JOIN convenio ON convenio.IdPersonal = personal.id WHERE convenio.IdConvenio="'.$id.'"') or die (mysqli_error());
 									$resultado=mysqli_fetch_assoc($sql);
 					    			?>
 					    			<input type="hidden" name="id" value="<?php echo $resultado['id'] ?>">

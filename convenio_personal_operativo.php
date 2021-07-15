@@ -42,7 +42,7 @@
       <h3>Datos Personales</h3>
         <?php 
           $idconvenio = $_GET['id'];
-          $query = "SELECT personaloperativo.id,personaloperativo.ClaveSie,personaloperativo.NombreCompleto,personaloperativo.Calle, personaloperativo.NoExterior, personaloperativo.NoInterior, personaloperativo.Fraccionamiento, personaloperativo.RFC,regimen.Regimen FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime=regimen.id INNER JOIN convenioope ON convenioope.IdPersonalOperativo=personaloperativo.id WHERE convenioope.id=".$_GET['id']." ";
+          $query = "SELECT personaloperativo.id,personaloperativo.ClaveSie,personaloperativo.NombreCompleto,personaloperativo.Calle, personaloperativo.NoExterior, personaloperativo.NoInterior, personaloperativo.Fraccionamiento, personaloperativo.RFC,regimen.Regimen FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime=regimen.id INNER JOIN convenioope ON convenioope.IdPersonalOperativo=personaloperativo.id WHERE convenioope.IdConvenioOpe =".$_GET['id']." ";
           $resultado = $db->query($query);
 
           while($f=mysqli_fetch_array($resultado)) {
@@ -86,7 +86,7 @@
 						<tr>
 					  	<?php 
 					  	
-					  	$query ="SELECT horariooperativo.id, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.id WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
+					  	$query ="SELECT horariooperativo.IdHorarioOperativo, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.IdConvenioOpe  WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
 
 					  	$cont=0;
 

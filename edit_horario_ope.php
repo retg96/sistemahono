@@ -105,24 +105,24 @@
 						<?php 
 						$idhorario = $_GET["id"];
 						$conv="";
-					 	$result=$db->query('SELECT * FROM horariooperativo WHERE id = '.$idhorario.'')or die(mysqli_error());
+					 	$result=$db->query('SELECT * FROM horariooperativo WHERE IdHorarioOperativo  = '.$idhorario.'')or die(mysqli_error());
 					 		while($f=mysqli_fetch_array($result)) {
 					 			$personaloperativo='';
-					 	$query = "SELECT convenioope.id, convenioope.IdPersonalOperativo, personaloperativo.ClaveSie FROM convenioope INNER JOIN personaloperativo ON convenioope.IdPersonalOperativo = personaloperativo.id WHERE convenioope.id =".$f['IdConvenioOpe'];
+					 	$query = "SELECT convenioope.IdConvenioOpe, convenioope.IdPersonalOperativo, personaloperativo.ClaveSie FROM convenioope INNER JOIN personaloperativo ON convenioope.IdPersonalOperativo = personaloperativo.id WHERE convenioope.IdConvenioOpe  =".$f['IdConvenioOpe'];
 					 		$resultado = $db->query($query);
 					 		while($c=mysqli_fetch_array($resultado)) {
-					 			$personaloperativo = $c['id'];
+					 			$personaloperativo = $c['IdConvenioOpe'];
 					 	?>
 						  <div class="row">
                   		 <div class="col-md-6">
 							<!-- <div class="datos_personal-flex"> -->
 								<!-- <div> -->
 								
-								<input type="" name="idconvenio" value="<?php echo $c['id'] ?>" hidden>
+								<input type="" name="idconvenio" value="<?php echo $c['IdConvenioOpe'] ?>" hidden>
 
 								<div class="form-group">
 									<label>Numero de horario:</label>
-									<input type="" class="form-control" name="idhorario" value="<?php echo $f['id']; ?>" readonly>
+									<input type="" class="form-control" name="idhorario" value="<?php echo $f['IdHorarioOperativo']; ?>" readonly>
  								</div>
 								 
 								<div class="form-group">
@@ -535,7 +535,7 @@
 							</div>
 							</div>
 						<div>
-							<button type="submit" class="btn btn-danger" formaction="horario_ope_detalles.php?id=<?php echo $c['id'] ?>">CANCELAR</button>
+							<button type="submit" class="btn btn-danger" formaction="horario_ope_detalles.php?id=<?php echo $c['IdConvenioOpe'] ?>">CANCELAR</button>
 							<button type="submit" class="btn btn-primary">EDITAR</button>
 						</div>
 					</div>

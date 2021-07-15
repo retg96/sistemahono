@@ -11,7 +11,7 @@
 
         <?php 
 			// $result=$db->query('SELECT * FROM horariodocentemateria WHERE id ='.$idconvenio.'') or die (mysqli_error());
-      $result=$db->query('SELECT * FROM convenio WHERE id ='.$idconvenio.'') or die (mysqli_error());
+      $result=$db->query('SELECT * FROM convenio WHERE IdConvenio ='.$idconvenio.'') or die (mysqli_error());
 
 				while($fi=mysqli_fetch_array($result)) {
     				$result2=$db->query('SELECT * FROM personal WHERE id ='.$fi['IdPersonal'].'') or die (mysqli_error());
@@ -23,10 +23,10 @@
 							
 		<?php } 
 			$convenio='';
-			$result2=$db->query( 'SELECT id FROM convenio WHERE id ='.$idconvenio.'')or die (mysqli_error());
+			$result2=$db->query( 'SELECT IdConvenio  FROM convenio WHERE IdConvenio  ="'.$idconvenio.'"')or die (mysqli_error());
       // $result2=$db->query( 'SELECT id FROM horariodocentemateria WHERE id ='.$idconvenio.'')or die (mysqli_error());
 			while($f=mysqli_fetch_array($result2)) {
-			$convenio=$f['id'];
+			$convenio=$f['IdConvenio'];
 			}
 	    ?>
 <div class="row">
@@ -64,7 +64,7 @@
             <tbody class="boddy">
             <?php 
 					  	
-					  	$query ="SELECT horariodocentemateria.id,horariodocentemateria.IdMateria,horariodocentemateria.IdModalidad, horariodocentemateria.LunesHoraI, horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, horariodocentemateria.DomingoHoraF, convenio.IdPersonal FROM horariodocentemateria INNER JOIN convenio ON horariodocentemateria.IdConvenio = convenio.id WHERE horariodocentemateria.IdConvenio =".$idconvenio;
+					  	$query ="SELECT horariodocentemateria.IdHorarioDocenteMateria,horariodocentemateria.IdMateria,horariodocentemateria.IdModalidad, horariodocentemateria.LunesHoraI, horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, horariodocentemateria.DomingoHoraF, convenio.IdPersonal FROM horariodocentemateria INNER JOIN convenio ON horariodocentemateria.IdConvenio = convenio.IdConvenio WHERE horariodocentemateria.IdConvenio =".$idconvenio;
               // $query ="SELECT horariodocentemateria.id,horariodocentemateria.IdMateria,horariodocentemateria.IdModalidad, horariodocentemateria.LunesHoraI, horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, horariodocentemateria.DomingoHoraF, materia.Materia, modalidad.Modalidad, carrera.Carrera
               //  FROM horariodocentemateria 
               //  INNER JOIN materia ON horariodocentemateria.IdMateria = materia.id
@@ -153,11 +153,11 @@
 					    <?php }?>
 					    <td class="text-center">
            <div class="btn-group">
-              <a href="edit_horario.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_horario.php?id=<?php echo (int)$f['IdHorarioDocenteMateria'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_horario.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_horario.php?id=<?php echo (int)$f['IdHorarioDocenteMateria'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
               <!-- <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorario(<?=$f['id']?>,'<?=$f['id']?>' )"></button></div> -->

@@ -6,9 +6,9 @@
 // Checkin What level user has permission to view this page
  page_require_level(1);
 //pull out all user form database
- $all_personal = find_all_personal();
- $convenios = convenio();
- $all_convenios = find_all_convenios();
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -43,7 +43,7 @@
         </thead>
         <tbody class="boddy">
         <?php 
-            $query = "SELECT personaloperativo.id, personaloperativo.ClaveSie, personaloperativo.Nombre, personaloperativo.ApPat,personaloperativo.ApMat, regimen.Regimen,departamento.Departamento FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime = regimen.IdRegime INNER JOIN departamento ON personaloperativo.IdDepartamento = departamento.IdDepartamento WHERE personaloperativo.ClaveSie NOT LIKE '' ORDER By personaloperativo.ClaveSie";
+            $query = "SELECT personaloperativo.id, personaloperativo.ClaveSie, personaloperativo.NombreCompleto, regimen.Regimen,departamento.Departamento FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime = regimen.id INNER JOIN departamento ON personaloperativo.IdDepartamento = departamento.id WHERE personaloperativo.ClaveSie NOT LIKE '' ORDER By personaloperativo.ClaveSie";
 
 		    $result=$db->query('SELECT * FROM personaloperativo WHERE personaloperativo.ClaveSie NOT LIKE "" ORDER By personaloperativo.ClaveSie')or die(mysqli_error());
     		    while($f=mysqli_fetch_array($result)) {

@@ -6,9 +6,9 @@
 // Checkin What level user has permission to view this page
  page_require_level(1);
 //pull out all user form database
- $all_personal = find_all_personal();
- $convenios = convenio();
- $all_convenios = find_all_convenios();
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -64,7 +64,7 @@
 		?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <td><?php echo remove_junk(ucwords($f['id']))?></td>
+           <td><?php echo remove_junk(ucwords($f['IdConvenio']))?></td>
            <td><?php echo remove_junk(ucwords($tpersonal['NoSie']))?></td>
            <td><?php echo remove_junk(ucwords($tpersonal['NombreCompleto']))?></td>
            <td><?php echo remove_junk(ucwords($tpersonal['TituloAbreviado']))?></td> 
@@ -75,7 +75,7 @@
            <td class="text-center">
            <div class="btn-group">
 
-              <a href="horario_perso_detalles.php?id=<?php echo (int)$f['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="horario_perso_detalles.php?id=<?php echo (int)$f['IdConvenio'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <!-- <span class="glyphicon glyphicon-edit"></span> -->
                 VER HORARIO
               </a>

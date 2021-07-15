@@ -40,30 +40,30 @@
             <?php 
 
 
-										  	$result=$db->query('SELECT * FROM convenioope WHERE IdPersonalOperativo ='.$id.' ORDER BY (FechaInicio)') or die (mysqli_error());
+										  	$result=$db->query('SELECT * FROM convenioope WHERE IdPersonalOperativo ="'.$id.'" ORDER BY (FechaInicio)') or die (mysqli_error());
 
 										  	$NumH=0;
 										  	
 					    					while($fe=mysqli_fetch_array($result)) {
 					    					?>
 					  <tr>
-                      <td><?php echo $fe['id'];?></td>
+                      <td><?php echo $fe['IdConvenioOpe'];?></td>
                       <td><?php echo $fe['FechaInicio'];?></td>
                       <td><?php echo $fe['FechaFin'];?></td>
-                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['id'];?>'>DESCARGAR</a></td>
-                      <td><a class='btn btn-success btn-xs' href='convenio_personal_operativo.php?id=<?php echo $fe['id'];?>'>DETALLES</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['IdConvenioOpe'];?>'>DESCARGAR</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_personal_operativo.php?id=<?php echo $fe['IdConvenioOpe'];?>'>DETALLES</a></td>
                         
 					   
 					    <td class="text-center">
            <div class="btn-group">
-              <a href="edit_convenio.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_convenio.php?id=<?php echo (int)$fe['IdConvenioOpe'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
               <!-- <a href="delete_convenio.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a> -->
-              <a href="" class="btn btn-danger btn-xs" id="alertaPersonal" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip" onclick="ConfirmBorrarConvenioOperativo('<?php echo $fe['id'];?>','<?php echo $id;?>')">
+              <a href="" class="btn btn-danger btn-xs" id="alertaPersonal" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip" onclick="ConfirmBorrarConvenioOperativo('<?php echo $fe['IdConvenioOpe'];?>','<?php echo $id;?>')">
               <span class="glyphicon glyphicon-trash"></span>
               </a>
 

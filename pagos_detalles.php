@@ -35,7 +35,7 @@
 				<div> -->
 				<div class="panel-body">
 					<?php 
-					  	$result=$db->query('SELECT * FROM convenio INNER JOIN personal ON convenio.IdPersonal = personal.id WHERE convenio.id  = "'.$idconvenio.'"') or die (mysqli_error());
+					  	$result=$db->query('SELECT * FROM convenio INNER JOIN personal ON convenio.IdPersonal = personal.id WHERE convenio.IdConvenio   = "'.$idconvenio.'"') or die (mysqli_error());
 					  	
     					while($fi=mysqli_fetch_array($result)) {
 						?>	<label for="search">CLAVE: </label>
@@ -74,7 +74,7 @@
 					    $FRangoNoPago= "";
 
 
-					  	$result=$db->query('SELECT personal.id,personal.NoSie,horariodocentemateria.id,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF, materia.id,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,modalidad.Pago,convenio.id FROM horariodocentemateria INNER JOIN materia ON materia.id=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.id=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.id=materia.IdCarrera INNER JOIN convenio ON convenio.id = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.id =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio = "'.$idconvenio.'" ORDER BY (materia.ClaveMateria)') or die (mysqli_error());
+					  	$result=$db->query('SELECT personal.id,personal.NoSie,horariodocentemateria.IdHorarioDocenteMateria ,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF, materia.id,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,modalidad.Pago,convenio.IdConvenio FROM horariodocentemateria INNER JOIN materia ON materia.id=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.id=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.id=materia.IdCarrera INNER JOIN convenio ON convenio.IdConvenio  = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.id =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio = "'.$idconvenio.'" ORDER BY (materia.ClaveMateria)') or die (mysqli_error());
 
 
 					  	$PagoTotal=0;
@@ -88,7 +88,7 @@
 
 
     					//OBTENEMOS LOS DIAS QUE TRABAJA SEPARADO POR DIAS DE LA SEMANA
-    					$querytiempo = "SELECT * FROM convenio WHERE id =".$idconvenio;
+    					$querytiempo = "SELECT * FROM convenio WHERE IdConvenio =".$idconvenio;
 
 					    $resultadotiempo = $db->query($querytiempo);
 					    //Variables de contadores de dias de la semana dentro del convenio
@@ -348,7 +348,7 @@
 						<td class="text-center">
            					<div class="btn-group">
 
-							<a href="edit_horario.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+							<a href="edit_horario.php?id=<?php echo (int)$f['IdHorarioDocenteMateria'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
 								<span class="glyphicon glyphicon-edit"></span>
 							</a>
 							<!-- <a href="edit_personal.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">

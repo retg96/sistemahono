@@ -106,7 +106,7 @@
                   		 <div class="col-md-6">
 							<?php 
 
-							$querytiempo = "SELECT * FROM convenioope WHERE id =".$idconvenio;
+							$querytiempo = "SELECT * FROM convenioope WHERE IdConvenioOpe  =".$idconvenio;
 
 					    $resultadotiempo = $db->query($querytiempo);
 
@@ -161,7 +161,7 @@
 
 
 
-					  	$query="SELECT convenioope.id, convenioope.IdPersonalOperativo,personaloperativo.ClaveSie  FROM convenioope INNER JOIN personaloperativo ON convenioope.IdPersonalOperativo = personaloperativo.id WHERE convenioope.id =".$idconvenio;
+					  	$query="SELECT convenioope.IdConvenioOpe, convenioope.IdPersonalOperativo,personaloperativo.ClaveSie  FROM convenioope INNER JOIN personaloperativo ON convenioope.IdPersonalOperativo = personaloperativo.id WHERE convenioope.IdConvenioOpe =".$idconvenio;
 					  	$NumH=0;
 					  	$resultado = $db->query($query);
     					while($f=mysqli_fetch_array($resultado)) {

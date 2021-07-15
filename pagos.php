@@ -27,17 +27,17 @@ if ($resultadotiempo->num_rows>0) {
     }
 
 
-    $query = "SELECT convenio.id,personal.NoSie,personal.NombreCompleto,personal.TituloAbreviado,personal.Profesion,personal.IdPuesto,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";
+    $query = "SELECT convenio.IdConvenio,personal.NoSie,personal.NombreCompleto,personal.TituloAbreviado,personal.Profesion,personal.id,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";
 
-    $query2 = "SELECT convenioope.id,personalOperativo.ClaveSie,personalOperativo.NombreCompleto,personalOperativo.IdPuesto,puesto.Puesto,puesto.Pago,regimen.Regimen, departamento.Departamento FROM convenioope INNER JOIN personalOperativo ON personaloperativo.id = convenioope.IdPersonalOperativo INNER JOIN puesto ON personaloperativo.IdPuesto=puesto.id INNER JOIN regimen ON personalOperativo.IdRegime=regimen.id INNER JOIN departamento ON departamento.id = personalOperativo.IdDepartamento WHERE personalOperativo.ClaveSie NOT LIKE '' ORDER By personalOperativo.ClaveSie";
-    
+    $query2 = "SELECT convenioope.IdConvenioOpe,personalOperativo.ClaveSie,personalOperativo.NombreCompleto,personalOperativo.IdPuesto,puesto.id,puesto.Pago,regimen.Regimen, departamento.Departamento FROM convenioope INNER JOIN personalOperativo ON personaloperativo.id = convenioope.IdPersonalOperativo INNER JOIN puesto ON personaloperativo.IdPuesto=puesto.id INNER JOIN regimen ON personalOperativo.IdRegime=regimen.id INNER JOIN departamento ON departamento.id = personalOperativo.IdDepartamento WHERE personalOperativo.ClaveSie NOT LIKE '' ORDER By personalOperativo.ClaveSie";
+
 if (isset($_POST['consulta'])) {
   $q = $db->real_escape_string($_POST['consulta']);
     $q2 = $db->real_escape_string($_POST['consulta']);
-  $query = "SELECT convenio.id,personal.NoSie,personal.NombreCompleto,personal.TituloAbreviado,personal.Profesion,personal.Puesto,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE convenio.id LIKE '$q' OR personal.NoSie LIKE '$q%' OR personal.NombreCompleto LIKE '$q%' OR personal.TituloAbreviado LIKE '$q%' OR departamento.Departamento LIKE '$q%' OR regimen.Regimen LIKE '$q%'";
+  $query = "SELECT convenio.IdConvenio,personal.NoSie,personal.NombreCompleto,personal.TituloAbreviado,personal.Profesion,personal.Puesto,regimen.Regimen, departamento.Departamento FROM convenio INNER JOIN personal ON personal.id = convenio.IdPersonal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN departamento ON departamento.id = personal.IdDepartamento WHERE convenio.id LIKE '$q' OR personal.NoSie LIKE '$q%' OR personal.NombreCompleto LIKE '$q%' OR personal.TituloAbreviado LIKE '$q%' OR departamento.Departamento LIKE '$q%' OR regimen.Regimen LIKE '$q%'";
 
 
- $query2 = "SELECT convenioope.id,personalOperativo.ClaveSie,personalOperativo.NombreCompleto,personalOperativo.IdPuesto,puesto.Puesto,puesto.Pago,regimen.Regimen, departamento.Departamento FROM convenioope INNER JOIN personalOperativo ON personaloperativo.id = convenioope.IdPersonalOperativo INNER JOIN puesto ON personaloperativo.IdPuesto=puesto.id INNER JOIN regimen ON personalOperativo.IdRegime=regimen.id INNER JOIN departamento ON departamento.id = personalOperativo.IdDepartamento WHERE convenioope.id LIKE '$q' OR personaloperativo.ClaveSie LIKE '$q%' OR personaloperativo.NombreCompleto LIKE '$q%' OR departamento.Departamento LIKE '$q%' OR regimen.Regimen LIKE '$q%'";
+ $query2 = "SELECT convenioope.IdConvenioOpe,personalOperativo.ClaveSie,personalOperativo.NombreCompleto,personalOperativo.IdPuesto,puesto.Puesto,puesto.Pago,regimen.Regimen, departamento.Departamento FROM convenioope INNER JOIN personalOperativo ON personaloperativo.id = convenioope.IdPersonalOperativo INNER JOIN puesto ON personaloperativo.IdPuesto=puesto.id INNER JOIN regimen ON personalOperativo.IdRegime=regimen.id INNER JOIN departamento ON departamento.id = personalOperativo.IdDepartamento WHERE convenioope.id LIKE '$q' OR personaloperativo.ClaveSie LIKE '$q%' OR personaloperativo.NombreCompleto LIKE '$q%' OR departamento.Departamento LIKE '$q%' OR regimen.Regimen LIKE '$q%'";
 }
 
 $resultado = $db->query($query);
@@ -83,7 +83,7 @@ while($fila = mysqli_fetch_array($resultado)){
                     $FRangoNoPago= "";
 
 
-                    $result=$db->query('SELECT personal.id,personal.NoSie,horariodocentemateria.id,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF, materia.id,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,modalidad.Pago,convenio.id FROM horariodocentemateria INNER JOIN materia ON materia.id=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.id=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.id=materia.IdCarrera INNER JOIN convenio ON convenio.id = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.id =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio = "'.$fila['id'].'" ORDER BY (materia.ClaveMateria)') or die (mysqli_error());
+                    $result=$db->query('SELECT personal.id,personal.NoSie,horariodocentemateria.IdHorarioDocenteMateria ,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF, materia.id,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,modalidad.Pago,convenio.IdConvenio FROM horariodocentemateria INNER JOIN materia ON materia.id=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.id=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.id=materia.IdCarrera INNER JOIN convenio ON convenio.IdConvenio = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.id =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio = "'.$fila['IdConvenio'].'" ORDER BY (materia.ClaveMateria)') or die (mysqli_error());
 
 
                     $PagoTotal=0;
@@ -97,7 +97,7 @@ while($fila = mysqli_fetch_array($resultado)){
 
 
                     //OBTENEMOS LOS DIAS QUE TRABAJA SEPARADO POR DIAS DE LA SEMANA
-                    $querytiempo = "SELECT * FROM convenio WHERE id =".$fila['id'];
+                    $querytiempo = "SELECT * FROM convenio WHERE IdConvenio =".$fila['IdConvenio'];
 
                     $resultadotiempo = $db->query($querytiempo);
                     //Variables de contadores de dias de la semana dentro del convenio
@@ -367,7 +367,7 @@ while($fila = mysqli_fetch_array($resultado)){
                     
                     //echo "PAGO PG:",$pagoPG;
 ?>
-            <td><?php echo remove_junk(ucwords($fila['id']))?></td>
+            <td><?php echo remove_junk(ucwords($fila['IdConvenio']))?></td>
             <td><?php echo remove_junk(ucwords($fila['NoSie']))?></td>
             <td><?php echo remove_junk(ucwords($fila['NombreCompleto']))?></td>
             <td><?php echo remove_junk(ucwords($fila['Departamento']))?></td>
@@ -377,7 +377,7 @@ while($fila = mysqli_fetch_array($resultado)){
             <td><?php echo "$",$PagoTotal ?></td>
             <td class="text-center">
             <div class="btn-group">
-              <a href="pagos_detalles.php?id=<?php echo (int)$fila['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
+              <a href="pagos_detalles.php?id=<?php echo (int)$fila['IdConvenio'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
                 <!-- <span class="glyphicon glyphicon-edit"></span> -->
                 DETALLES
               </a>
@@ -408,7 +408,7 @@ while($fila = mysqli_fetch_array($resultado)){
                     $FRangoNoPago= "";
 
 
-                    $result=$db->query('SELECT personaloperativo.id,personaloperativo.ClaveSie, horariooperativo.id,horariooperativo.LunesHoraI,horariooperativo.MartesHoraI,horariooperativo.MiercolesHoraI,horariooperativo.JuevesHoraI,horariooperativo.ViernesHoraI,horariooperativo.SabadoHoraI,horariooperativo.DomingoHoraI,horariooperativo.LunesHoraF,horariooperativo.MartesHoraF,horariooperativo.MiercolesHoraF,horariooperativo.JuevesHoraF,horariooperativo.ViernesHoraF,horariooperativo.SabadoHoraF,horariooperativo.DomingoHoraF, puesto.Puesto,puesto.Pago,convenioope.id FROM horariooperativo INNER JOIN convenioope ON convenioope.id = horariooperativo.IdConvenioOpe INNER JOIN personaloperativo ON personaloperativo.id =convenioope.IdPersonalOperativo INNER JOIN puesto ON puesto.id = personaloperativo.IdPuesto WHERE horariooperativo.IdConvenioOpe = "'.$fila2['id'].'" ORDER BY (personaloperativo.id)') or die (mysqli_error());
+                    $result=$db->query('SELECT personaloperativo.id,personaloperativo.ClaveSie, horariooperativo.IdHorarioOperativo,horariooperativo.LunesHoraI,horariooperativo.MartesHoraI,horariooperativo.MiercolesHoraI,horariooperativo.JuevesHoraI,horariooperativo.ViernesHoraI,horariooperativo.SabadoHoraI,horariooperativo.DomingoHoraI,horariooperativo.LunesHoraF,horariooperativo.MartesHoraF,horariooperativo.MiercolesHoraF,horariooperativo.JuevesHoraF,horariooperativo.ViernesHoraF,horariooperativo.SabadoHoraF,horariooperativo.DomingoHoraF, puesto.Puesto,puesto.Pago,convenioope.IdConvenioOpe FROM horariooperativo INNER JOIN convenioope ON convenioope.IdConvenioOpe = horariooperativo.IdConvenioOpe INNER JOIN personaloperativo ON personaloperativo.id =convenioope.IdPersonalOperativo INNER JOIN puesto ON puesto.id = personaloperativo.IdPuesto WHERE horariooperativo.IdConvenioOpe = "'.$fila2['IdConvenioOpe'].'" ORDER BY (personaloperativo.id)') or die (mysqli_error());
 
 
                     $PagoTotal=0;
@@ -422,7 +422,7 @@ while($fila = mysqli_fetch_array($resultado)){
 
 
                     //OBTENEMOS LOS DIAS QUE TRABAJA SEPARADO POR DIAS DE LA SEMANA
-                    $querytiempo = "SELECT * FROM convenioope WHERE id =".$fila2['id'];
+                    $querytiempo = "SELECT * FROM convenioope WHERE IdConvenioOpe =".$fila2['IdConvenioOpe'];
 
                     $resultadotiempo = $db->query($querytiempo);
                     //Variables de contadores de dias de la semana dentro del convenio
@@ -691,7 +691,7 @@ while($fila = mysqli_fetch_array($resultado)){
 
                     //echo "PAGO PG:",$pagoPG;
 ?>
-                    <td><?php echo remove_junk(ucwords($fila2['id']))?></td>
+                    <td><?php echo remove_junk(ucwords($fila2['IdConvenioOpe']))?></td>
                     <td><?php echo remove_junk(ucwords($fila2['ClaveSie']))?></td>
                     <td><?php echo remove_junk(ucwords($fila2['NombreCompleto']))?></td>
                     <td><?php echo remove_junk(ucwords($fila2['Departamento']))?></td>
@@ -702,7 +702,7 @@ while($fila = mysqli_fetch_array($resultado)){
                     <td><?php echo $PagoTotal ?></td>
                     <td class="text-center">
                       <div class="btn-group">
-                      <a href="pagos_detalles_op.php?id=<?php echo (int)$fila2['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
+                      <a href="pagos_detalles_op.php?id=<?php echo (int)$fila2['IdConvenioOpe'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
                 <!-- <span class="glyphicon glyphicon-edit"></span> -->
                      DETALLES
                       </a>

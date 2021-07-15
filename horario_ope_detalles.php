@@ -10,7 +10,7 @@
 	    ?>
 
         <?php 
-			$result=$db->query('SELECT * FROM convenioope WHERE id ='.$idconvenio.'') or die (mysqli_error());
+			$result=$db->query('SELECT * FROM convenioope WHERE IdConvenioOpe ='.$idconvenio.'') or die (mysqli_error());
 				while($fi=mysqli_fetch_array($result)) {
     				$result2=$db->query('SELECT * FROM personaloperativo WHERE id ='.$fi['IdPersonalOperativo'].'') or die (mysqli_error());
     			}
@@ -21,9 +21,9 @@
 							
 		<?php } 
 			$convenio='';
-			$result2=$db->query( 'SELECT id FROM convenioope WHERE id ='.$idconvenio.'')or die (mysqli_error());
+			$result2=$db->query( 'SELECT IdConvenioOpe FROM convenioope WHERE IdConvenioOpe ='.$idconvenio.'')or die (mysqli_error());
 			while($f=mysqli_fetch_array($result2)) {
-			$convenio=$f['id'];
+			$convenio=$f['IdConvenioOpe'];
 			}
 	    ?>
 <div class="row">
@@ -59,7 +59,7 @@
             <tbody class="boddy">
             <?php 
 					  	
-					  	$query ="SELECT horariooperativo.id, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.id WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
+					  	$query ="SELECT horariooperativo.IdHorarioOperativo, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.IdConvenioOpe WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
 
 					  	$cont=0;
 					  	$resultado = $db->query($query);
@@ -126,13 +126,21 @@
 					    <?php }?>
 					    <td class="text-center">
            <div class="btn-group">
-              <a href="edit_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_horario_ope.php?id=<?php echo (int)$f['IdHorarioOperativo'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_horario_ope.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+
+              <!-- <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorarioOperativo(<?=$f['IdHorarioOperativo']?>,'<?=$idconvenio?>' )"></button></div> -->
+
+
+              <a href="" onclick="ConfirmBorrarHorarioOperativo(<?=$f['IdHorarioOperativo']?>,'<?=$idconvenio?>' )" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
+
+					    <!-- <button type="submit" class="btn btn-danger btn-xs" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorarioOperativo(<?=$f['IdHorarioOperativo']?>,'<?=$idconvenio?>' )">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button> -->
 
               <!-- <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorario(<?=$f['IdHorarioOperativo']?>,'<?=$f['IdConvenio']?>' )"></button></div> -->
 
@@ -232,6 +240,20 @@
                     $('#mitabla').parent().addClass('table-responsive');
                   } );
           </script>
+          <script>
+            function ConfirmBorrarHorarioOperativo(horario,idconvenio) {
+          
+          if (confirm("¿Estas seguro de eliminar el registro del horario seleccionado? ")){
+          
+             window.location.assign("delete_horario_ope.php" + "?horario=" + horario + "&idconvenio=" + idconvenio)
+       
+          }else{
+       
+              alert("Operacion cancelada");
+       
+          }
+      }
+            </script>
           <style>
           .dataTables_wrapper .dataTables_paginate .paginate_button {
               padding : 0px;

@@ -31,13 +31,13 @@
 						<?php 
 						$idhorario = $_GET["id"];
 						$conv="";
-					 	$result=$db->query('SELECT * FROM horariodocentemateria WHERE id = '.$idhorario.'')or die(mysqli_error());
+					 	$result=$db->query('SELECT * FROM horariodocentemateria WHERE IdHorarioDocenteMateria  = '.$idhorario.'')or die(mysqli_error());
 					 		while($f=mysqli_fetch_array($result)) {
 					 			$personaloperativo='';
-					 	$query = "SELECT convenio.id, convenio.IdPersonal, personal.NoSie FROM convenio INNER JOIN personal ON convenio.IdPersonal = personal.id WHERE convenio.id =".$f['IdConvenio'];
+					 	$query = "SELECT convenio.IdConvenio , convenio.IdPersonal, personal.NoSie FROM convenio INNER JOIN personal ON convenio.IdPersonal = personal.id WHERE convenio.IdConvenio  =".$f['IdConvenio'];
 					 		$resultado = $db->query($query);
 					 		while($c=mysqli_fetch_array($resultado)) {
-					 			$personaloperativo = $c['id'];
+					 			$personaloperativo = $c['IdConvenio'];
 					 	?>
 						  <div class="row">
                   		 <div class="col-md-6">
@@ -48,7 +48,7 @@
 
 								<div class="form-group">
 									<label>Numero de horario:</label>
-									<input type="" class="form-control" name="idhorario" value="<?php echo $f['id']; ?>" readonly>
+									<input type="" class="form-control" name="idhorario" value="<?php echo $f['IdConvenio']; ?>" readonly>
  								</div>
 								 
 								<div class="form-group">
@@ -503,7 +503,7 @@
 							</div>
 							</div>
 						<div>
-							<button type="submit" class="btn btn-danger" formaction="horario_perso_detalles.php?id=<?php echo $c['id'] ?>">CANCELAR</button>
+							<button type="submit" class="btn btn-danger" formaction="horario_perso_detalles.php?id=<?php echo $c['IdConvenio'] ?>">CANCELAR</button>
 							<button type="submit" class="btn btn-primary">EDITAR</button>
 						</div>
 					</div>
