@@ -47,20 +47,20 @@
 					    					while($fe=mysqli_fetch_array($result)) {
 					    					?>
 					  <tr>
-                      <td><?php echo $fe['id'];?></td>
+                      <td><?php echo $fe['IdConvenio'];?></td>
                       <td><?php echo $fe['InicioContrato'];?></td>
                       <td><?php echo $fe['FinContrato'];?></td>
-                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['id'];?>'>DESCARGAR</a></td>
-                      <td><a class='btn btn-success btn-xs' href='convenio_personal.php?id=<?php echo $fe['id'];?>'>DETALLES</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['IdConvenio'];?>'>DESCARGAR</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_personal.php?id=<?php echo $fe['IdConvenio'];?>'>DETALLES</a></td>
                         
 					   
 					    <td class="text-center">
            <div class="btn-group">
-              <a href="edit_convenio_pers.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_convenio_pers.php?id=<?php echo (int)$fe['IdConvenio'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="" onclick="ConfirmBorrarConvenio('<?php echo $fe['id'];?>','<?php echo $id;?>')" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="" onclick="ConfirmBorrarConvenio('<?php echo $fe['IdConvenio'];?>','<?php echo $id;?>')" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
               <!-- <a class="btn btn-danger btn-xs" id="alertaPersonal" onclick="ConfirmBorrarConvenio('<?php echo $fe['id'];?>','<?php echo $id;?>')">

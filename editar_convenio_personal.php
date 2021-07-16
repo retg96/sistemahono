@@ -5,7 +5,7 @@ $InicioContrato = $_POST["FechaInicio"];
 $FinContrato = $_POST["FechaFin"];
 
 require_once('includes/load.php');
-$sql = "UPDATE convenio SET InicioContrato='$InicioContrato',FinContrato='$FinContrato' WHERE id = '$id'";
+$sql = "UPDATE convenio SET InicioContrato='$InicioContrato',FinContrato='$FinContrato' WHERE IdConvenio = '$id'";
 
 if ($db->query($sql) === TRUE) {
     header('Location: '."convenio_pers_detalles.php?id=$idpersonal");

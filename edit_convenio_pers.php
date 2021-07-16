@@ -22,7 +22,7 @@
 
 				<?php 
 					$idconvenio = $_GET['id'];
-					$query = "SELECT personal.id,personal.NoSie,personal.NombreCompleto,personal.Calle,personal.RFC,regimen.Regimen,convenio.InicioContrato,convenio.FinContrato FROM personal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN convenio ON personal.id=convenio.IdPersonal WHERE convenio.id=".$idconvenio." ";
+					$query = "SELECT personal.id,personal.NoSie,personal.NombreCompleto,personal.Calle,personal.RFC,regimen.Regimen,convenio.InicioContrato,convenio.FinContrato FROM personal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN convenio ON personal.id=convenio.IdPersonal WHERE convenio.IdConvenio=".$idconvenio." ";
 					$resultado = $db->query($query);
 
 					while($f=mysqli_fetch_array($resultado)) {
@@ -31,7 +31,7 @@
                 <div class="panel-body">
          <div class="col-md-12">
          <div class="alert alert-success hide"></div>	
-				<form method='post' action='editar_convenio_operativo.php'>
+				<form method='post' action='editar_convenio_personal.php'>
                 <div class="form-group">
                 <div class="row">
                   <div class="col-md-3">
@@ -62,7 +62,7 @@
 
                             <div class="form-group">
                                 <label>RFC:</label>
-                                <input class="form-control" type='text' name='RFC' value="<?php echo $f['RFC']?>" readonly><br>
+                                <input class="form-control" type='text' name='RFC' value="<?php echo $f['RFC']?>" readonly>
                             </div>
                    	
                             <div class="form-group">
