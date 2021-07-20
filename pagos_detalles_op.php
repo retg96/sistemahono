@@ -1,5 +1,6 @@
-<?php 
+<?php
   require_once('includes/load.php');
+  include_once('layouts/header.php');
   /*session_start();
 		$_SESSION['Clave'];
 
@@ -12,35 +13,46 @@
 
 <body>
 
-		<div class="contentTable">
+		<!-- <div class="contentTable">
 			<div class="contentTab">
 				<div>
 					<h2>PAGO DETALLES</h2>
-				</div>
-				<?php 
+				</div> -->
+				<?php
 					 if(isset($idpersonal)){
 				?>
-				<div class="espacio2"></div>
-				<div>
-					
-					<?php 
+				<!-- <div class="espacio2"></div>
+				<div> -->
+                <div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <strong>
+          <span class="glyphicon glyphicon-th"></span>
+          <span>Pago Detalles</span>
+       </strong>
+       <button onclick="location.href='horario_operativo_añadir.php?id=<?php echo $idconvenio; ?>'" type="submit" class="btn btn-info pull-right" name="Añadir">AGREGAR HORARIO</button>
+        </div>
+        <div class="panel-body">
+					<?php
 						$InicioContrato="";
 					    $FinContrato= "";
 					  	$result=$db->query('SELECT * FROM convenioope INNER JOIN personaloperativo ON convenioope.IdPersonalOperativo = personaloperativo.id WHERE convenioope.IdConvenioOpe  ='.$idconvenio.'') or die (mysqli_error());
-					  	
+
     					while($fi=mysqli_fetch_array($result)) {
 						?>	<label for="search">CLAVE: </label>
 							<input type="text" value="<?php echo $fi['ClaveSie']?>" readonly></input>
 							<label for="search">Nombre: </label>
 							<input type="text" value="<?php echo $fi['NombreCompleto'] ?>" readonly></input>
-							
+
 						<?php } ?>
 
-					<br><button onclick="location.href='horario_operativo_añadir.php?id=<?php echo $idconvenio; ?>'" type="submit" class="btnsE pull-right" name="Añadir">AGREGAR HORARIO</button>
-				</div>
+				<!-- </div>
 				<div class="espacio2"></div>
-				<div>
-					<table border=1>
+				<div> -->
+
+      <table class="table table-bordered table-striped" id="mitabla">
+        <thead class="headd">
 					  <tr>
 					  	<th>Editar/Borrar</th>
 					  	<th>Lunes</th>
@@ -57,8 +69,10 @@
 					    <th>ISR</th>
 					    <th>Total</th>
 					  </tr>
+                      </thead>
+            <tbody class="boddy">
 					  <tr>
-					  	<?php 
+					  	<?php
 
 					  	$InicioContrato="";
                         $FinContrato= "";
@@ -103,12 +117,12 @@
                             //echo "Contrato:",$InicioContrato," ************** ", $FinContrato, "<br>";
                                 $d="";
 
-                                $f3 = date("d-m-Y", strtotime($t['FechaInicio'])); 
+                                $f3 = date("d-m-Y", strtotime($t['FechaInicio']));
                                 $d=date("w",strtotime($f3));
 
                                //echo "Dias: <br>";
                                //echo $f3,"-",$d,"<br>";
-                                while( strtotime($f3) <= strtotime($t['FechaFin'])) { 
+                                while( strtotime($f3) <= strtotime($t['FechaFin'])) {
                                     $d=date("w",strtotime($f3));
 
                                         if($d==1){$dL++;}
@@ -140,7 +154,7 @@
                         if($f['LunesHoraI']!="00:00:00"){
                             $h1= new DateTime($f['LunesHoraI']);
                             $h2= new DateTime($f['LunesHoraF']);
-                            $horasD = $h1->diff($h2); 
+                            $horasD = $h1->diff($h2);
                             $horasl = $horasD->format('%H');
                             $l++;
                             array_push($diasTrabajoLetras, "L ");
@@ -148,7 +162,7 @@
                         if($f['MartesHoraI']!="00:00:00"){
                             $h1= new DateTime($f['MartesHoraI']);
                             $h2= new DateTime($f['MartesHoraF']);
-                            $horasD = $h1->diff($h2); 
+                            $horasD = $h1->diff($h2);
                             $horasm = $horasD->format('%H');
                             $m++;
                             array_push($diasTrabajoLetras, "M ");
@@ -156,7 +170,7 @@
                         if($f['MiercolesHoraI']!="00:00:00"){
                             $h1= new DateTime($f['MiercolesHoraI']);
                             $h2= new DateTime($f['MiercolesHoraF']);
-                            $horasD = $h1->diff($h2); 
+                            $horasD = $h1->diff($h2);
                             $horasmi = $horasD->format('%H');
                             $mi++;
                             array_push($diasTrabajoLetras, "Mi ");
@@ -164,7 +178,7 @@
                         if($f['JuevesHoraI']!="00:00:00"){
                             $h1= new DateTime($f['JuevesHoraI']);
                             $h2= new DateTime($f['JuevesHoraF']);
-                            $horasD = $h1->diff($h2); 
+                            $horasD = $h1->diff($h2);
                             $horasj = $horasD->format('%H');
                             $j++;
                             array_push($diasTrabajoLetras, "J ");
@@ -172,7 +186,7 @@
                         if($f['ViernesHoraI']!="00:00:00"){
                             $h1= new DateTime($f['ViernesHoraI']);
                             $h2= new DateTime($f['ViernesHoraF']);
-                            $horasD = $h1->diff($h2); 
+                            $horasD = $h1->diff($h2);
                             $horasv = $horasD->format('%H');
                             $v++;
                             array_push($diasTrabajoLetras, "V ");
@@ -180,7 +194,7 @@
                         if($f['SabadoHoraI']!="00:00:00"){
                             $h1= new DateTime($f['SabadoHoraI']);
                             $h2= new DateTime($f['SabadoHoraF']);
-                            $horasD = $h1->diff($h2); 
+                            $horasD = $h1->diff($h2);
                             $horass = $horasD->format('%H');
                             $s++;
                             array_push($diasTrabajoLetras, "S ");
@@ -188,7 +202,7 @@
                         if($f['DomingoHoraI']!="00:00:00"){
                             $h1= new DateTime($f['DomingoHoraI']);
                             $h2= new DateTime($f['DomingoHoraF']);
-                            $horasD = $h1->diff($h2); 
+                            $horasD = $h1->diff($h2);
                             $horasd = $horasD->format('%H');
                             $d++;
                             array_push($diasTrabajoLetras, "D ");
@@ -219,16 +233,16 @@
 
                         $querytiempo3 = "SELECT * FROM rangonopago";
                         $resultadotiempo3 = $db->query($querytiempo3);
-                        
+
                         while($t3= mysqli_fetch_array($resultadotiempo3)){
                                 $fechaFC = date("d-m-Y",strtotime($FinContrato));
                                 $fechaInicioSinPago=date("d-m-Y", strtotime($t3['FechaInicio']));
 
-                                    while(strtotime($fechaInicioSinPago) <= strtotime($t3['FechaFin'])) { 
-                                        
+                                    while(strtotime($fechaInicioSinPago) <= strtotime($t3['FechaFin'])) {
+
                                         if(strtotime($fechaInicioSinPago) >=strtotime($InicioContrato) ) {
-                                     
-                                            if(strtotime($fechaInicioSinPago) <= strtotime($FinContrato)) { 
+
+                                            if(strtotime($fechaInicioSinPago) <= strtotime($FinContrato)) {
                                                 $d3=date("w",strtotime($fechaInicioSinPago));
                                                 if($d3==1 && $f['LunesHoraI']!= "00:00:00"){$dL--;}
                                                 if($d3==2 && $f['MartesHoraI']!= "00:00:00"){$dM--;}
@@ -237,9 +251,9 @@
                                                 if($d3==5 && $f['ViernesHoraI']!= "00:00:00"){$dV--;}
                                                 if($d3==6 && $f['SabadoHoraI']!= "00:00:00"){$dS--;}
                                                 if($d3==0 && $f['DomingoHoraI']!= "00:00:00"){$dD--;}
-                                        }} 
-                                        $fechaInicioSinPago = date("d-m-Y", strtotime($fechaInicioSinPago . " + 1 day")); 
-                                    } 
+                                        }}
+                                        $fechaInicioSinPago = date("d-m-Y", strtotime($fechaInicioSinPago . " + 1 day"));
+                                    }
                         }
 
                        /* echo "<br><br>Dias con pago dentro de su contrato sin fechas de vacaciones: <br>";
@@ -253,8 +267,8 @@
 
                         $querytiempo4 = "SELECT * FROM fechanopago";
                         $resultadotiempo4 = $db->query($querytiempo4);
-                        
-                        
+
+
                         while($t4= mysqli_fetch_array($resultadotiempo4)){
                             $fecha = date("d-m-Y",strtotime($t4['Fecha']));
 
@@ -267,7 +281,7 @@
                                     if($d4==5 && $f['ViernesHoraI']!="00:00:00"){$dV--;}
                                     if($d4==6 && $f['SabadoHoraI']!="00:00:00"){$dS--;}
                                     if($d4==0 && $f['DomingoHoraI']!="00:00:00"){$dD--;}
-                                
+
                             }
                         }
 
@@ -313,7 +327,7 @@
                             $horasTotalj=$dJ*$horasj;
                             $jpago=$horasTotalj*$f['Pago'];
                             $horasSemestre+=$horasTotalj;
-                           } 
+                           }
                            if($v!=0){
                             $horasSemestrePorDia+=$horasv;
                             $horasTotalv=$dV*$horasv;
@@ -325,15 +339,15 @@
                             $horasTotals=$dS*$horass;
                             $spago=$horasTotals*$f['Pago'];
                             $horasSemestre+=$horasTotals;
-                           }    
+                           }
                            if($d!=0){
                             $horasSemestrePorDia+=$horasd;
                             $horasTotald=$dD*$horasd;
                             $dpago=$horasTotald*$f['Pago'];
                             $horasSemestre+=$horasTotald;
                            }
-                           
-                        
+
+
                         $SubtotalPorMateria=$lpago+$mpago+$mipago+$jpago+$vpago+$spago+$dpago;
                         $PagoIVATotalPorMateria=$SubtotalPorMateria*0.16;
                         $PagoTotalPorMateria=$SubtotalPorMateria+$PagoIVATotalPorMateria;
@@ -348,18 +362,26 @@
                         $PagoTotalPorMateria=0;
 
 
-                      
+
                             $fPP+=$Subtotal;
                             $fIVA+=$PagoIVATotal;
                             $final+=$PagoTotal;
     						?>
-    					
-    					<td><div class="pull-center">
-					    <button type="submit" class="btnsEdition icon-pencil" name="Editar" onclick="location.href='edit_horario_ope.php?id=<?php echo $f['IdHorarioOperativo']?>'"></button>
-					    <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorarioOperativo(<?=$f['IdHorarioOperativo']?>,'<?=$f['IdConvenioOpe']?>' )"></button></div>
-					    </td>
+
+    					<td class="text-center">
+                        <div class="btn-group">
+                            <a href="edit_horario_ope.php?id=<?php echo $f['IdHorarioOperativo']?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="" onclick="ConfirmBorrarHorarioOperativo(<?=$f['IdHorarioOperativo']?>,'<?=$f['IdConvenioOpe']?>' )" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+					    <!-- <button type="submit" class="btnsEdition icon-pencil" name="Editar" onclick="location.href='edit_horario_ope.php?id=<?php echo $f['IdHorarioOperativo']?>'"></button>-->
+					    <!-- <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorarioOperativo(<?=$f['IdHorarioOperativo']?>,'<?=$f['IdConvenioOpe']?>' )"></button> -->
+					    </div>
+                        </td>
 					    <td><?php echo $f['LunesHoraI']," - ",$f['LunesHoraF'];?></td>
-					    <td><?php echo $f['MartesHoraI']," - ",$f['MartesHoraF'];?></td>			    
+					    <td><?php echo $f['MartesHoraI']," - ",$f['MartesHoraF'];?></td>
 					    <td><?php echo $f['MiercolesHoraI']," - ",$f['MiercolesHoraF'];?></td>
 					    <td><?php echo $f['JuevesHoraI']," - ",$f['JuevesHoraF'];?></td>
 					    <td><?php echo $f['ViernesHoraI']," - ",$f['ViernesHoraF'];?></td>
@@ -371,10 +393,10 @@
 					    <td><?php echo "$",$Subtotal;?></td>
 					    <td><?php echo "$",$PagoIVATotal;?></td>
 					    <td><?php echo "$",$PagoTotal;?></td>
-					    
+
 					  </tr>
-					  
-                      
+
+
 					  <?php
 
                         $Horas=0;
@@ -382,8 +404,8 @@
 					  	$HorasTotalSinPago=0;
 					  	$PagoTotal=0;
   						}
-  					
-  					
+
+
   					}
  					?>
  					</tr>
@@ -403,10 +425,25 @@
                         <td><?php echo "$",$final?></td>
                       </tr>
 					</table>
-				
-					<br><br>
+                </tbody>
+
+                <script>
+                    function ConfirmBorrarHorarioOperativo(horario,idconvenio) {
+          
+          if (confirm("¿Estas seguro de eliminar el registro del horario seleccionado? ")){
+          
+             window.location.assign("delete_horario_ope.php" + "?horario=" + horario + "&idconvenio=" + idconvenio)
+       
+          }else{
+       
+              alert("Operacion cancelada");
+       
+          }
+      }
+                </script>
+                	<button type="submit" class="btn btn-danger" onclick="location.href='pagos.php'">CANCELAR</button>
 				</div>
-				<br><button class="btns pull-left" onclick="location.href='pagos.php'">VOLVER</button><br><br><br>
+				<!-- <button class="btns pull-left" onclick="location.href='pagos.php'">VOLVER</button> -->
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 <?php
-include ('../conexion.php');
+include ('../includes/load.php');
 require_once dirname(__FILE__).'/PHPWord-master/src/PhpWord/Autoloader.php';
 \PhpOffice\PhpWord\Autoloader::register();
 
@@ -19,7 +19,7 @@ $id = $_GET["id"];
                         $FRangoNoPago= "";
 
 
-                        $result=mysqli_query($conexion,'SELECT personal.IdPersonal,personal.NoSie,horariodocentemateria.IdHorarioDocenteMateria,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF, materia.IdMateria,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,modalidad.Pago,convenio.IdConvenio FROM horariodocentemateria INNER JOIN materia ON materia.IdMateria=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.IdModalidad=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.IdCarrera=materia.IdCarrera INNER JOIN convenio ON convenio.IdConvenio = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.IdPersonal =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio = '.$id.' ORDER BY (materia.ClaveMateria)') or die (mysqli_error());
+                        $result=$db->query('SELECT personal.id,personal.NoSie,horariodocentemateria.IdHorarioDocenteMateria,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF, materia.id,materia.AreaAbreviada,materia.Materia,materia.Semestre,materia.ClaveMateria,materia.NombreCorto,materia.HorasTeoricas,materia.HorasPracticas, carrera.Carrera, modalidad.Modalidad,modalidad.Pago,convenio.IdConvenio FROM horariodocentemateria INNER JOIN materia ON materia.id=horariodocentemateria.IdMateria INNER JOIN modalidad ON modalidad.id=horariodocentemateria.IdModalidad INNER JOIN carrera ON carrera.id=materia.IdCarrera INNER JOIN convenio ON convenio.IdConvenio = horariodocentemateria.IdConvenio INNER JOIN personal ON personal.id =convenio.IdPersonal WHERE horariodocentemateria.IdConvenio ="'.$id.'" ORDER BY (materia.ClaveMateria)') or die (mysqli_error());
 
 
                         $PagoTotal=0;
@@ -35,7 +35,7 @@ $id = $_GET["id"];
                         //OBTENEMOS LOS DIAS QUE TRABAJA SEPARADO POR DIAS DE LA SEMANA
                         $querytiempo = "SELECT * FROM convenio WHERE IdConvenio =".$id;
 
-                        $resultadotiempo = $conexion->query($querytiempo);
+                        $resultadotiempo = $db->query($querytiempo);
                         //Variables de contadores de dias de la semana dentro del convenio
                         $dL=0;
                         $dM=0;
@@ -168,7 +168,7 @@ $id = $_GET["id"];
                         $dianopagol=0;$dianopagom=0;$dianopagomi=0;$dianopagoj=0;$dianopagov=0;$dianopagos=0;$dianopagod=0;
 
                         $querytiempo3 = "SELECT * FROM rangonopago";
-                        $resultadotiempo3 = $conexion->query($querytiempo3);
+                        $resultadotiempo3 = $db->query($querytiempo3);
                         
                         while($t3= mysqli_fetch_array($resultadotiempo3)){
                                 $fechaFC = date("d-m-Y",strtotime($FinContrato));
@@ -202,7 +202,7 @@ $id = $_GET["id"];
                             echo " Domingo:",$dD;*/
 
                         $querytiempo4 = "SELECT * FROM fechanopago";
-                        $resultadotiempo4 = $conexion->query($querytiempo4);
+                        $resultadotiempo4 = $db->query($querytiempo4);
                         
                         
                         while($t4= mysqli_fetch_array($resultadotiempo4)){
@@ -337,16 +337,16 @@ $puesto = "";
 $nivelestudio = "";
 
 
-include ('../conexion.php');
-$result=mysqli_query($conexion,'SELECT personal.Nombre,personal.ApPat,personal.ApMat,personal.Sexo,personal.Profesion,personal.Calle, personal.NumExterior, personal.NumInterior, personal.Fraccionamiento, personal.CP, personal.Ciudad, personal.Estado,personal.RFC,personal.Puesto,departamento.IdDepartamento,departamento.Departamento,departamento.Abreviatura,convenio.InicioContrato,convenio.FinContrato,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF,horariodocentemateria.Aula,materia.Materia,modalidad.Modalidad,regimen.Regimen,nivelestudio.NivelEstudio FROM personal 
-INNER JOIN convenio on convenio.IdPersonal = personal.IdPersonal 
+// include ('../conexion.php');
+$result=$db->query('SELECT personal.NombreCompleto,personal.Sexo,personal.Profesion,personal.Calle, personal.NumExterior, personal.NumInterior, personal.Fraccionamiento, personal.CP, personal.Ciudad, personal.Estado,personal.RFC,personal.IdPuesto,departamento.id,departamento.Departamento,departamento.Abreviatura,convenio.InicioContrato,convenio.FinContrato,horariodocentemateria.LunesHoraI,horariodocentemateria.MartesHoraI,horariodocentemateria.MiercolesHoraI,horariodocentemateria.JuevesHoraI,horariodocentemateria.ViernesHoraI,horariodocentemateria.SabadoHoraI,horariodocentemateria.DomingoHoraI,horariodocentemateria.LunesHoraF,horariodocentemateria.MartesHoraF,horariodocentemateria.MiercolesHoraF,horariodocentemateria.JuevesHoraF,horariodocentemateria.ViernesHoraF,horariodocentemateria.SabadoHoraF,horariodocentemateria.DomingoHoraF,horariodocentemateria.Aula,materia.Materia,modalidad.Modalidad,regimen.Regimen,nivelestudio.NivelEstudio FROM personal 
+INNER JOIN convenio on convenio.IdPersonal = personal.id 
 INNER JOIN horariodocentemateria ON horariodocentemateria.IdConvenio =convenio.IdConvenio
-INNER JOIN materia ON materia.IdMateria = horariodocentemateria.IdMateria 
-INNER JOIN modalidad ON modalidad.IdModalidad = horariodocentemateria.IdModalidad 
-INNER JOIN regimen ON regimen.IdRegime = personal.IdRegimen 
-INNER JOIN departamento ON departamento.IdDepartamento = personal.IdDepartamento 
-INNER JOIN nivelestudio ON personal.IdNivelEstudio=nivelestudio.IdNivelEstudio
-WHERE horariodocentemateria.IdConvenio='.$id.'')or die(mysqli_error());
+INNER JOIN materia ON materia.id = horariodocentemateria.IdMateria 
+INNER JOIN modalidad ON modalidad.id = horariodocentemateria.IdModalidad 
+INNER JOIN regimen ON regimen.id = personal.IdRegimen 
+INNER JOIN departamento ON departamento.id = personal.IdDepartamento 
+INNER JOIN nivelestudio ON personal.IdNivelEstudio=nivelestudio.id
+WHERE horariodocentemateria.IdConvenio="'.$id.'"')or die(mysqli_error());
 
 $dom=array();
 $domicilio="";
@@ -385,25 +385,25 @@ if($contDomicilio==0){
 }
 
 $regimen=$f['Regimen'];
-$puesto=$f['Puesto'];
+$puesto=$f['IdPuesto'];
 $nivelestudio = $f['NivelEstudio'];
 
 array_push($asignatura,$f['Materia']);
 
 $contDomicilio++;
 
-$nombreCompleto = $f['Nombre'];
-$apePat = $f['ApPat'];
-$apeMat = $f['ApMat'];
-if($f['Puesto']=="ASESOR ACADÉMICO"){
+$nombreCompleto = $f['NombreCompleto'];
+// $apePat = $f['ApPat'];
+// $apeMat = $f['ApMat'];
+if($f['IdPuesto']=="ASESOR ACADÉMICO"){
     $profesionDocente = "ASESOR ACADÉMICO"; 
 }else{
-   $profesionDocente = $f['Puesto']; 
+   $profesionDocente = $f['IdPuesto']; 
 }
 
 $rfc = $f['RFC'];
 $departamento = $f['Departamento'];
-$iddepartamento = $f['IdDepartamento'];
+$iddepartamento = $f['id'];
 
     if($f['Sexo'] == "M"){
         $genero = "la";
@@ -413,7 +413,7 @@ $iddepartamento = $f['IdDepartamento'];
 
 }
 
-$result2=mysqli_query($conexion,'SELECT * FROM formatoconvenio WHERE IdDepartamento='.$iddepartamento.'')or die(mysqli_error());
+$result2=$db->query('SELECT * FROM formatoconvenio WHERE IdDepartamento="'.$iddepartamento.'"')or die(mysqli_error());
 
 while($f2=mysqli_fetch_array($result2)) {
     $subServiciosA = $f2['SubServiciosA'];
@@ -426,7 +426,7 @@ while($f2=mysqli_fetch_array($result2)) {
 
 }
 
-$result3=mysqli_query($conexion,'SELECT * FROM convenio WHERE IdConvenio ='.$id)or die(mysqli_error());
+$result3=$db->query('SELECT * FROM convenio WHERE IdConvenio ='.$id)or die(mysqli_error());
 
 while($f3=mysqli_fetch_array($result3)) {
     $diaSf1= date("d", strtotime($f3['InicioContrato'])); $mesSf1= date("m", strtotime($f3['InicioContrato'])); $anioSf1= date("Y", strtotime($f3['InicioContrato']));
@@ -465,7 +465,7 @@ $diaSemestref1= 0; $mesSemestref1= 0; $mesLSemestref1=""; $anioSemestref1= 0;
 $diaSemestref2= 0; $mesSemestref2= 0; $mesLSemestref2=""; $anioSemestref2= 0;
 
 
-$result5=mysqli_query($conexion,'SELECT * FROM semestre WHERE Estatus ="Activo"')or die(mysqli_error());
+$result5=$db->query('SELECT * FROM semestre WHERE Estatus ="Activo"')or die(mysqli_error());
 
 while($f5=mysqli_fetch_array($result5)) {
     $diaSemestref1= date("d", strtotime($f5['FechaInicio'])); $mesSemestref1= date("m", strtotime($f5['FechaInicio'])); $anioSemestref1= date("Y", strtotime($f5['FechaInicio']));
@@ -499,7 +499,7 @@ while($f5=mysqli_fetch_array($result5)) {
     
 }
 
-$result4=mysqli_query($conexion,'SELECT * FROM periodopagos')or die(mysqli_error());
+$result4=$db->query('SELECT * FROM periodopagos')or die(mysqli_error());
 
 $cont2=0;
 $valuesP=[];
@@ -657,7 +657,7 @@ $templateWord->setValue('nivelestudio',mb_strtoupper ($nivelestudio,'utf-8'));*/
 
 //$templateWord->cloneRowAndSetValues('Materias', $values);
 $templateWord->cloneRowAndSetValues('NPago', $valuesP);
-$conexion->close();
+$db=null;
 // --- Guardamos el documento
 $templateWord->saveAs('format_read/plantilla.docx');
 

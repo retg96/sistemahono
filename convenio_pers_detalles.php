@@ -50,7 +50,7 @@
                       <td><?php echo $fe['IdConvenio'];?></td>
                       <td><?php echo $fe['InicioContrato'];?></td>
                       <td><?php echo $fe['FinContrato'];?></td>
-                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['IdConvenio'];?>'>DESCARGAR</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio.php?id=<?php echo $fe['IdConvenio'];?>'>DESCARGAR</a></td>
                       <td><a class='btn btn-success btn-xs' href='convenio_personal.php?id=<?php echo $fe['IdConvenio'];?>'>DETALLES</a></td>
                         
 					   
