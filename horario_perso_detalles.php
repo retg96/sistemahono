@@ -153,6 +153,14 @@
 					    <?php }?>
 					    <td class="text-center">
            <div class="btn-group">
+              <!-- <a href="delete_horario.php?id=<?php echo (int)$f['IdHorarioDocenteMateria'];?>" class="btn btn-info btn-xs btn-del" style="margin: 2px !important;" title="Descargar" data-toggle="tooltip">
+                <span class="glyphicon glyphicon-download-alt"></span>
+              </a> -->
+
+              <a href='convenio_form/formato_convenio.php?id=<?php echo $f['IdHorarioDocenteMateria'];?>' class="btn btn-info btn-xs btn-del" style="margin: 2px !important;" title="Descargar" data-toggle="tooltip">
+                <span class="glyphicon glyphicon-download-alt"></span>
+              </a>
+
               <a href="edit_horario.php?id=<?php echo (int)$f['IdHorarioDocenteMateria'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
@@ -261,6 +269,9 @@ function ConfirmBorrarHorario(horario,nosie) {
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+
                           // { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "1%" }, // 2nd column width
 
