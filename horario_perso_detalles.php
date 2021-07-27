@@ -157,7 +157,7 @@
                 <span class="glyphicon glyphicon-download-alt"></span>
               </a> -->
 
-              <a href='convenio_form/formato_convenio.php?id=<?php echo $f['IdHorarioDocenteMateria'];?>' class="btn btn-info btn-xs btn-del" style="margin: 2px !important;" title="Descargar" data-toggle="tooltip">
+              <a href='convenio_form/horario_docente.php?id=<?php echo $f['IdHorarioDocenteMateria'];?>' class="btn btn-success btn-xs" style="margin: 2px !important;" title="Descargar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-download-alt"></span>
               </a>
 

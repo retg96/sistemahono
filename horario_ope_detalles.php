@@ -126,10 +126,12 @@
 					    <?php }?>
 					    <td class="text-center">
            <div class="btn-group">
+              <a href='convenio_form/horario_ope.php?id=<?php echo $f['IdHorarioOperativo'];?>' class="btn btn-success btn-xs" style="margin: 2px !important;" title="Descargar" data-toggle="tooltip">
+                <span class="glyphicon glyphicon-download-alt"></span>
+              </a>
               <a href="edit_horario_ope.php?id=<?php echo (int)$f['IdHorarioOperativo'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
-
 
               <!-- <button type="submit" class="btnsDelite icon-cross" name="Eliminar" id="alertaHorario" onclick="ConfirmBorrarHorarioOperativo(<?=$f['IdHorarioOperativo']?>,'<?=$idconvenio?>' )"></button></div> -->
 
