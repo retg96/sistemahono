@@ -1,66 +1,100 @@
 <?php
-  $page_title = 'FECHAS SIN PAGO';
+  $page_title = 'Lista del Personal';
   require_once('includes/load.php');
+  include_once('layouts/header.php');
 ?>
 <?php
 // Checkin What level user has permission to view this page
- page_require_level(1);
+ page_require_level(4);
 //pull out all user form database
- $all_sin_pagos = fecha_sin_pagos();
-
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
 ?>
-<?php include_once('layouts/header.php'); ?>
-<div class="row">
-   <div class="col-md-12">
-     <?php echo display_msg($msg); ?>
-   </div>
-</div>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>FECHAS SIN PAGO</span>
+          <span>Personal TECNM</span>
        </strong>
-         <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
+         <!-- <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a> -->
       </div>
-     <div class="panel-body">
+
+      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
         <thead class="headd">
-          <tr>
-            <!-- <th class="text-center" style="width: 50px;">Id</th> -->
-            <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Fecha sin pago</th>
-			<th>Descripción</th>
-            <th class="text-center" style="width: 10%;">Acciones</th>
-          </tr>
-        </thead>
-        <tbody class="boddy">
-        <?php foreach($all_sin_pagos as $pago): ?>
-          <tr>
-           <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <!-- <td><?php echo remove_junk(ucwords($pago['id']))?></td> -->
-           <td><?php echo remove_junk(ucwords($pago['Fecha']))?></td>
-           <td><?php echo remove_junk(ucwords($pago['Descripcion']))?></td>
+					  <tr>
+              <th>ID SIE</th>
+					    <th>Nombre</th>
+					    <th>Titulo abreviado</th>
+					    <th>Tipo de persona</th>
+					    <th>Régimen</th>
+					    <th>Departamento</th>
+					    <th>Función/Puesto</th>
+					    <th>Área académica</th>
+					    <th>S.N.I</th>
+					    <th>Motivo de ausencia</th>
+            <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
+					  </tr>
+            </thead>
+            <tbody class="boddy">
+					  <?php 
+					  $result=$db->query('SELECT * FROM personal')or die(mysqli_error());
+    					while($f=mysqli_fetch_array($result)) {
 
-           
-           <td class="text-center">
+					$regimen=$db->query('SELECT Regimen FROM regimen WHERE id="'.$f['IdRegimen'].'"') or die (mysqli_error());
+					$tregimen=mysqli_fetch_assoc($regimen);
+
+          $tipo=$db->query('SELECT TipoPersona FROM tipopersona WHERE id="'.$f['IdTipoPersona'].'"') or die (mysqli_error());
+					$tpersona=mysqli_fetch_assoc($tipo);
+
+          $area=$db->query('SELECT AreaAcademica FROM areaacademica WHERE id="'.$f['IdAreaAcademica'].'"') or die (mysqli_error());
+					$tarea=mysqli_fetch_assoc($area);
+
+          $sni=$db->query('SELECT SNI FROM sni WHERE id="'.$f['IdSNI'].'"') or die (mysqli_error());
+					$tsni=mysqli_fetch_assoc($sni);
+
+          $motivo=$db->query('SELECT MotivoAusencia FROM motivoausencia WHERE id="'.$f['IdMotivoAusencia'].'"') or die (mysqli_error());
+					$tmotivo=mysqli_fetch_assoc($motivo);
+
+					$dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$f['IdDepartamento'].'"') or die (mysqli_error());
+					$tdepartamento=mysqli_fetch_assoc($dep);
+
+          $puesto=$db->query('SELECT Puesto FROM puesto WHERE id="'.$f['IdPuesto'].'"') or die (mysqli_error());
+					$tpuesto=mysqli_fetch_assoc($puesto);
+					 ?>
+					  <tr>
+					    <td><?php echo $f['NoSie']; ?></td>
+					    <td><?php echo $f['NombreCompleto']; ?></td>
+					    <td><?php echo $f['TituloAbreviado']; ?></td>
+              <td><?php echo $tpersona['TipoPersona']; ?></td>
+					    <td><?php echo $tregimen['Regimen']; ?></td>
+              <td><?php echo $tdepartamento['Departamento']; ?></td>
+					    <td><?php echo $tpuesto['Puesto']; ?></td>
+					    <td><?php echo $tarea['AreaAcademica']; ?></td>
+					    <td><?php echo $tsni['SNI']; ?></td>
+					    <td><?php echo $tmotivo['MotivoAusencia']; ?></td>
+					   
+					    <!-- <td class="text-center">
            <div class="btn-group">
-              <a href="edit_fecha_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_personal.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_fecha_sin_pago.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_personal.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
-           </td>
-          </tr>
-        <?php endforeach;?>
-       </tbody>
-     </table>
-     <?php if(isset($_GET['m'])) : ?>
+           </td> -->
+					  </tr>
+					  <?php
+  						}
+ 					?>
+           </tbody>
+					</table>
+          <?php if(isset($_GET['m'])) : ?>
             <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
           <?php endif; ?>
           <!-- <script src="jquery-3.5.1.min.js"></script>
@@ -71,7 +105,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Fecha sin Pago?',
+                      title: 'Eliminar Personal?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -90,7 +124,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'La fecha sin pago se eliminó correctamente'
+                      text: 'El personal se eliminó correctamente'
                   })
               }
 
@@ -117,8 +151,8 @@
                   $(document).ready(function() {
                     $('#mitabla').DataTable({
                       "bAutoWidth": false,
-                      // "sScrollX": "100%", //This is what made my columns increase in size.
-                      // "bScrollCollapse": true,
+                      "sScrollX": "100%", //This is what made my columns increase in size.
+                      "bScrollCollapse": true,
                       // "sScrollY": "320px",
                       responsive: true,
                       processing: true,
@@ -127,6 +161,14 @@
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
 
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
@@ -171,8 +213,10 @@
               font-size: 10pt!important;
             }
           </style>
-     </div>
-    </div>
-  </div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
 </div>
-  <?php include_once('layouts/footer.php'); ?>
+<?php include_once('layouts/footer.php'); ?>

@@ -1,12 +1,12 @@
 <?php
-  $page_title = 'FECHAS SIN PAGO';
+  $page_title = 'PERIODO DEL SEMESTRE';
   require_once('includes/load.php');
 ?>
 <?php
 // Checkin What level user has permission to view this page
- page_require_level(1);
+ page_require_level(4);
 //pull out all user form database
- $all_sin_pagos = fecha_sin_pagos();
+ $all_semestres = semestre();
 
 ?>
 <?php include_once('layouts/header.php'); ?>
@@ -21,9 +21,9 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>FECHAS SIN PAGO</span>
+          <span>PERIODO DEL SEMESTRE</span>
        </strong>
-         <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
+         <!-- <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERIODO</a> -->
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -31,31 +31,48 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Fecha sin pago</th>
-			<th>Descripción</th>
-            <th class="text-center" style="width: 10%;">Acciones</th>
+            <th>Id</th>
+            <th>Nombre del Semestre</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Periodo a Trabajar</th>
+            <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
           </tr>
         </thead>
         <tbody class="boddy">
-        <?php foreach($all_sin_pagos as $pago): ?>
+        <?php foreach($all_semestres as $semestre): ?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <!-- <td><?php echo remove_junk(ucwords($pago['id']))?></td> -->
-           <td><?php echo remove_junk(ucwords($pago['Fecha']))?></td>
-           <td><?php echo remove_junk(ucwords($pago['Descripcion']))?></td>
+           <td><?php echo remove_junk(ucwords($semestre['id']))?></td>
+           <td><?php echo remove_junk(ucwords($semestre['NombreSemestre']))?></td>
+           <td><?php echo remove_junk(ucwords($semestre['FechaInicio']))?></td>
+           <td><?php echo remove_junk(ucwords($semestre['FechaFin']))?></td>
+           <?php
+					    	$id=$semestre['id'];
+						    if($semestre['Estatus']=="Activo"){
+							    ?>
+						    <td><button type="submit" class="btn-tabla btn-danger btn-xs" name="Desactivar">Desactivar</button></td>
+						    <?php
+						    }else{?>
+						    <form method="POST" action="editar_semestre_existente.php">
+					 			<input type="hidden" name="id" value="<?php echo $semestre['id']; ?>"></td>
+					 			<input type="hidden" name="Estatus" value="Activo">
+						    	<td><button class="btn-tablaR btn-success btn-xs">Activar</button></td>
+						    </form>	
+						    <?php
+						    }?>
 
-           
-           <td class="text-center">
+           <!-- <td class="text-center">
            <div class="btn-group">
-              <a href="edit_fecha_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_personal.php?id=<?php echo (int)$semestre['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_fecha_sin_pago.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_personal.php?id=<?php echo (int)$semestre['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
-           </td>
+           </td> -->
           </tr>
         <?php endforeach;?>
        </tbody>
@@ -71,7 +88,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Fecha sin Pago?',
+                      title: 'Eliminar Personal?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -90,7 +107,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'La fecha sin pago se eliminó correctamente'
+                      text: 'El personal se eliminó correctamente'
                   })
               }
 
@@ -127,7 +144,9 @@
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
-
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,

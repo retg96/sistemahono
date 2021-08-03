@@ -1,66 +1,93 @@
 <?php
-  $page_title = 'FECHAS SIN PAGO';
+  $page_title = 'Convenios Operativos';
   require_once('includes/load.php');
 ?>
 <?php
 // Checkin What level user has permission to view this page
- page_require_level(1);
+ page_require_level(4);
 //pull out all user form database
- $all_sin_pagos = fecha_sin_pagos();
-
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
 ?>
 <?php include_once('layouts/header.php'); ?>
-<div class="row">
-   <div class="col-md-12">
-     <?php echo display_msg($msg); ?>
-   </div>
-</div>
+<?php 
+					$id = $_GET['id'];
+					$query = "SELECT personaloperativo.ClaveSie,personaloperativo.NombreCompleto,personaloperativo.Calle, personaloperativo.Fraccionamiento, personaloperativo.NoExterior, personaloperativo.NoInterior, personaloperativo.RFC,Regimen.Regimen FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime=regimen.id WHERE personaloperativo.id=".$id." ";
+					$resultado = $db->query($query);
+
+					while($f=mysqli_fetch_array($resultado)) {
+				?>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>FECHAS SIN PAGO</span>
+          <span>Convenios Operativos</span>
        </strong>
-         <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
+         <!-- <a href="add_convenio.php?id=<?php echo $id; ?>" class="btn btn-info pull-right">AGREGAR CONVENIO</a> -->
       </div>
-     <div class="panel-body">
+
+
+        <!-- <button onclick="location.href='horario_operativo_añadir.php?id=<?php echo $convenio; ?>'" type="submit" class="btnsE pull-right" name="Añadir">AGREGAR HORARIO</button> -->
+
+      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
         <thead class="headd">
-          <tr>
-            <!-- <th class="text-center" style="width: 50px;">Id</th> -->
-            <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Fecha sin pago</th>
-			<th>Descripción</th>
-            <th class="text-center" style="width: 10%;">Acciones</th>
-          </tr>
-        </thead>
-        <tbody class="boddy">
-        <?php foreach($all_sin_pagos as $pago): ?>
-          <tr>
-           <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <!-- <td><?php echo remove_junk(ucwords($pago['id']))?></td> -->
-           <td><?php echo remove_junk(ucwords($pago['Fecha']))?></td>
-           <td><?php echo remove_junk(ucwords($pago['Descripcion']))?></td>
+			<tr>
+				<th>ID</th>
+				<th>Fecha de Inicio</th>
+				<th>Fecha Fin</th>
+				<th>Descargar</th>
+				<th>Detalles</th>
+        <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
+			</tr>
+            </thead>
+            <tbody class="boddy">
+            <?php 
 
-           
-           <td class="text-center">
+
+										  	$result=$db->query('SELECT * FROM convenioope WHERE IdPersonalOperativo ="'.$id.'" ORDER BY (FechaInicio)') or die (mysqli_error());
+
+										  	$NumH=0;
+										  	
+					    					while($fe=mysqli_fetch_array($result)) {
+					    					?>
+					  <tr>
+                      <td><?php echo $fe['IdConvenioOpe'];?></td>
+                      <td><?php echo $fe['FechaInicio'];?></td>
+                      <td><?php echo $fe['FechaFin'];?></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_form/formato_convenio_operativo.php?id=<?php echo $fe['IdConvenioOpe'];?>'>DESCARGAR</a></td>
+                      <td><a class='btn btn-success btn-xs' href='convenio_personal_operativo_dir.php?id=<?php echo $fe['IdConvenioOpe'];?>'>DETALLES</a></td>
+                        
+					   
+					    <!-- <td class="text-center">
            <div class="btn-group">
-              <a href="edit_fecha_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_convenio.php?id=<?php echo (int)$fe['IdConvenioOpe'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
+              </a> -->
+
+              <!-- <a href="delete_convenio.php?id=<?php echo (int)$fe['id'];?>" class="btn btn-danger btn-xs" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+                <span class="glyphicon glyphicon-trash"></span>
+              </a> -->
+              <!-- <a href="" class="btn btn-danger btn-xs" id="alertaPersonal" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip" onclick="ConfirmBorrarConvenioOperativo('<?php echo $fe['IdConvenioOpe'];?>','<?php echo $id;?>')">
+              <span class="glyphicon glyphicon-trash"></span>
               </a>
 
-              <a href="delete_fecha_sin_pago.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
-                <span class="glyphicon glyphicon-trash"></span>
-              </a>
            </div>
-           </td>
-          </tr>
-        <?php endforeach;?>
-       </tbody>
-     </table>
-     <?php if(isset($_GET['m'])) : ?>
+           </td> -->
+					  </tr>
+					  <?php
+  						}
+            }
+				
+ 					?>
+                
+           </tbody>
+		</table>
+    <input type="button" class="btn btn-danger" value="Regresar" onclick="location.href='convenios_operativo_dir.php'">
+          <?php if(isset($_GET['m'])) : ?>
             <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
           <?php endif; ?>
           <!-- <script src="jquery-3.5.1.min.js"></script>
@@ -71,7 +98,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Fecha sin Pago?',
+                      title: 'Eliminar Horario?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -90,7 +117,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'La fecha sin pago se eliminó correctamente'
+                      text: 'El horario se eliminó correctamente'
                   })
               }
 
@@ -114,6 +141,20 @@
               // })
               </script>
               <script>
+              function ConfirmBorrarConvenioOperativo(id,idpersonal) {
+          
+                if (confirm("¿Estas seguro de eliminar el registro <"+id+">? Todas la informacion a este se eliminarán también")){
+                
+                    window.location.assign("delete_convenio_operativo.php?id="+id+"&idpersonaloperativo="+idpersonal);
+            
+                }else{
+            
+                    alert("Operacion cancelada");
+            
+                }
+            }
+              </script>
+              <script>
                   $(document).ready(function() {
                     $('#mitabla').DataTable({
                       "bAutoWidth": false,
@@ -127,6 +168,10 @@
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
+
 
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
@@ -171,8 +216,10 @@
               font-size: 10pt!important;
             }
           </style>
-     </div>
-    </div>
-  </div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
 </div>
-  <?php include_once('layouts/footer.php'); ?>
+<?php include_once('layouts/footer.php'); ?>

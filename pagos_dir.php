@@ -8,16 +8,14 @@
   $fIVA=0;
   $final=0;
 ?>
-
 <?php
 // Checkin What level user has permission to view this page
- page_require_level(1);
+ page_require_level(4);
 //pull out all user form database
 //  $all_personal = find_all_personal();
 //  $convenios = convenio();
 //  $all_convenios = find_all_convenios();
 ?>
-
 <?php
 $querytiempo = "SELECT * FROM semestre WHERE Estatus = 'Activo'";
 
@@ -386,7 +384,7 @@ while($fila = mysqli_fetch_array($resultado)){
             <td><?php echo "$",$PagoTotal ?></td>
             <td class="text-center">
             <div class="btn-group">
-              <a href="pagos_detalles.php?id=<?php echo (int)$fila['IdConvenio'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
+              <a href="pagos_detalles_dir.php?id=<?php echo (int)$fila['IdConvenio'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
                 <!-- <span class="glyphicon glyphicon-edit"></span> -->
                 DETALLES
               </a>
@@ -711,7 +709,7 @@ while($fila = mysqli_fetch_array($resultado)){
                     <td><?php echo $PagoTotal ?></td>
                     <td class="text-center">
                       <div class="btn-group">
-                      <a href="pagos_detalles_op.php?id=<?php echo (int)$fila2['IdConvenioOpe'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
+                      <a href="pagos_detalles_op_dir.php?id=<?php echo (int)$fila2['IdConvenioOpe'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Detalles" data-toggle="tooltip">
                 <!-- <span class="glyphicon glyphicon-edit"></span> -->
                      DETALLES
                       </a>

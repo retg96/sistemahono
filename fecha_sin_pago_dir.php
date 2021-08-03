@@ -4,7 +4,7 @@
 ?>
 <?php
 // Checkin What level user has permission to view this page
- page_require_level(1);
+ page_require_level(4);
 //pull out all user form database
  $all_sin_pagos = fecha_sin_pagos();
 
@@ -23,7 +23,7 @@
           <span class="glyphicon glyphicon-th"></span>
           <span>FECHAS SIN PAGO</span>
        </strong>
-         <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
+         <!-- <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a> -->
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -33,7 +33,7 @@
             <!-- <th class="text-center" style="width: 50px;"></th> -->
             <th>Fecha sin pago</th>
 			<th>Descripción</th>
-            <th class="text-center" style="width: 10%;">Acciones</th>
+            <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
           </tr>
         </thead>
         <tbody class="boddy">
@@ -45,7 +45,7 @@
            <td><?php echo remove_junk(ucwords($pago['Descripcion']))?></td>
 
            
-           <td class="text-center">
+           <!-- <td class="text-center">
            <div class="btn-group">
               <a href="edit_fecha_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
@@ -55,7 +55,7 @@
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
-           </td>
+           </td> -->
           </tr>
         <?php endforeach;?>
        </tbody>
@@ -126,8 +126,6 @@
                       "aoColumns": [
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
-                          { "sWidth": "1%" }, // 2nd column width
-
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,

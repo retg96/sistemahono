@@ -1,66 +1,80 @@
 <?php
-  $page_title = 'FECHAS SIN PAGO';
+  $page_title = 'Carreras';
   require_once('includes/load.php');
 ?>
 <?php
 // Checkin What level user has permission to view this page
- page_require_level(1);
+ page_require_level(4);
 //pull out all user form database
- $all_sin_pagos = fecha_sin_pagos();
-
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
 ?>
 <?php include_once('layouts/header.php'); ?>
-<div class="row">
-   <div class="col-md-12">
-     <?php echo display_msg($msg); ?>
-   </div>
-</div>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>FECHAS SIN PAGO</span>
+          <span>Carreras</span>
        </strong>
-         <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
+         <!-- <a href="add_carreras.php" class="btn btn-info pull-right">AGREGAR CARRERA</a> -->
       </div>
-     <div class="panel-body">
+
+      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
         <thead class="headd">
-          <tr>
-            <!-- <th class="text-center" style="width: 50px;">Id</th> -->
-            <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Fecha sin pago</th>
-			<th>Descripción</th>
-            <th class="text-center" style="width: 10%;">Acciones</th>
-          </tr>
-        </thead>
-        <tbody class="boddy">
-        <?php foreach($all_sin_pagos as $pago): ?>
-          <tr>
-           <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <!-- <td><?php echo remove_junk(ucwords($pago['id']))?></td> -->
-           <td><?php echo remove_junk(ucwords($pago['Fecha']))?></td>
-           <td><?php echo remove_junk(ucwords($pago['Descripcion']))?></td>
+					  <tr>
+            <th>Clave</th>
+            <th>Nombre</th>
+            <th>Abreviatura</th>
+            <th>Nombre Corto</th>
+            <th>Estatus</th>
+            <th>Número</th>
+            <th>Tipo Carrera</th>
+            <th>Departamento</th>
+            <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
+					  </tr>
+            </thead>
+            <tbody class="boddy">
+					  <?php 
+					  $result=$db->query('SELECT * FROM carrera')or die(mysqli_error());
+    					while($f=mysqli_fetch_array($result)) {
 
-           
-           <td class="text-center">
+					   $tipoc=$db->query('SELECT TipoCarrera FROM tipocarrera WHERE id="'.$f['IdTipoCarrera'].'"') or die (mysqli_error());
+					$tcarrera=mysqli_fetch_assoc($tipoc);
+
+					 $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$f['IdDepartamento'].'"') or die (mysqli_error());
+					$departamento=mysqli_fetch_assoc($dep);
+					 ?>
+					  <tr>
+					    <td><?php echo $f['Clave']; ?></td>
+					    <td><?php echo $f['Carrera']; ?></td>
+					    <td><?php echo $f['Abreviatura']; ?></td>
+					    <td><?php echo $f['NombreCorto']; ?></td>
+					    <td><?php echo $f['Estatus']; ?></td>
+					    <td><?php echo $f['Numero']; ?></td>
+					    <td><?php echo $tcarrera['TipoCarrera']; ?></td>
+					    <td><?php echo $departamento['Departamento']; ?></td>
+					    <!-- <td class="text-center">
            <div class="btn-group">
-              <a href="edit_fecha_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+              <a href="edit_carreras.php?id=<?php echo (int)$f['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_fecha_sin_pago.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_carreras.php?id=<?php echo (int)$f['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
               </a>
            </div>
-           </td>
-          </tr>
-        <?php endforeach;?>
-       </tbody>
-     </table>
-     <?php if(isset($_GET['m'])) : ?>
+           </td> -->
+					  </tr>
+					  <?php
+  						}
+ 					?>
+           </tbody>
+					</table>
+          <?php if(isset($_GET['m'])) : ?>
             <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
           <?php endif; ?>
           <!-- <script src="jquery-3.5.1.min.js"></script>
@@ -71,7 +85,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Fecha sin Pago?',
+                      title: 'Eliminar Carrera?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -90,7 +104,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'La fecha sin pago se eliminó correctamente'
+                      text: 'La carrera se eliminó correctamente'
                   })
               }
 
@@ -127,7 +141,12 @@
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
-
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          // { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,
@@ -171,8 +190,10 @@
               font-size: 10pt!important;
             }
           </style>
-     </div>
-    </div>
-  </div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
 </div>
-  <?php include_once('layouts/footer.php'); ?>
+<?php include_once('layouts/footer.php'); ?>

@@ -4,6 +4,15 @@
   include_once('layouts/header.php');
 
 ?>
+
+<?php
+// Checkin What level user has permission to view this page
+ page_require_level(4);
+//pull out all user form database
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
+?>
 <!-- <!DOCTYPE html>
 <html lang="en">-->
 <head>

@@ -1,13 +1,14 @@
 <?php
-  $page_title = 'FECHAS SIN PAGO';
+  $page_title = 'Convenios';
   require_once('includes/load.php');
 ?>
 <?php
 // Checkin What level user has permission to view this page
- page_require_level(1);
+ page_require_level(4);
 //pull out all user form database
- $all_sin_pagos = fecha_sin_pagos();
-
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
@@ -21,9 +22,9 @@
       <div class="panel-heading clearfix">
         <strong>
           <span class="glyphicon glyphicon-th"></span>
-          <span>FECHAS SIN PAGO</span>
+          <span>Convenios </span>
        </strong>
-         <a href="add_fecha_sin_pago.php" class="btn btn-info pull-right">AGREGAR FECHA</a>
+         <!-- <a href="personal_tecnm_añadir.php" class="btn btn-info pull-right">AGREGAR PERSONAL</a> -->
       </div>
      <div class="panel-body">
       <table class="table table-bordered table-striped" id="mitabla">
@@ -31,33 +32,68 @@
           <tr>
             <!-- <th class="text-center" style="width: 50px;">Id</th> -->
             <!-- <th class="text-center" style="width: 50px;"></th> -->
-            <th>Fecha sin pago</th>
-			<th>Descripción</th>
-            <th class="text-center" style="width: 10%;">Acciones</th>
+            <th>Convenio</th>
+            <th>No. Sie</th>
+            <th>Nombre</th>
+            <th>Departamento</th>
+            <th>Titulo Abreviado</th>
+            <th>Horario</th>
+            <!-- <th class="text-center" style="width: 10%;">Acciones</th> -->
           </tr>
         </thead>
         <tbody class="boddy">
-        <?php foreach($all_sin_pagos as $pago): ?>
+        <?php 
+            $query = "SELECT personal.id, personal.NoSie, personal.NombreCompleto, regimen.Regimen,departamento.Departamento FROM personal INNER JOIN regimen ON personal.IdRegimen = regimen.id INNER JOIN departamento ON personal.IdDepartamento = departamento.id WHERE personal.NoSie NOT LIKE '' ORDER By personal.NoSie";
+
+		    $result=$db->query('SELECT * FROM personal WHERE personal.NoSie NOT LIKE "" ORDER By personal.NoSie')or die(mysqli_error());
+    		    while($f=mysqli_fetch_array($result)) {
+
+			$dep=$db->query('SELECT * FROM departamento WHERE id="'.$f['IdDepartamento'].'"') or die (mysqli_error());
+			$departamento=mysqli_fetch_assoc($dep);
+
+            $regimen=$db->query('SELECT Regimen FROM regimen WHERE id="'.$f['IdRegimen'].'"') or die (mysqli_error());
+            $tregimen=mysqli_fetch_assoc($regimen);
+
+            // $estudio=$db->query('SELECT NivelEstudio FROM nivelestudio WHERE id="'.$f['IdNivelEstudio'].'"') or die (mysqli_error());
+			// $testudio=mysqli_fetch_assoc($estudio);
+
+            // $puesto=$db->query('SELECT Puesto FROM puesto WHERE id="'.$f['IdPuesto'].'"') or die (mysqli_error());
+			// $tpuesto=mysqli_fetch_assoc($puesto);
+
+			// $dep=$db->query('SELECT Departamento FROM departamento WHERE id="'.$tpersonal['IdDepartamento'].'"') or die (mysqli_error());
+			// $departamento=mysqli_fetch_assoc($dep);
+		?>
           <tr>
            <!-- <td class="text-center"><?php echo count_id();?></td> -->
-           <!-- <td><?php echo remove_junk(ucwords($pago['id']))?></td> -->
-           <td><?php echo remove_junk(ucwords($pago['Fecha']))?></td>
-           <td><?php echo remove_junk(ucwords($pago['Descripcion']))?></td>
+           <td><?php echo remove_junk(ucwords($f['id']))?></td>
+           <td><?php echo remove_junk(ucwords($f['NoSie']))?></td>
+           <td><?php echo remove_junk(ucwords($f['NombreCompleto']))?></td>
+          <td><?php echo remove_junk(ucwords($departamento['Departamento']))?></td>
+          <td><?php echo remove_junk(ucwords($f['TituloAbreviado']))?></td>
 
            
            <td class="text-center">
            <div class="btn-group">
-              <a href="edit_fecha_sin.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+
+              <a href="convenio_pers_detalles_dir.php?id=<?php echo (int)$f['id'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
+                <!-- <span class="glyphicon glyphicon-edit"></span> -->
+                VER CONVENIO
+              </a>
+              <!-- <a href="edit_personal.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-warning btn-xs" style="margin: 2px !important;" title="Editar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-edit"></span>
               </a>
 
-              <a href="delete_fecha_sin_pago.php?id=<?php echo (int)$pago['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
+              <a href="delete_personal.php?id=<?php echo (int)$a_personal['id'];?>" class="btn btn-danger btn-xs btn-del" style="margin: 2px !important;" title="Eliminar" data-toggle="tooltip">
                 <span class="glyphicon glyphicon-trash"></span>
-              </a>
+              </a> -->
+              <!-- <a href="horario_detalles.php?id=<?php echo (int)$convenio['IdConvenio'];?>" class="btn btn-success btn-xs" style="margin: 2px !important;" title="Horario" data-toggle="tooltip">VER HORARIO</a> -->
+              
            </div>
            </td>
           </tr>
-        <?php endforeach;?>
+          <?php
+  				}
+ 		?>
        </tbody>
      </table>
      <?php if(isset($_GET['m'])) : ?>
@@ -71,7 +107,7 @@
                   const href = $(this).attr('href')
 
                   Swal.fire({
-                      title: 'Eliminar Fecha sin Pago?',
+                      title: 'Eliminar Personal?',
                       icon: 'warning',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
@@ -90,7 +126,7 @@
                   Swal.fire({
                       icon :'success',
                       title: 'Eliminado',
-                      text: 'La fecha sin pago se eliminó correctamente'
+                      text: 'El personal se eliminó correctamente'
                   })
               }
 
@@ -127,7 +163,9 @@
                           { "sWidth": "1%" }, // 2nd column width 
                           { "sWidth": "1%" }, // 2nd column width
                           { "sWidth": "1%" }, // 2nd column width
-
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
+                          { "sWidth": "1%" }, // 2nd column width
                           // { "sWidth": "40%" } // 3rd column width and so on 
                         ],
                       "bInfo" : false,

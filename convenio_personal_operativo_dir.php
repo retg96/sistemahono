@@ -4,6 +4,14 @@
   include_once('layouts/header.php');
 
 ?>
+<?php
+// Checkin What level user has permission to view this page
+ page_require_level(4);
+//pull out all user form database
+//  $all_personal = find_all_personal();
+//  $convenios = convenio();
+//  $all_convenios = find_all_convenios();
+?>
 <!-- <!DOCTYPE html>
 <html lang="en">-->
 <head>
@@ -42,20 +50,20 @@
       <h3>Datos Personales</h3>
         <?php 
           $idconvenio = $_GET['id'];
-          $query = "SELECT personal.id,personal.NoSie,personal.NombreCompleto,personal.Calle, personal.NumExterior, personal.NumInterior, personal.Fraccionamiento, personal.RFC,regimen.Regimen FROM personal INNER JOIN regimen ON personal.IdRegimen=regimen.id INNER JOIN convenio ON convenio.IdPersonal=personal.id WHERE convenio.IdConvenio=".$_GET['id']." ";
+          $query = "SELECT personaloperativo.id,personaloperativo.ClaveSie,personaloperativo.NombreCompleto,personaloperativo.Calle, personaloperativo.NoExterior, personaloperativo.NoInterior, personaloperativo.Fraccionamiento, personaloperativo.RFC,regimen.Regimen FROM personaloperativo INNER JOIN regimen ON personaloperativo.IdRegime=regimen.id INNER JOIN convenioope ON convenioope.IdPersonalOperativo=personaloperativo.id WHERE convenioope.IdConvenioOpe =".$_GET['id']." ";
           $resultado = $db->query($query);
 
           while($f=mysqli_fetch_array($resultado)) {
           $idpersonal=$f['id'];
           ?>
       <label>Numero SIE:</label>
-      <input class="form-control" type='text' name='ClaveSie' value="<?php echo $f['NoSie']?>" readonly>
+      <input class="form-control" type='text' name='ClaveSie' value="<?php echo $f['ClaveSie']?>" readonly>
 					
       <label>Nombre:</label>
       <input class="form-control" type='text' name='Nombre' value="<?php echo $f['NombreCompleto']?>" readonly>
                             
       <label>Domicilio:</label>
-      <textarea class="form-control" type='text' name='Domicilio' readonly><?php echo $f['Calle'], ', ',$f['NumExterior'], ' ',$f['NumInterior'],', ' ,$f['Fraccionamiento'] ?></textarea>
+      <textarea class="form-control" type='text' name='Domicilio' readonly><?php echo $f['Calle'], ', ',$f['NoExterior'], ' ',$f['NoInterior'],', ' ,$f['Fraccionamiento'] ?></textarea>
       <label>RFC:</label>
       <input class="form-control" type='text' name='RFC' value="<?php echo $f['RFC']?>" readonly>
       <label>Regimen:</label>
@@ -86,13 +94,13 @@
 						<tr>
 					  	<?php 
 					  	
-					  	$query ="SELECT horariodocentemateria.IdHorarioDocenteMateria, horariodocentemateria.LunesHoraI, horariodocentemateria.LunesHoraF, horariodocentemateria.MartesHoraI, horariodocentemateria.MartesHoraF, horariodocentemateria.MiercolesHoraI, horariodocentemateria.MiercolesHoraF, horariodocentemateria.JuevesHoraI, horariodocentemateria.JuevesHoraF, horariodocentemateria.ViernesHoraI, horariodocentemateria.ViernesHoraF, horariodocentemateria.SabadoHoraI, horariodocentemateria.SabadoHoraF, horariodocentemateria.DomingoHoraI, horariodocentemateria.DomingoHoraF, convenio.IdPersonal FROM horariodocentemateria INNER JOIN convenio ON horariodocentemateria.IdConvenio = convenio.IdConvenio WHERE horariodocentemateria.IdConvenio =".$idconvenio;
+					  	$query ="SELECT horariooperativo.IdHorarioOperativo, horariooperativo.LunesHoraI, horariooperativo.LunesHoraF, horariooperativo.MartesHoraI, horariooperativo.MartesHoraF, horariooperativo.MiercolesHoraI, horariooperativo.MiercolesHoraF, horariooperativo.JuevesHoraI, horariooperativo.JuevesHoraF, horariooperativo.ViernesHoraI, horariooperativo.ViernesHoraF, horariooperativo.SabadoHoraI, horariooperativo.SabadoHoraF, horariooperativo.DomingoHoraI, horariooperativo.DomingoHoraF, convenioope.IdPersonalOperativo FROM horariooperativo INNER JOIN convenioope ON horariooperativo.IdConvenioOpe = convenioope.IdConvenioOpe  WHERE horariooperativo.IdConvenioOpe =".$idconvenio;
 
-					  	
+					  	$cont=0;
 
 					  	$resultado = $db->query($query);
     					while($f=mysqli_fetch_array($resultado)) {
-                            $cont=0;
+
     				$h1= new DateTime($f['LunesHoraI']);
 						$h2= new DateTime($f['LunesHoraF']);
 						$h3= new DateTime($f['MartesHoraI']);
@@ -154,7 +162,7 @@
           <?php } ?>
 </div>
 <!---END-->
-<button type='' class="btn btn-danger btn-sm" onclick="location.href='convenio_pers_detalles_dir.php?id=<?php echo $idpersonal ?>'">Regresar</button><br><br>
+<button type='' class="btn btn-danger btn-sm" onclick="location.href='convenio_ope_detalles_dir.php?id=<?php echo $idpersonal ?>'">Regresar</button><br><br>
 
 <script>
                   $(document).ready(function() {
